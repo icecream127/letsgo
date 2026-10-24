@@ -1,0 +1,26 @@
+{
+  "odometry_count": 46,
+  "scan_count": 46,
+  "map_points": [
+    145694,
+    151133,
+    156750,
+    162264,
+    167809
+  ],
+  "frames": {
+    "odometry": [
+      "odom",
+      "livox_frame"
+    ],
+    "scan": "odom",
+    "map": "odom"
+  },
+  "nonfinite_poses": 0,
+  "save_response": {
+    "success": false,
+    "message": "Map save disabled."
+  },
+  "new_pcd_files": [],
+  "passed": true
+}

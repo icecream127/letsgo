@@ -1,0 +1,76 @@
+{
+  "command_parser": "compiled original Reset/FeedByte without hardware section",
+  "command_vectors": "23 valid keys, ASCII/invalid frames rejected, resync passed",
+  "action_combinations": 230,
+  "status_modes": 10,
+  "timed_actions": [
+    {
+      "mode": 9,
+      "key": 6,
+      "simulated_ms": 1505,
+      "host_guard_s": 2.25
+    },
+    {
+      "mode": 9,
+      "key": 7,
+      "simulated_ms": 3000,
+      "host_guard_s": 3.75
+    },
+    {
+      "mode": 11,
+      "key": 6,
+      "simulated_ms": 2790,
+      "host_guard_s": 3.53
+    },
+    {
+      "mode": 11,
+      "key": 7,
+      "simulated_ms": 1505,
+      "host_guard_s": 2.25
+    },
+    {
+      "mode": 13,
+      "key": 6,
+      "simulated_ms": 1440,
+      "host_guard_s": 2.17
+    },
+    {
+      "mode": 15,
+      "key": 6,
+      "simulated_ms": 1785,
+      "host_guard_s": 2.5300000000000002
+    },
+    {
+      "mode": 15,
+      "key": 7,
+      "simulated_ms": 1505,
+      "host_guard_s": 2.25
+    },
+    {
+      "mode": 17,
+      "key": 6,
+      "simulated_ms": 5365,
+      "host_guard_s": 6.11
+    },
+    {
+      "mode": 18,
+      "key": 6,
+      "simulated_ms": 1440,
+      "host_guard_s": 2.17
+    },
+    {
+      "mode": 18,
+      "key": 7,
+      "simulated_ms": 1440,
+      "host_guard_s": 2.17
+    }
+  ],
+  "simulation": "original ActionRunner, ideal 5ms updates; not physical completion or UART ACK",
+  "firmware": {
+    "User/Remote/Uart/remote.cpp": "9da11eaa0521f01deece48c1a47b5c27adf718f04848bc4322ebb0d2cfac09cf",
+    "User/Remote/Uart/robot_status_protocol.h": "a7f7c0ec50cfa9e5e8cd140426bf871cdccbd9f2e499af245ee7fa0369a46a6d",
+    "User/Motion/Action/action.cpp": "d5a6c0cccc43e0d73a363d11a681cca8863f5f224dedb717f336ff88056f27e7",
+    "User/Motion/Action/action_keys.cpp": "291645fecbad744c6cc8c0e648d8622df5d95c3a207f67272e7042be54ed61a2",
+    "User/APP/Remote/app_remote.cpp": "01a69beb9a05db0f9ba718d791b2b423ca46db4b832b20e9c657478b10cc107d"
+  }
+}

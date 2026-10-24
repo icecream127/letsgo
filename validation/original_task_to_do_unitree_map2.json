@@ -1,0 +1,428 @@
+{
+  "map": "/mnt/c/Users/45839/Desktop/letsgo/lidar_ws/src/ros2_to_stm32/config/map_zones_config_2.json",
+  "controller": "/home/ice/workspace_copies/old_solution_source_20261018/lidar_ws/src/ros2_to_stm32/ros2_to_stm32/task_to_do_unitree.py",
+  "map_sha256": "448763f178e457ea13b0699f7fc50bb84ddabc525983918d402f5fdacff2537d",
+  "geometry_issues": [
+    "木桥B：参考原点在所属区域外，需核对航点偏移，不能自动判错或翻转符号",
+    "大斜坡：参考原点在所属区域外，需核对航点偏移，不能自动判错或翻转符号",
+    "限高栏：参考原点在所属区域外，需核对航点偏移，不能自动判错或翻转符号",
+    "沙坑：参考原点在所属区域外，需核对航点偏移，不能自动判错或翻转符号",
+    "台阶：参考原点在所属区域外，需核对航点偏移，不能自动判错或翻转符号",
+    "木桥A 与 木桥B 重叠：障碍优先，其次按文件顺序首次匹配"
+  ],
+  "fixed_targets_outside_map": [
+    "木桥A 航点 8: [3.9, 4.180000000000001] 不在任何调度区域",
+    "木桥A 航点 9: [3.4, 4.180000000000001] 不在任何调度区域",
+    "木桥B 航点 1: [1.4, 4.180000000000001] 不在任何调度区域",
+    "木桥B 航点 2: [0.8999999999999999, 4.23] 不在任何调度区域",
+    "大斜坡 航点 1: [1.2259013761275157, 3.9717948380823147] 不在任何调度区域",
+    "大斜坡 航点 6: [-1.9740986238724842, 3.9717948380823147] 不在任何调度区域",
+    "限高栏 航点 1: [-2.47, 3.980000000000001] 不在任何调度区域",
+    "限高栏 航点 2: [-6.970000000000001, 3.980000000000001] 不在任何调度区域",
+    "沙坑 航点 2: [-6.4399999999999995, 4.01] 不在任何调度区域",
+    "绕杆 航点 3: [-6.659999999999999, 1.8699999999999999] 不在任何调度区域",
+    "绕杆 航点 5: [-7.46, 2.77] 不在任何调度区域",
+    "绕杆 航点 6: [-6.56, 2.67] 不在任何调度区域",
+    "绕杆 航点 7: [-6.659999999999999, 1.67] 不在任何调度区域",
+    "绕杆 航点 8: [-5.56, 1.77] 不在任何调度区域",
+    "绕杆 航点 9: [-5.66, 2.67] 不在任何调度区域",
+    "绕杆 航点 10: [-4.66, 2.57] 不在任何调度区域",
+    "绕杆 航点 11: [-4.56, 1.67] 不在任何调度区域",
+    "绕杆 航点 12: [-3.5599999999999996, 2.17] 不在任何调度区域"
+  ],
+  "waypoints": [
+    {
+      "zone": "木桥A",
+      "waypoint": 1,
+      "expression": "(1.8, 0, None, '小斜坡模式', 0)",
+      "dynamic_xy": false,
+      "global_xy": [
+        3.7996426135531682,
+        -0.06087640048464774
+      ],
+      "target_dispatch": "木桥A"
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 2,
+      "expression": "(x, y, -90, '正常模式', 0)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 3,
+      "expression": "(x, -0.35, -90, '木桥B模式', 1, -2, 2)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 4,
+      "expression": "(x, -1.32, -90, '木桥B模式', 1, -2, 2)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 5,
+      "expression": "(x, -2.47, -90, '木桥B模式', 1, -2, 2)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 6,
+      "expression": "(x, -3.1, -90, '木桥B模式', 2, -2, 2)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 7,
+      "expression": "(x, y, -180, '正常模式', 0, -2, 2)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 8,
+      "expression": "(self.zones['木桥B']['begin_x'] - x_begin + 0.5, self.zones['木桥B']['begin_y'] - y_begin + 0.05, 180, '正常模式', 0, -4, 4)",
+      "dynamic_xy": false,
+      "global_xy": [
+        3.9,
+        4.180000000000001
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥A",
+      "waypoint": 9,
+      "expression": "(self.zones['木桥B']['begin_x'] - x_begin, self.zones['木桥B']['begin_y'] - y_begin + 0.05, 180, '木桥B模式', 0, -1, 1)",
+      "dynamic_xy": false,
+      "global_xy": [
+        3.4,
+        4.180000000000001
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥B",
+      "waypoint": 1,
+      "expression": "(-2.0, 0.05, -180, '木桥A模式', 0, -2, 2)",
+      "dynamic_xy": false,
+      "global_xy": [
+        1.4,
+        4.180000000000001
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "木桥B",
+      "waypoint": 2,
+      "expression": "(-2.5, 0.1, -180, '木桥A模式', 0, -1, 1)",
+      "dynamic_xy": false,
+      "global_xy": [
+        0.8999999999999999,
+        4.23
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "大斜坡",
+      "waypoint": 1,
+      "expression": "(0.2, 0, -180, '木桥B模式', 1, 0)",
+      "dynamic_xy": false,
+      "global_xy": [
+        1.2259013761275157,
+        3.9717948380823147
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "大斜坡",
+      "waypoint": 2,
+      "expression": "(x, y, 90, '大斜坡模式', 0, '左转')",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "大斜坡",
+      "waypoint": 3,
+      "expression": "(x, 1.0, yaw, '大斜坡模式', 0, '后退')",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "大斜坡",
+      "waypoint": 4,
+      "expression": "(x, y, -180, '大斜坡模式', 0, '右转')",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "大斜坡",
+      "waypoint": 5,
+      "expression": "(-2.9, y, yaw, '大斜坡模式', 1, '前进')",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "大斜坡",
+      "waypoint": 6,
+      "expression": "(-3.0, 0, -180, '正常模式', 0, 0)",
+      "dynamic_xy": false,
+      "global_xy": [
+        -1.9740986238724842,
+        3.9717948380823147
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "限高栏",
+      "waypoint": 1,
+      "expression": "(0.5, 0, -180, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -2.47,
+        3.980000000000001
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "限高栏",
+      "waypoint": 2,
+      "expression": "(-4.0, 0, -180, '匍匐模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -6.970000000000001,
+        3.980000000000001
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "沙坑",
+      "waypoint": 1,
+      "expression": "(0.2, y, -180, '正常模式', 1)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "沙坑",
+      "waypoint": 2,
+      "expression": "(-1.1, 0.04, 135, '沙坑模式', 1)",
+      "dynamic_xy": false,
+      "global_xy": [
+        -6.4399999999999995,
+        4.01
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "沙坑",
+      "waypoint": 3,
+      "expression": "(x, 1.25, 90, '沙坑模式', 3)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 1,
+      "expression": "(0, -0.4, 0, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -7.06,
+        0.7699999999999999
+      ],
+      "target_dispatch": "绕杆"
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 2,
+      "expression": "(0.5, -0.5, 90, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -6.56,
+        0.6699999999999999
+      ],
+      "target_dispatch": "高墙"
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 3,
+      "expression": "(0.4, 0.7, 180, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -6.659999999999999,
+        1.8699999999999999
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 4,
+      "expression": "(-0.5, 0.6, 90, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -7.56,
+        1.77
+      ],
+      "target_dispatch": "绕杆"
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 5,
+      "expression": "(-0.4, 1.6, 0, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -7.46,
+        2.77
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 6,
+      "expression": "(0.5, 1.5, -90, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -6.56,
+        2.67
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 7,
+      "expression": "(0.4, 0.5, 0, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -6.659999999999999,
+        1.67
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 8,
+      "expression": "(1.5, 0.6, 90, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -5.56,
+        1.77
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 9,
+      "expression": "(1.4, 1.5, 0, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -5.66,
+        2.67
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 10,
+      "expression": "(2.4, 1.4, -90, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -4.66,
+        2.57
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 11,
+      "expression": "(2.5, 0.5, 0, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -4.56,
+        1.67
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "绕杆",
+      "waypoint": 12,
+      "expression": "(3.5, 1.0, 0, '正常模式')",
+      "dynamic_xy": false,
+      "global_xy": [
+        -3.5599999999999996,
+        2.17
+      ],
+      "target_dispatch": null
+    },
+    {
+      "zone": "高墙",
+      "waypoint": 1,
+      "expression": "(-0.2, y, 0, '木桥B模式', 1)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "高墙",
+      "waypoint": 2,
+      "expression": "(1, y, 0, '正常模式', 0)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "台阶",
+      "waypoint": 1,
+      "expression": "(-0.15, 0, 0, '正常模式', 1)",
+      "dynamic_xy": false,
+      "global_xy": [
+        -0.15,
+        0.0
+      ],
+      "target_dispatch": "木桥A"
+    },
+    {
+      "zone": "台阶",
+      "waypoint": 2,
+      "expression": "(0.32, y, yaw, '正常模式', 2)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "台阶",
+      "waypoint": 3,
+      "expression": "(0.62, y, yaw, '正常模式', 2)",
+      "dynamic_xy": true,
+      "global_xy": null,
+      "target_dispatch": null
+    },
+    {
+      "zone": "台阶",
+      "waypoint": 4,
+      "expression": "(1.0, 0, 0, '正常模式', 0)",
+      "dynamic_xy": false,
+      "global_xy": [
+        1.0,
+        0.0
+      ],
+      "target_dispatch": "木桥A"
+    }
+  ],
+  "limitations": "仅检查固定目标和区域关系；动态航点、区域切换、实物尺寸和动作效果须另验。未发布ROS消息。"
+}

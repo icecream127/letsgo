@@ -1,0 +1,28 @@
+motor_serial:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    status_timeout: 1.0
+    pose_timeout: 1.0
+    controller_timeout: 1.0
+    mode_timeout: 2.0
+    action_margin: 0.75
+    action_durations:
+      - '9:6:1.50'
+      - '9:7:3.0'
+      - '18:6:1.42'
+      - '18:7:1.42'
+      - '11:6:2.78'
+      - '11:7:1.50'
+      - '13:6:1.42'
+      - '15:6:1.78'
+      - '15:7:1.50'
+      - '17:6:5.36'
+task_to_do:
+  ros__parameters:
+    route_profile: zones
+    reviewed_map_sha256: ''
+    navigation_timeout: 45.0
+    progress_timeout: 15.0
+    action_prepare_delay: 1.0
+    bunker_exit_prepare_delay: 3.0

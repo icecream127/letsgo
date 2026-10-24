@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-21",
+  "project": "letsgo",
+  "basis": "old_solution_standalone_20261018",
+  "firmware": [
+    {
+      "Path": "C:\\Users\\45839\\Desktop\\new_way\\CyberGear-1\\CyberGear-1\\User\\Remote\\Uart\\remote.cpp",
+      "Hash": "9DA11EAA0521F01DEECE48C1A47B5C27ADF718F04848BC4322EBB0D2CFAC09CF"
+    },
+    {
+      "Path": "C:\\Users\\45839\\Desktop\\new_way\\CyberGear-1\\CyberGear-1\\User\\Remote\\Uart\\robot_status_protocol.h",
+      "Hash": "A7F7C0EC50CFA9E5E8CD140426BF871CDCCBD9F2E499AF245EE7FA0369A46A6D"
+    },
+    {
+      "Path": "C:\\Users\\45839\\Desktop\\new_way\\CyberGear-1\\CyberGear-1\\User\\Motion\\Action\\action_keys.cpp",
+      "Hash": "291645FECBAD744C6CC8C0E648D8622DF5D95C3A207F67272E7042BE54ED61A2"
+    },
+    {
+      "Path": "C:\\Users\\45839\\Desktop\\new_way\\CyberGear-1\\CyberGear-1\\User\\APP\\Startup\\app_startup.cpp",
+      "Hash": "F865C0DB26799B9CEB4A777C12BAC8CEFA579BB1247224388DFDFCFA8CF635C7"
+    },
+    {
+      "Path": "C:\\Users\\45839\\Desktop\\new_way\\2.4G\\2.4G\\BSP\\key\\key_event.c",
+      "Hash": "EE403AF4990FDC1EAAEC6BA3F2197FBD49CDAB4CB2B38386D7BDAC31D4E76FE6"
+    }
+  ],
+  "tests": {
+    "passed": 21,
+    "hardware": false
+  },
+  "notes": "Paths identify reviewed source only; not runtime dependencies."
+}
