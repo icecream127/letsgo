@@ -3,6 +3,7 @@ import pty
 import time
 import tty
 
+import pytest
 import rclpy
 from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
@@ -14,12 +15,14 @@ from ros2_to_stm32.motor_protocol import crc8
 from ros2_to_stm32.serial import MotorSerial
 
 
-def test_ros_graph_through_virtual_ttl():
+@pytest.mark.parametrize('tx_only', [False, True])
+def test_ros_graph_through_virtual_ttl(tx_only):
     master, slave = pty.openpty()
     tty.setraw(slave)
     os.set_blocking(master, False)
     rclpy.init()
     bridge = MotorSerial()
+    bridge.settings['tx_only'] = tx_only
     bridge.settings['port'] = os.ttyname(slave)
     controller = Info_Trans()
     controller.task_to_do.route_profile = 'demo'
@@ -39,7 +42,8 @@ def test_ros_graph_through_virtual_ttl():
     def pump_until(predicate, timeout=4.0):
         deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:
-            os.write(master, frame)
+            if not tx_only:
+                os.write(master, frame)
             poses.publish(Float32MultiArray(data=position))
             calibration.publish(Bool(data=True))
             executor.spin_once(timeout_sec=0.01)

@@ -87,6 +87,47 @@ def test_crc_and_stream_parser():
         dict(mode='b', fault=10, motor=0, detail=0)] * 2
 
 
+def test_tx_only_without_feedback_and_mode_delay(bridge):
+    node, port, clock = bridge
+    node.settings['tx_only'] = True
+    node.status_time = float('-inf')
+    node.status = dict(mode='z', fault=0, motor=0, detail=0)
+    arm(node)
+    request(node, 6, 17)
+    with patch.object(node.state_pub, 'publish') as publish:
+        node.tick()
+        import json
+        state = json.loads(publish.call_args.args[0].data)
+        assert state['connected'] is None
+        assert state['mode'] is None
+        assert state['serial_open'] and state['tx_only']
+    assert port.sent == [encode_key(5), encode_key(17)]
+    clock.now += 0.1
+    node.tick()
+    assert len(port.sent) == 2
+    clock.now += 0.11
+    node.tick()
+    assert port.sent == [encode_key(5), encode_key(17), encode_key(6)]
+    assert node.busy_until == pytest.approx(clock.now + 5.36 + 0.75)
+    request(node, 6, 17, 2)
+    node.tick()
+    assert len(port.sent) == 3
+
+
+def test_tx_only_keeps_pose_and_route_checks(bridge):
+    node, port, clock = bridge
+    node.settings['tx_only'] = True
+    node.status_time = float('-inf')
+    node.route_ready = False
+    assert not node.enable(SetBool.Request(data=True), SetBool.Response()).success
+    node.route_ready = True
+    arm(node)
+    clock.now += 1.1
+    node.tick()
+    assert not node.armed
+    assert port.sent == [encode_key(5)]
+
+
 def test_raw_protocol_and_action_validation():
     assert encode_key(2) == b'\x53\x02\x45'
     assert encode_key(2) != b'S2E'

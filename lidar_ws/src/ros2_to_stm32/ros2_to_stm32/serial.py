@@ -15,6 +15,7 @@ class MotorSerial(Node):
     def __init__(self):
         super().__init__('motor_serial')
         defaults = {'port': '/dev/ttyUSB0', 'baudrate': 115200,
+                    'tx_only': False, 'mode_switch_delay': 0.2,
                     'status_timeout': 1.0, 'pose_timeout': 1.0,
                     'controller_timeout': 1.0, 'mode_timeout': 2.0,
                     'action_margin': 0.75,
@@ -22,7 +23,7 @@ class MotorSerial(Node):
                                          '18:7:1.42', '11:6:2.78', '11:7:1.50',
                                          '13:6:1.42', '15:6:1.78', '15:7:1.50', '17:6:5.36']}
         self.settings = {name: self.declare_parameter(name, value).value for name, value in defaults.items()}
-        for name in ('status_timeout', 'pose_timeout', 'controller_timeout', 'mode_timeout', 'action_margin'):
+        for name in ('status_timeout', 'pose_timeout', 'controller_timeout', 'mode_timeout', 'action_margin', 'mode_switch_delay'):
             if not math.isfinite(self.settings[name]) or self.settings[name] <= 0:
                 raise ValueError(f'{name} 必须为有限正数')
         if self.settings['baudrate'] != 115200:
@@ -94,11 +95,13 @@ class MotorSerial(Node):
             self.controller_time = time.monotonic()
 
     def unavailable(self, now):
-        if self.port is None or now - self.status_time > self.settings['status_timeout']:
+        if self.port is None:
+            return '串口未打开；断线不代表机器人已停止'
+        if not self.settings['tx_only'] and now - self.status_time > self.settings['status_timeout']:
             return '串口或电控状态超时；断线不代表机器人已停止'
-        if self.status['mode'] == 'z':
+        if not self.settings['tx_only'] and self.status['mode'] == 'z':
             return '电控未起身、已趴下或重启'
-        if self.status['fault']:
+        if not self.settings['tx_only'] and self.status['fault']:
             return f"电控故障 {self.status['fault']}，电机 {self.status['motor']}"
         if not self.calibrated or now - self.pose_time > self.settings['pose_timeout']:
             return '踩点未完成或定位超时'
@@ -123,6 +126,8 @@ class MotorSerial(Node):
                     self.expected_mode = None
                 self.armed = True
                 self.reason = '自动运行已允许；初始化完成由操作员确认'
+                if self.settings['tx_only']:
+                    self.reason = '单向发送已允许；电控状态未知，初始化及遥控器23授权由操作员确认'
             else:
                 self.reason = reason
         response.message = self.reason
@@ -168,8 +173,9 @@ class MotorSerial(Node):
                                           timeout=0, write_timeout=0.2, exclusive=True)
                 self.parser = StatusParser()
                 self.status_time = float('-inf')
-                self.reason = '串口已连接；等待反馈并人工允许运行'
-            if self.port is not None:
+                self.reason = ('单向模式：本地串口已打开，电控状态未知；等待人工允许运行'
+                               if self.settings['tx_only'] else '串口已连接；等待反馈并人工允许运行')
+            if self.port is not None and not self.settings['tx_only']:
                 data = self.port.read(min(self.port.in_waiting, 4096))
                 for status in self.parser.feed(data):
                     self.status = status
@@ -180,7 +186,7 @@ class MotorSerial(Node):
                 reason = self.unavailable(now)
                 if reason:
                     self.pause(reason)
-                elif self.pending is None and self.expected_mode is not None and self.status['mode'] != self.expected_mode:
+                elif not self.settings['tx_only'] and self.pending is None and self.expected_mode is not None and self.status['mode'] != self.expected_mode:
                     self.pause('电控模式被外部改变，暂停自动任务')
             if self.stop_at is not None and now >= self.stop_at and self.port is not None:
                 self.write_key(5)
@@ -189,7 +195,19 @@ class MotorSerial(Node):
                 command = self.pending
                 expected = MODE_STATUS[command['mode']]
                 sent_at = command['mode_sent_at']
-                if self.status['mode'] != expected or (sent_at is not None and self.status_time <= sent_at):
+                if self.settings['tx_only']:
+                    if self.expected_mode != expected and sent_at is None:
+                        self.write_key(5)
+                        self.write_key(command['mode'])
+                        command['mode_sent_at'] = now
+                    elif sent_at is None or now - sent_at >= self.settings['mode_switch_delay']:
+                        duration = self.durations.get((command['mode'], command['key']))
+                        self.busy_until = now + duration + self.settings['action_margin'] if duration else now
+                        self.write_key(command['key'])
+                        self.expected_mode = expected
+                        self.last_tx = {name: command[name] for name in ('key', 'mode', 'request_id')}
+                        self.pending = None
+                elif self.status['mode'] != expected or (sent_at is not None and self.status_time <= sent_at):
                     if sent_at is None:
                         self.write_key(5)
                         self.write_key(command['mode'])
@@ -210,10 +228,13 @@ class MotorSerial(Node):
             self.port = None
             self.status_time = float('-inf')
         state = dict(self.status, armed=self.armed, reason=self.reason,
-                     connected=self.port is not None and now - self.status_time <= self.settings['status_timeout'],
+                     connected=None if self.settings['tx_only'] else self.port is not None and now - self.status_time <= self.settings['status_timeout'],
+                     serial_open=self.port is not None, tx_only=self.settings['tx_only'],
                       busy=time.monotonic() < self.busy_until, last_tx=self.last_tx,
                       busy_source='host_timer', action_completion_feedback=False,
                       route_ready=self.route_ready)
+        if self.settings['tx_only']:
+            state.update(mode=None, fault=None, motor=None, detail=None)
         self.state_pub.publish(String(data=json.dumps(state, ensure_ascii=False)))
 
     def destroy_node(self):
