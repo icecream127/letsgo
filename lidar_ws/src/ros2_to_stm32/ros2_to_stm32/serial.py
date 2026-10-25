@@ -15,7 +15,7 @@ class MotorSerial(Node):
     def __init__(self):
         super().__init__('motor_serial')
         defaults = {'port': '/dev/ttyUSB0', 'baudrate': 115200,
-                    'tx_only': False, 'mode_switch_delay': 0.2,
+                    'tx_only': False,
                     'status_timeout': 1.0, 'pose_timeout': 1.0,
                     'controller_timeout': 1.0, 'mode_timeout': 2.0,
                     'action_margin': 0.75,
@@ -23,7 +23,7 @@ class MotorSerial(Node):
                                          '18:7:1.42', '11:6:2.78', '11:7:1.50',
                                          '13:6:1.42', '15:6:1.78', '15:7:1.50', '17:6:5.36']}
         self.settings = {name: self.declare_parameter(name, value).value for name, value in defaults.items()}
-        for name in ('status_timeout', 'pose_timeout', 'controller_timeout', 'mode_timeout', 'action_margin', 'mode_switch_delay'):
+        for name in ('status_timeout', 'pose_timeout', 'controller_timeout', 'mode_timeout', 'action_margin'):
             if not math.isfinite(self.settings[name]) or self.settings[name] <= 0:
                 raise ValueError(f'{name} 必须为有限正数')
         if self.settings['baudrate'] != 115200:
@@ -196,17 +196,15 @@ class MotorSerial(Node):
                 expected = MODE_STATUS[command['mode']]
                 sent_at = command['mode_sent_at']
                 if self.settings['tx_only']:
-                    if self.expected_mode != expected and sent_at is None:
+                    if self.expected_mode != expected:
                         self.write_key(5)
                         self.write_key(command['mode'])
-                        command['mode_sent_at'] = now
-                    elif sent_at is None or now - sent_at >= self.settings['mode_switch_delay']:
-                        duration = self.durations.get((command['mode'], command['key']))
-                        self.busy_until = now + duration + self.settings['action_margin'] if duration else now
-                        self.write_key(command['key'])
-                        self.expected_mode = expected
-                        self.last_tx = {name: command[name] for name in ('key', 'mode', 'request_id')}
-                        self.pending = None
+                    duration = self.durations.get((command['mode'], command['key']))
+                    self.busy_until = now + duration + self.settings['action_margin'] if duration else now
+                    self.write_key(command['key'])
+                    self.expected_mode = expected
+                    self.last_tx = {name: command[name] for name in ('key', 'mode', 'request_id')}
+                    self.pending = None
                 elif self.status['mode'] != expected or (sent_at is not None and self.status_time <= sent_at):
                     if sent_at is None:
                         self.write_key(5)

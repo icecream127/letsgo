@@ -87,7 +87,7 @@ def test_crc_and_stream_parser():
         dict(mode='b', fault=10, motor=0, detail=0)] * 2
 
 
-def test_tx_only_without_feedback_and_mode_delay(bridge):
+def test_tx_only_without_feedback_sends_mode_and_action_in_same_tick(bridge):
     node, port, clock = bridge
     node.settings['tx_only'] = True
     node.status_time = float('-inf')
@@ -101,12 +101,6 @@ def test_tx_only_without_feedback_and_mode_delay(bridge):
         assert state['connected'] is None
         assert state['mode'] is None
         assert state['serial_open'] and state['tx_only']
-    assert port.sent == [encode_key(5), encode_key(17)]
-    clock.now += 0.1
-    node.tick()
-    assert len(port.sent) == 2
-    clock.now += 0.11
-    node.tick()
     assert port.sent == [encode_key(5), encode_key(17), encode_key(6)]
     assert node.busy_until == pytest.approx(clock.now + 5.36 + 0.75)
     request(node, 6, 17, 2)

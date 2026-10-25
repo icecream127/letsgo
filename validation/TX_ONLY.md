@@ -2,7 +2,7 @@
 
 control.yaml 的 motor_serial.tx_only=true 启用单向发送。小电脑仍打开 /dev/ttyUSB0，115200 8N1，发送 53 key 45。不解析反馈，不确认电控初始化、故障、模式、自动授权或动作执行结果。
 
-模式变化先发站立和模式键，等待 mode_switch_delay（默认 0.2 秒，仅为待现场验证的间隔）后发动作。一次性动作仍使用 action_durations 加 action_margin 计时，不是完成反馈。不重复发送相同的持续运动请求。
+模式变化在同一次串口处理回调中依次发送站立、模式键和动作键，不插入模式切换等待。一次性动作仍使用 action_durations 加 action_margin 计时，不是完成反馈。不重复发送相同的持续运动请求。
 
 /motor_state 的 connected、mode、fault、motor、detail 在单向模式为 null；serial_open 仅表示本地串口已打开；last_tx 只表示本地写入成功。busy_source=host_timer，action_completion_feedback=false。
 

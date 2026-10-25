@@ -3,7 +3,6 @@ motor_serial:
     port: /dev/ttyUSB0
     baudrate: 115200
     tx_only: true
-    mode_switch_delay: 0.2
     status_timeout: 1.0
     pose_timeout: 1.0
     controller_timeout: 1.0
