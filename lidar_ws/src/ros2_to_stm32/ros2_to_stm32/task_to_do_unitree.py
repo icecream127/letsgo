@@ -10,7 +10,6 @@ from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import String
 import matplotlib.transforms as transforms
 from .zone_manager import ZoneManager, zone_config_path 
-from .route_review import load_review, select_region
 COMMAND_MAP = {
     "左转": 1, "前进": 2, "右转": 3, "后退": 4, "站立": 5,
     "小跳1": 6, "小跳2": 7,"大斜坡左":1,
@@ -29,29 +28,15 @@ class Task_To_Do(Node):
         self.global_coord_publisher = self.create_publisher(Float32MultiArray, '/ui_global_coord', 20)
         self.local_coord_publisher = self.create_publisher(Float32MultiArray, '/ui_local_coord', 20)
 
-        self.route_profile = self.declare_parameter('route_profile', 'zones').value
+        self.route_profile = self.declare_parameter('route_profile', 'demo').value
         if self.route_profile not in ('demo', 'zones'):
             raise ValueError('route_profile 必须为 demo 或 zones')
-        self.reviewed_map_sha256 = self.declare_parameter('reviewed_map_sha256', '').value
-        self.navigation_timeout = self.declare_parameter('navigation_timeout', 45.0).value
-        self.progress_timeout = self.declare_parameter('progress_timeout', 15.0).value
-        self.action_prepare_delay = self.declare_parameter('action_prepare_delay', 1.0).value
-        self.bunker_exit_prepare_delay = self.declare_parameter('bunker_exit_prepare_delay', 3.0).value
-        if any(not math.isfinite(value) or value <= 0 for value in
-               (self.navigation_timeout, self.progress_timeout,
-                self.action_prepare_delay, self.bunker_exit_prepare_delay)):
-            raise ValueError('导航超时必须为有限正数')
-        self.navigation_state = None
-        self.map_hash = None
-        self.map_issues = []
         self.motor_state = {}
         self.command = None
         self.request_id = 0
         self.command_time = 0.0
         self.pending_jump = None
-        self.action_ready_at = 0.0
         self.jump_sent = False
-        self.recovery_required = False
         self.demo_index = 0
         self.zone_indices = {}
         self.active_handler = None
@@ -80,13 +65,12 @@ class Task_To_Do(Node):
         self.zm = ZoneManager(zone_config_path())
         
         # 2. 读取数据
-        all_data, self.map_hash, self.map_issues = load_review(self.zm.filepath)
+        all_data = self.zm.load_data()
         
         # 3. 获取 zones 数据，并将 func_name 还原为真正的函数引用
         self.zones = self.zm.bind_functions(self, all_data["zones"])
         self.zone = all_data["zone"]
         self.zon = all_data["zon"]
-        self.route_data = all_data
 
         self.get_logger().info("成功加载并解析区域坐标数据！")
 
@@ -138,11 +122,7 @@ class Task_To_Do(Node):
 
     def Quadruped_Obstacle(self, x, y, yaw):
         self.set_normal_debug_coords(x, y, yaw)
-        if self.route_review_reason():
-            raise RuntimeError(self.route_review_reason())
         if self.pending_jump is not None:
-            if time.monotonic() < self.action_ready_at:
-                return
             mode, key = self.pending_jump
             if not self.jump_sent:
                 self.jump_sent = self.send_command(mode, key)
@@ -162,31 +142,21 @@ class Task_To_Do(Node):
             else:
                 self.Kkey_To_Number('站立')
             return
-        kind, value = select_region(self.route_data, x, y)
-        if value is None:
-            raise RuntimeError('离开已配置区域，暂停并核对定位、区域和航点')
-        self.current_zone = kind
-        handler = getattr(self, value['func_name'])
-        handler(x, y, yaw, value['begin_x'], value['begin_y'])
-
-    def route_review_reason(self):
-        if self.route_profile == 'zones' and self.reviewed_map_sha256 != self.map_hash:
-            return '地图2及配套航点未审核；请先阅读 validation/CHAIN_REVIEW.md'
-        return ''
-
-    def refresh_route(self):
-        data, fingerprint, issues = load_review(self.zm.filepath)
-        if fingerprint == self.map_hash:
-            return
-        if self.motor_state.get('armed', False) or self.motor_state.get('busy', False):
-            raise RuntimeError('运行期间地图发生变化，先暂停再重新审核路线')
-        self.zones = self.zm.bind_functions(self, data['zones'])
-        self.zone = data['zone']
-        self.zon = data.get('zon', {})
-        self.route_data = data
-        self.map_hash = fingerprint
-        self.map_issues = issues
-        self.reset_index_manually()
+        for kind, value in self.zones.items():
+            if value['x_min'] <= x < value['x_max'] and value['y_min'] <= y < value['y_max']:
+                self.current_zone = kind
+                handler = getattr(self, value['func_name'])
+                handler(x, y, yaw, value['begin_x'], value['begin_y'])
+                return
+        for kind, value in self.zone.items():
+            if value['x_min'] <= x < value['x_max'] and value['y_min'] <= y < value['y_max']:
+                target = self.zones[value['func_name']]
+                self.current_zone = kind
+                handler = getattr(self, target['func_name'])
+                handler(x, y, yaw, target['begin_x'], target['begin_y'])
+                return
+        self.current_zone = '未进入障碍区域，站立等待'
+        self.Kkey_To_Number('站立')
 
     def updata_kKey(self):   # update
         self.last_kKey = 0
@@ -208,9 +178,7 @@ class Task_To_Do(Node):
         self.active_handler = None
         self.pending_jump = None
         self.jump_sent = False
-        self.recovery_required = False
         self.command = None
-        self.navigation_state = None
         self.current_action = '路线进度已清零'
         self.publish_debug_state()
 
@@ -317,11 +285,11 @@ class Task_To_Do(Node):
             self.index += 1
 
     def handle_bunker(self, x, y, yaw, x_begin, y_begin):
-        self.set_debug_coords(x, y, yaw, x_begin, y_begin)
         x = x - x_begin
         y = y - y_begin
         self.reset_index_on_first_entry("handle_bunker")
         self.get_logger().info("bunker")
+        self.set_debug_coords(x, y, yaw, x_begin, y_begin)
 
         Waypoints = [(0.2, y, -180, "正常模式", 1),
             (-1.1, 0.04, 135, "沙坑模式", 1),
@@ -338,17 +306,16 @@ class Task_To_Do(Node):
             if is_jump:
                 mode = "沙坑模式"
                 key = 7 if is_jump == 2 else 6
-                delay = self.bunker_exit_prepare_delay if is_jump == 3 else self.action_prepare_delay
-                self.begin_action(COMMAND_MAP[mode], key, delay)
+                self.begin_action(COMMAND_MAP[mode], key)
             else:
                 self.index += 1
 
     def handle_pole(self, x, y, yaw, x_begin, y_begin):
-        self.set_debug_coords(x, y, yaw, x_begin, y_begin)
         x = x - x_begin
         y = y - y_begin
         self.reset_index_on_first_entry("handle_pole")
         self.get_logger().info("pole")
+        self.set_debug_coords(x, y, yaw, x_begin, y_begin)
 
         Waypoints = [(0, -0.4, 0, "正常模式"), (0.5, -0.5, 90, "正常模式"), (0.4, 0.7 ,180, "正常模式")
                      ,(-0.5, 0.6, 90, "正常模式"), (-0.4, 1.6, 0, "正常模式"), (0.5,1.5, -90, "正常模式")
@@ -364,11 +331,11 @@ class Task_To_Do(Node):
             self.index += 1
 
     def handle_hill_wall(self, x, y, yaw, x_begin, y_begin):
-        self.set_debug_coords(x, y, yaw, x_begin, y_begin)
         x = x - x_begin
         y = y - y_begin
         self.reset_index_on_first_entry("handle_hill_wall")
         self.get_logger().info("hill_wall")
+        self.set_debug_coords(x, y, yaw, x_begin, y_begin)
         Waypoints = [(-0.2, y, 0, "木桥B模式", 1), (1, y, 0, "正常模式", 0)]
 
         if self.index >= len(Waypoints):
@@ -389,7 +356,7 @@ class Task_To_Do(Node):
         self.set_debug_coords(x, y, yaw, x_begin, y_begin)
         x = x - x_begin
         y = y - y_begin
-        Waypoints = [(-0.15, 0, 0, "正常模式", 1), (0.32, y, yaw, "正常模式", 2), (0.62, y, yaw, "正常模式", 3),(1.0, 0, 0, "正常模式", 0)]
+        Waypoints = [(-0.15, 0, 0, "正常模式", 1), (0.32, y, yaw, "正常模式", 2), (0.62, y, yaw, "正常模式", 2),(1.0, 0, 0, "正常模式", 0)]
         if self.index >= len(Waypoints):
             self.Kkey_To_Number("站立")
             return
@@ -438,25 +405,7 @@ class Task_To_Do(Node):
                 yaw_difference = -(360 - abs(yaw_difference))
         return yaw_difference
     def navigate_to_pose(self, x, y, yaw, x_target, y_target, yaw_end, left_yaw_limit=-4, right_yaw_limit=4, limit=0):
-        now = time.monotonic()
-        identity = (self.active_handler, self.index, self.demo_index)
-        if self.active_handler is None:
-            identity += (x_target, y_target, yaw_end)
-        if self.navigation_state is None or self.navigation_state['identity'] != identity:
-            self.navigation_state = dict(identity=identity, target=(x_target, y_target, yaw_end),
-                                         started=now, progress=now, phase=None, best=float('inf'))
-        state = self.navigation_state
-        x_target, y_target, yaw_end = state['target']
         distance = math.hypot(x_target - x, y_target - y)
-        heading = math.degrees(math.atan2(y_target - y, x_target - x))
-        difference = self.angle(heading if distance > 0.05 else (yaw_end if yaw_end is not None else yaw), yaw)
-        phase = 'distance' if distance > 0.05 and (limit in ('前进', '后退') or abs(difference) < 8) else 'heading'
-        metric = distance if phase == 'distance' else abs(difference)
-        threshold = 0.02 if phase == 'distance' else 2.0
-        if state['phase'] != phase or metric < state['best'] - threshold:
-            state.update(phase=phase, best=metric, progress=now)
-        if now - state['started'] > self.navigation_timeout or now - state['progress'] > self.progress_timeout:
-            raise RuntimeError('导航超时或无进展，禁止无限持续发送上一动作')
         if distance > 0.05:
             target_heading = math.degrees(math.atan2(y_target - y, x_target - x))
             difference = self.angle(target_heading, yaw)
@@ -473,10 +422,7 @@ class Task_To_Do(Node):
             if not left_yaw_limit < difference < right_yaw_limit:
                 self.Kkey_To_Number(limit or ('左转' if difference < 0 else '右转'))
                 return False
-        reached = self.Kkey_To_Number('站立')
-        if reached:
-            self.navigation_state = None
-        return reached
+        return self.Kkey_To_Number('站立')
 
     def Quadruped_Racing_Param_Trans(self, x1, y1, x2, y2, x_p, y_p, L):
 
@@ -499,10 +445,14 @@ class Task_To_Do(Node):
                 if (self.command['mode'], self.command['key']) == (mode, key):
                     return True
                 self.command = None
-            else:
-                if time.monotonic() - self.command_time > 4.0:
-                    raise RuntimeError('串口未确认本地发送，暂停任务；不是动作完成确认')
+            elif self.motor_state.get('pending_id') == self.command['request_id']:
+                return False  # 串口节点已接收，正在等模式切换确认后发送
+            elif time.monotonic() - self.command_time < 1.0:
                 return False
+            else:
+                # 1 秒内串口节点既没发出也没接收（例如刚恢复、或当时正忙），重新发；
+                # 只有确认没被接收才重发，所以跳跃不会被发两次
+                self.command = None
         if self.motor_state.get('busy', False):
             return False
         self.request_id += 1
@@ -513,9 +463,8 @@ class Task_To_Do(Node):
         self.command_time = time.monotonic()
         return False
 
-    def begin_action(self, mode, key, prepare_delay=None):
+    def begin_action(self, mode, key):
         self.pending_jump = (mode, key)
         self.jump_sent = False
         self.command = None
-        delay = self.action_prepare_delay if prepare_delay is None else prepare_delay
-        self.action_ready_at = time.monotonic() + delay
+        self.send_command(mode, key)

@@ -6,13 +6,12 @@ from unittest.mock import patch
 import pytest
 import rclpy
 import yaml
-from std_msgs.msg import Bool, Float32MultiArray, String
+from std_msgs.msg import Bool, Float32MultiArray
 from std_srvs.srv import SetBool
 from nav_msgs.msg import Odometry
 
 from ros2_to_stm32.motor_protocol import (
     MODE_STATUS, StatusParser, crc8, encode_key, parse_durations, parse_request,
-    validate_action,
 )
 from ros2_to_stm32.serial import MotorSerial
 from ros2_to_stm32.task_to_do_unitree import Task_To_Do
@@ -49,6 +48,7 @@ class FakePort:
 
 @pytest.fixture
 def bridge():
+    """串口节点：马在回传状态（KEY_mode 在自动）、定位和控制器正常。"""
     rclpy.init()
     clock = SimpleNamespace(now=100.0)
     port = FakePort()
@@ -58,21 +58,35 @@ def bridge():
         port.received.extend(status_frame())
         node.tick()
         node.pose(Float32MultiArray(data=[0.0, 0.0, 0.0]))
-        node.calibration(Bool(data=True))
         node.controller(Bool(data=True))
-        node.route(String(data='{"ready": true, "reason": "offline test"}'))
+        node.tick()
         yield node, port, clock
         node.destroy_node()
     rclpy.shutdown()
 
 
-def arm(node):
-    response = node.enable(SetBool.Request(data=True), SetBool.Response())
-    assert response.success, response.message
-
-
 def request(node, key, mode=9, request_id=1):
     node.request(Float32MultiArray(data=[float(key), 1.0, float(mode), float(request_id)]))
+
+
+def refresh(node, port, clock, mode='a', fault=0):
+    """模拟马继续回传、定位和控制器继续更新。"""
+    port.received.extend(status_frame(mode, fault))
+    node.pose_time = node.controller_time = clock.now
+
+
+def test_regular_mode_twice_then_motion_four_times(bridge):
+    node, port, clock = bridge
+    node.request(Float32MultiArray(data=[2.0, 1.0, 10.0, 77.0]))
+    node.tick()
+    assert port.sent == [encode_key(10) * 2]
+    clock.now += 0.1
+    port.received.extend(status_frame('c'))
+    node.tick()
+    assert port.sent == [encode_key(10) * 2, encode_key(2) * 4]
+    node.request(Float32MultiArray(data=[2.0, 1.0, 10.0, 77.0]))
+    node.tick()
+    assert len(port.sent) == 2
 
 
 def test_crc_and_stream_parser():
@@ -87,54 +101,14 @@ def test_crc_and_stream_parser():
         dict(mode='b', fault=10, motor=0, detail=0)] * 2
 
 
-def test_tx_only_without_feedback_sends_mode_and_action_in_same_tick(bridge):
-    node, port, clock = bridge
-    node.settings['tx_only'] = True
-    node.status_time = float('-inf')
-    node.status = dict(mode='z', fault=0, motor=0, detail=0)
-    arm(node)
-    request(node, 6, 17)
-    with patch.object(node.state_pub, 'publish') as publish:
-        node.tick()
-        import json
-        state = json.loads(publish.call_args.args[0].data)
-        assert state['connected'] is None
-        assert state['mode'] is None
-        assert state['serial_open'] and state['tx_only']
-    assert port.sent == [encode_key(5), encode_key(17), encode_key(6)]
-    assert node.busy_until == pytest.approx(clock.now + 5.36 + 0.75)
-    request(node, 6, 17, 2)
-    node.tick()
-    assert len(port.sent) == 3
-
-
-def test_tx_only_keeps_pose_and_route_checks(bridge):
-    node, port, clock = bridge
-    node.settings['tx_only'] = True
-    node.status_time = float('-inf')
-    node.route_ready = False
-    assert not node.enable(SetBool.Request(data=True), SetBool.Response()).success
-    node.route_ready = True
-    arm(node)
-    clock.now += 1.1
-    node.tick()
-    assert not node.armed
-    assert port.sent == [encode_key(5)]
-
-
-def test_raw_protocol_and_action_validation():
+def test_raw_protocol_and_request_parsing():
     assert encode_key(2) == b'\x53\x02\x45'
     assert encode_key(2) != b'S2E'
-    for mode in MODE_STATUS:
-        for key in range(1, 6):
-            validate_action(mode, key)
-    for mode, key in [(10, 6), (17, 7), (12, 19), (9, 21), (9, 22), (9, 23)]:
-        with pytest.raises(ValueError):
-            validate_action(mode, key)
-    for data in ([2.0, 4.0], [2.0, 4.0, 9.0, 1.0], [2.5, 1.0, 9.0, 1.0],
-                 [float('nan'), 1.0, 9.0, 1.0]):
-        with pytest.raises(ValueError):
-            parse_request(data)
+    assert parse_request([2.0, 1.0, 9.0, 1.0]) == dict(key=2, mode=9, request_id=1)
+    assert parse_request([7.0, 1.0, 13.0, 5.0])['key'] == 7
+    for data in ([2.0, 4.0], [2.5, 1.0, 9.0, 1.0], [float('nan'), 1.0, 9.0, 1.0],
+                 [2.0, 1.0, 21.0, 1.0], [21.0, 1.0, 9.0, 1.0], [0.0, 1.0, 9.0, 1.0]):
+        assert parse_request(data) is None
 
 
 def test_config_duration_table():
@@ -142,101 +116,130 @@ def test_config_duration_table():
     durations = parse_durations(config['motor_serial']['ros__parameters']['action_durations'])
     assert durations[17, 6] == 5.36
     assert (13, 7) not in durations
+    assert parse_durations(['18:6:1.5']) == {(18, 6): 1.5}
+    with pytest.raises(ValueError):
+        parse_durations(['18:6:-1'])
 
 
-def test_default_disarmed_and_no_shutdown_motion(bridge):
+def test_runs_without_arm_step(bridge):
     node, port, clock = bridge
+    assert node.active
     request(node, 2)
     node.tick()
-    assert not port.sent
-    node.calibrated = False
-    assert not node.enable(SetBool.Request(data=True), SetBool.Response()).success
+    assert port.sent == [encode_key(2) * 4]
 
 
 def test_forward_once_and_duplicate_request(bridge):
     node, port, clock = bridge
-    arm(node)
     request(node, 2)
     node.tick()
     request(node, 2)
     node.tick()
-    assert port.sent == [encode_key(2)]
+    assert port.sent == [encode_key(2) * 4]
     assert node.last_tx['request_id'] == 1
 
 
 def test_mode_feedback_before_jump_and_busy_guard(bridge):
     node, port, clock = bridge
-    arm(node)
     request(node, 6, 17)
     node.tick()
-    assert port.sent == [encode_key(5), encode_key(17)]
+    assert port.sent == [encode_key(17)]
     clock.now += 0.1
-    port.received.extend(status_frame('k'))
+    refresh(node, port, clock, 'k')
     node.tick()
-    assert port.sent == [encode_key(5), encode_key(17), encode_key(6)]
+    assert port.sent == [encode_key(17), encode_key(6)]
     assert node.busy_until == pytest.approx(clock.now + 5.36 + 0.75)
     request(node, 6, 17, 2)
     node.tick()
     assert port.sent.count(encode_key(6)) == 1
     node.enable(SetBool.Request(data=False), SetBool.Response())
+    refresh(node, port, clock, 'k')
     node.tick()
-    assert port.sent.count(encode_key(5)) == 1
+    assert encode_key(5) not in port.sent
     clock.now = node.busy_until + 0.1
+    refresh(node, port, clock, 'k')
     node.tick()
     assert port.sent[-1] == encode_key(5)
-    assert not node.armed
+    assert not node.active
+    node.enable(SetBool.Request(data=True), SetBool.Response())
+    refresh(node, port, clock, 'k')
+    node.tick()
+    assert node.active
 
 
-@pytest.mark.parametrize('trigger', ['pose', 'controller', 'status', 'fault', 'z', 'calibration'])
-def test_watchdogs_latch_pause(bridge, trigger):
+@pytest.mark.parametrize('trigger', ['pose', 'controller', 'status', 'z'])
+def test_conditions_hold_then_resume(bridge, trigger):
     node, port, clock = bridge
-    arm(node)
     request(node, 2)
     node.tick()
-    if trigger in ('pose', 'controller', 'status'):
-        setattr(node, trigger + '_time', clock.now - 2)
-    elif trigger in ('fault', 'z'):
-        port.received.extend(status_frame('z' if trigger == 'z' else 'a', 1 if trigger == 'fault' else 0))
-    else:
-        node.calibration_request(Float32MultiArray(data=[1.0]))
+    clock.now += 2
+    # 只让 trigger 这一项失效，其余保持正常
+    node.pose_time = node.controller_time = clock.now
+    if trigger != 'status':  # status：马停发状态（KEY_mode 拨回手动）
+        port.received.extend(status_frame('z' if trigger == 'z' else 'a'))
+    if trigger == 'pose':
+        node.pose_time = clock.now - 2
+    if trigger == 'controller':
+        node.controller_time = clock.now - 2
     node.tick()
-    assert not node.armed
+    assert not node.active
     assert node.pending is None
     assert port.sent[-1] == encode_key(5)
-    port.received.extend(status_frame())
+    clock.now += 0.1
+    refresh(node, port, clock)
     node.tick()
-    assert not node.armed
+    assert node.active
+    request(node, 2, request_id=2)
+    node.tick()
+    assert port.sent[-1] == encode_key(2) * 4
 
 
-def test_short_write_disarms_without_replaying(bridge):
+def test_fault_and_external_mode_change_do_not_pause(bridge):
     node, port, clock = bridge
-    arm(node)
+    request(node, 2)
+    node.tick()
+    clock.now += 0.1
+    refresh(node, port, clock, 'a', fault=2)
+    node.tick()
+    assert node.active
+    clock.now += 0.1
+    refresh(node, port, clock, 'b')
+    node.tick()
+    assert node.active
+    assert encode_key(5) not in port.sent
+
+
+def test_short_write_reconnects_without_replaying(bridge):
+    node, port, clock = bridge
     port.short_write = True
     request(node, 6)
     node.tick()
-    assert not node.armed
+    assert not node.active
     assert node.last_tx is None
     assert node.pending is None
+    assert node.port is None
 
 
-def test_mode_confirmation_timeout(bridge):
+def test_mode_confirmation_retries_instead_of_pausing(bridge):
     node, port, clock = bridge
-    arm(node)
     request(node, 6, 17)
     node.tick()
     clock.now += 2.1
-    port.received.extend(status_frame())
-    node.pose_time = node.controller_time = clock.now
+    refresh(node, port, clock)
     node.tick()
-    assert not node.armed
+    assert node.active
+    assert port.sent == [encode_key(17), encode_key(17)]
     assert encode_key(6) not in port.sent
+    clock.now += 0.1
+    refresh(node, port, clock, 'k')
+    node.tick()
+    assert port.sent[-1] == encode_key(6)
 
 
 @pytest.fixture
 def task():
     rclpy.init()
     node = Task_To_Do()
-    node.route_profile = 'demo'
     node.motor_state = dict(armed=True, busy=False)
     yield node
     node.destroy_node()
@@ -263,10 +266,6 @@ def test_demo_advances_one_target_per_update(task):
 
 def test_jump_waits_for_local_send_and_timer(task):
     task.begin_action(18, 6)
-    task.Quadruped_Obstacle(0, 0, 0)
-    assert task.command is None
-    task.action_ready_at = 0.0
-    task.Quadruped_Obstacle(0, 0, 0)
     command = dict(task.command)
     task.Quadruped_Obstacle(0, 0, 0)
     assert task.index == 0
@@ -281,6 +280,23 @@ def test_jump_waits_for_local_send_and_timer(task):
     assert task.pending_jump is None
 
 
+def test_dropped_request_is_resent_but_accepted_jump_is_not(task):
+    published = []
+    task.publisher.publish = lambda message: published.append(list(message.data))
+    clock = SimpleNamespace(now=10.0)
+    with patch('ros2_to_stm32.task_to_do_unitree.time.monotonic', side_effect=lambda: clock.now):
+        task.begin_action(18, 6)
+        assert len(published) == 1
+        clock.now += 1.5
+        task.motor_state['pending_id'] = task.command['request_id']
+        task.Quadruped_Obstacle(0, 0, 0)
+        assert len(published) == 1
+        task.motor_state['pending_id'] = None
+        task.Quadruped_Obstacle(0, 0, 0)
+        assert len(published) == 2
+        assert published[-1][:3] == [6.0, 1.0, 18.0]
+
+
 def test_course_handlers_exhaust_safely(task):
     commands = []
     task.Kkey_To_Number = lambda key: commands.append(key) or True
@@ -293,12 +309,42 @@ def test_course_handlers_exhaust_safely(task):
         assert commands[-1] == '站立'
 
 
-def test_third_step_uses_normal_mode_six(task):
+def test_third_step_matches_original_step_mode_seven(task):
     task.active_handler = 'handle_step'
     task.index = 2
     task.navigate_to_pose = lambda *args: True
     task.handle_step(0.62, 0, 0, 0, 0)
-    assert task.pending_jump == (9, 6)
+    assert task.pending_jump == (18, 7)
+
+
+def test_normal_region_dispatches_bridge_a(task):
+    task.route_profile = 'zones'
+    with patch.object(task, 'handle_bridge_A') as handler:
+        task.Quadruped_Obstacle(1.5786, 0.0012, 0.0)
+        origin = task.zones['木桥A']
+        handler.assert_called_once_with(1.5786, 0.0012, 0.0, origin['begin_x'], origin['begin_y'])
+
+
+def test_obstacle_region_precedes_large_normal_region(task):
+    task.route_profile = 'zones'
+    with patch.object(task, 'handle_bridge_B') as handler:
+        task.Quadruped_Obstacle(2.0, -4.0, 180.0)
+        origin = task.zones['木桥B']
+        handler.assert_called_once_with(2.0, -4.0, 180.0, origin['begin_x'], origin['begin_y'])
+
+
+def test_ui_position_display_has_one_message_source(task):
+    from ros2_to_stm32.ui import TaskNode
+    node = TaskNode()
+    try:
+        topics = {subscription.topic_name for subscription in node.subscriptions}
+        assert '/pos_trans' in topics
+        assert '/ui_local_coord' not in topics
+        assert '/ui_debug_state' not in topics
+        node.pos_callback(Float32MultiArray(data=[1.5, 0.0, 2.0]))
+        assert node.current_global_coord == 'X: 1.500, Y: 0.000, Yaw: 2.000°'
+    finally:
+        node.destroy_node()
 
 
 def test_calibration_requires_two_valid_points():

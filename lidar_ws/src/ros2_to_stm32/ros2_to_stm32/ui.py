@@ -34,8 +34,6 @@ from rclpy.node import Node
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import String
 from .zone_manager import zone_config_path
-from .route_review import select_region
-from std_srvs.srv import Trigger
 import tkinter as tk
 from tkinter import font
 
@@ -75,29 +73,17 @@ class TaskNode(Node):
         super().__init__("task_gui_node")
 
         self.pub = self.create_publisher(Float32MultiArray, "/task_params", 10)
-        self.reset_index_client = self.create_client(Trigger, '/automation/reset_route')
+        self.reset_index_pub = self.create_publisher(String, "/ui_reset_index", 10)
         self.pos_subscription = self.create_subscription(
             Float32MultiArray,
             "/pos_trans",
             self.pos_callback,
             20,
         )
-        self.local_coord_subscription = self.create_subscription(
-            Float32MultiArray,
-            "/ui_local_coord",
-            self.local_coord_callback,
-            20,
-        )
         self.serial_subscription = self.create_subscription(
             Float32MultiArray,
             "/serial_send",
             self.serial_callback,
-            20,
-        )
-        self.debug_subscription = self.create_subscription(
-            String,
-            "/ui_debug_state",
-            self.debug_callback,
             20,
         )
 
@@ -124,19 +110,10 @@ class TaskNode(Node):
         self.get_logger().info(f"已下发任务: [{task_name}], 发送数据: {msg.data}")
 
     def publish_reset_index(self):
-        if not self.reset_index_client.service_is_ready():
-            self.get_logger().error('控制器未就绪，未清零路线')
-            return
-        future = self.reset_index_client.call_async(Trigger.Request())
-        future.add_done_callback(self.reset_index_result)
-
-    def reset_index_result(self, future):
-        try:
-            result = future.result()
-            logger = self.get_logger().info if result.success else self.get_logger().error
-            logger(result.message)
-        except Exception as error:
-            self.get_logger().error(f'路线清零失败：{error}')
+        msg = String()
+        msg.data = "reset"
+        self.reset_index_pub.publish(msg)
+        self.get_logger().info("已发送 index 清零请求")
 
     def get_debug_state(self):
         with self._state_lock:
@@ -159,17 +136,6 @@ class TaskNode(Node):
             self.current_global_coord = self.format_coord_text(x_pos, y_pos, yaw)
             self.current_local_coord = self.format_coord_text(local_x, local_y, yaw)
             self.current_zone = zone_name
-
-    def local_coord_callback(self, msg):
-        if len(msg.data) < 2:
-            return
-
-        x_pos = msg.data[0]
-        y_pos = msg.data[1]
-        yaw = msg.data[2] if len(msg.data) >= 3 else None
-
-        with self._state_lock:
-            self.current_local_coord = self.format_coord_text(x_pos, y_pos, yaw)
 
     def load_zone_config(self, force=False):
         now = time.monotonic()
@@ -199,9 +165,17 @@ class TaskNode(Node):
 
     def compute_local_coord(self, x_pos, y_pos):
         self.load_zone_config()
-        zone_name, zone = select_region(dict(zones=self.zones, zone=self.normal_zones), x_pos, y_pos)
-        if zone is not None:
-            return zone_name, x_pos - zone['begin_x'], y_pos - zone['begin_y']
+
+        for zone_name, zone in self.normal_zones.items():
+            if self.is_in_zone(x_pos, y_pos, zone):
+                return zone_name, x_pos, y_pos
+
+        for zone_name, zone in self.zones.items():
+            if self.is_in_zone(x_pos, y_pos, zone):
+                begin_x = zone.get("begin_x", 0.0)
+                begin_y = zone.get("begin_y", 0.0)
+                return zone_name, x_pos - begin_x, y_pos - begin_y
+
         return "未进入已配置区域", x_pos, y_pos
 
     @staticmethod
@@ -214,16 +188,6 @@ class TaskNode(Node):
     def serial_callback(self, msg):
         if len(msg.data) < 2:
             return
-
-    def debug_callback(self, msg):
-        try:
-            state = json.loads(msg.data)
-        except json.JSONDecodeError:
-            self.get_logger().warning("收到无法解析的调试状态消息")
-            return
-
-        with self._state_lock:
-            self.current_zone = state.get("zone", self.current_zone)
 
     @staticmethod
     def format_coord_text(x_pos, y_pos, yaw=None):

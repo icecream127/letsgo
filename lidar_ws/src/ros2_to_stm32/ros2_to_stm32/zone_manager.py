@@ -26,16 +26,9 @@
 # zone_manager.py
 import json
 import os
-from pathlib import Path
 
 def zone_config_path():
-    if os.environ.get('LEGACY_ZONE_CONFIG'):
-        return os.environ['LEGACY_ZONE_CONFIG']
-    source_config = Path(__file__).resolve().parents[1] / 'config/map_zones_config_2.json'
-    if source_config.is_file():
-        return str(source_config)
-    from ament_index_python.packages import get_package_share_directory
-    return str(Path(get_package_share_directory('ros2_to_stm32')) / 'config/map_zones_config_2.json')
+    return os.environ.get('LEGACY_ZONE_CONFIG', os.path.join(os.path.dirname(__file__), 'map_zones_config.json'))
 
 
 class ZoneManager:

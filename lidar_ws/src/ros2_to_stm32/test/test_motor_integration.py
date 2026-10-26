@@ -3,33 +3,27 @@ import pty
 import time
 import tty
 
-import pytest
 import rclpy
 from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
-from std_msgs.msg import Bool, Float32MultiArray
-from std_srvs.srv import SetBool
+from std_msgs.msg import Float32MultiArray
 
 from ros2_to_stm32.info_transmiting import Info_Trans
 from ros2_to_stm32.motor_protocol import crc8
 from ros2_to_stm32.serial import MotorSerial
 
 
-@pytest.mark.parametrize('tx_only', [False, True])
-def test_ros_graph_through_virtual_ttl(tx_only):
+def test_ros_graph_through_virtual_ttl():
+    """完整链路：马回传状态（KEY_mode 在自动）就开始跑 demo，停发状态就请求站立。"""
     master, slave = pty.openpty()
     tty.setraw(slave)
     os.set_blocking(master, False)
     rclpy.init()
     bridge = MotorSerial()
-    bridge.settings['tx_only'] = tx_only
     bridge.settings['port'] = os.ttyname(slave)
     controller = Info_Trans()
-    controller.task_to_do.route_profile = 'demo'
     probe = Node('offline_probe')
     poses = probe.create_publisher(Float32MultiArray, '/pos_trans', 1)
-    calibration = probe.create_publisher(Bool, '/calibration_ready', 1)
-    client = probe.create_client(SetBool, '/automation/enable')
     executor = SingleThreadedExecutor()
     for node in (bridge, controller, controller.task_to_do, probe):
         executor.add_node(node)
@@ -38,14 +32,14 @@ def test_ros_graph_through_virtual_ttl(tx_only):
     received = bytearray()
     commands = []
     position = [0.0, 0.0, 0.0]
+    robot = dict(auto=True)
 
     def pump_until(predicate, timeout=4.0):
         deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:
-            if not tx_only:
+            if robot['auto']:
                 os.write(master, frame)
             poses.publish(Float32MultiArray(data=position))
-            calibration.publish(Bool(data=True))
             executor.spin_once(timeout_sec=0.01)
             try:
                 received.extend(os.read(master, 4096))
@@ -61,21 +55,18 @@ def test_ros_graph_through_virtual_ttl(tx_only):
         raise AssertionError(f'离线链路超时：{bridge.reason}; commands={commands}')
 
     try:
-        pump_until(lambda: not bridge.unavailable(time.monotonic()) and client.service_is_ready())
-        assert not commands
-        future = client.call_async(SetBool.Request(data=True))
-        pump_until(future.done)
-        assert future.result().success
         pump_until(lambda: 2 in commands)
         position[:] = [1.0, 0.0, 0.0]
         pump_until(lambda: controller.task_to_do.demo_index == 1)
         position[:] = [1.0, -1.0, 0.0]
         pump_until(lambda: controller.task_to_do.demo_index == 2)
         assert 5 in commands
-        future = client.call_async(SetBool.Request(data=False))
-        pump_until(future.done)
-        pump_until(lambda: not controller.task_to_do.motor_state.get('armed', True))
-        assert not bridge.armed
+        count = len(commands)
+        robot['auto'] = False
+        pump_until(lambda: not bridge.active)
+        pump_until(lambda: len(commands) > count and commands[-1] == 5)
+        robot['auto'] = True
+        pump_until(lambda: bridge.active)
         assert not any(key in (6, 7, 21, 22, 23) for key in commands)
     finally:
         executor.shutdown()

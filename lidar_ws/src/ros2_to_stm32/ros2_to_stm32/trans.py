@@ -5,8 +5,7 @@ from nav_msgs.msg import Odometry
 from geometry_msgs.msg import TransformStamped
 import math
 import time
-import json
-from std_msgs.msg import Bool, String
+from std_msgs.msg import Bool
 from std_msgs.msg import Float32MultiArray
 from .zone_manager import ZoneManager, zone_config_path 
 class TopicRenamer(Node):
@@ -24,9 +23,6 @@ class TopicRenamer(Node):
         self.first_captured = False
         self.second_captured = False
         self.last_odometry_time = float('-inf')
-        self.motor_armed = False
-        self.motor_busy = False
-        self.create_subscription(String, '/motor_state', self.motor_status, 1)
         self.calibration_publisher = self.create_publisher(Bool, '/calibration_ready', 1)
 
         self.zm = ZoneManager(zone_config_path())
@@ -61,19 +57,9 @@ class TopicRenamer(Node):
     def task_param_callback(self, msg):
         if not msg.data:
             return
-        if msg.data[0] in range(1, 11) and (self.motor_armed or self.motor_busy):
-            self.get_logger().error('请先暂停并确认机器人停止，再重新点击采点')
-            return
-        if msg.data[0] in range(1, 11) and time.monotonic() - self.last_odometry_time > 1.0:
+        if msg.data[0] in (1.0, 2.0) and time.monotonic() - self.last_odometry_time > 1.0:
             self.get_logger().error('没有新鲜里程计，拒绝踩点')
             return
-        if msg.data[0] in range(3, 11) and not (self.first_captured and self.second_captured):
-            self.get_logger().error('先完成 A/B 踩点，才允许记录障碍参考点')
-            return
-        if msg.data[0] in range(3, 11):
-            length = math.hypot(self.x2 - self.x1, self.y2 - self.y1)
-            self.x_trans, self.y_trans, _ = self.Param_Trans(
-                self.x1, self.y1, self.x2, self.y2, self.x_p, self.y_p, length)
         if msg.data[0] == 1.0:
            self.x1 = self.x_p
            self.y1 = self.y_p
@@ -104,15 +90,6 @@ class TopicRenamer(Node):
             self.update_zone_data("高墙",self.x_trans,self.y_trans)
         elif msg.data[0] == 10.0:
             self.update_zone_data("台阶",self.x_trans,self.y_trans)
-
-    def motor_status(self, message):
-        try:
-            state = json.loads(message.data)
-            self.motor_armed = bool(state['armed'])
-            self.motor_busy = bool(state['busy'])
-        except (ValueError, KeyError, TypeError):
-            self.motor_armed = True
-            self.motor_busy = True
     def trans_pos(self, trans, pos_msg):
         trans.header.frame_id = "lidar_init"
         trans.header.stamp = pos_msg.header.stamp
