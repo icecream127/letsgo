@@ -11,7 +11,7 @@
 | bash run/lio_driver.sh | 只启动传感器和 RViz |
 | bash run/ui.sh | 采点和状态界面 |
 | bash run/pos_trans.sh | 里程计转换为踩点坐标 |
-| bash run/serial.sh | 串口节点：USB 转 TTL 接马主控“3”号座子（USART3），端口在 config/control.yaml |
+| bash run/serial.sh | 串口节点：USB 转 TTL 接板端串口6，电脑端口在 config/control.yaml；针脚由电控确认 |
 | bash run/info_trans.sh | 任务控制器 |
 | bash run/map.sh | 原项目区域地图工具 |
 | bash run/pause.sh | 人工暂停并请求站立，不是急停 |
@@ -20,7 +20,7 @@
 
 ## 怎么开始、怎么停
 
-总开关是遥控器的 KEY_mode：拨到自动后马才在 USART3 上回传状态，视觉收到状态就开始跑路线；
+本程序要求串口6固件沿用原状态协议（需电控确认）：KEY_mode 拨到自动后马回传状态，视觉收到状态且定位、控制器就绪后开始跑路线；
 拨回手动（或遥控器按 5）后马停发状态，视觉 1 秒内自动停下并请求站立。再拨到自动就从当前路线进度继续。
 
 1. 遥控器按 22 让马起身，bash run/start.sh 启动全部节点。

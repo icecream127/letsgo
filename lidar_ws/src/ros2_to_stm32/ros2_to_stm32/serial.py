@@ -12,9 +12,9 @@ from .motor_protocol import MODE_STATUS, TIMED_ACTIONS, StatusParser, encode_key
 
 
 class MotorSerial(Node):
-    """把控制器的请求转成和遥控器一样的按键帧，经 USART3 发给马。
+    """把控制器的请求转成和遥控器一样的按键帧，经 USB-TTL 接板端串口6。
 
-    总开关是遥控器的 KEY_mode：拨到自动后，马才在 USART3 上回传状态帧，
+    要求电控保留状态协议：KEY_mode 拨到自动后，在连接的串口上回传状态帧，
     这里收到状态就开始执行；拨回手动（或遥控器按 5）后马停发状态，
     这里 1 秒内收不到就停下，开关再拨到自动就自动继续。
     以下任一条件不满足时只“暂时停住”，条件恢复后自动继续，不需要重新允许运行：
@@ -109,6 +109,9 @@ class MotorSerial(Node):
             if self.port is None and now >= self.next_connect:
                 self.next_connect = now + 2.0
                 self.port = serial.Serial(self.settings['port'], self.settings['baudrate'],
+                                          bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
+                                          stopbits=serial.STOPBITS_ONE,
+                                          xonxoff=False, rtscts=False, dsrdtr=False,
                                           timeout=0, write_timeout=0.2, exclusive=True)
                 self.parser = StatusParser()
                 self.status_time = float('-inf')

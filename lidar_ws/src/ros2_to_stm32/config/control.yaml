@@ -1,5 +1,6 @@
 motor_serial:
   ros__parameters:
+    # 电脑端 USB-TTL 设备；板端改接串口6，不意味着这里改为 ttyUSB6。
     port: /dev/ttyUSB0
     baudrate: 115200
     status_timeout: 1.0
