@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-10-29T14:37:41.713355+00:00",
+  "source": "cloud.pcd",
+  "source_sha256": "0f202ca9c2aced1088cede75da8bef9302394a98dc70f0fc3831fd5591c58199",
+  "image_sha256": "1325e7b9a48d608078655f98228f72b3cd98268a45b582bda961774b96622108",
+  "yaml_sha256": "30a0bac381ad427ac69a7e27fb0378297d0c62eaeb3d6f247e60fbe4b44ed3e2",
+  "coordinate_frame": "saved FAST-LIO odom axes, served as map; localization must align live odom",
+  "ground_z": 0.0,
+  "ground_tolerance": 0.05,
+  "min_height": 0.1,
+  "max_height": 2.0,
+  "resolution": 0.05,
+  "origin": [
+    -10.75,
+    -3.2,
+    0.0
+  ],
+  "width": 348,
+  "height": 237,
+  "cells": {
+    "free": 5427,
+    "occupied": 12900,
+    "unknown": 64149
+  },
+  "limitations": "Flat-ground projection; no ray tracing, loop closure or traversability inference."
+}

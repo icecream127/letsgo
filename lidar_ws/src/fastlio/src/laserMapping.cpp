@@ -39,6 +39,8 @@
 #include <fstream>
 #include <csignal>
 #include <chrono>
+#include <filesystem>
+#include <stdexcept>
 #include <unistd.h>
 #include <Python.h>
 #include <so3_math.h>
@@ -618,8 +620,22 @@ void publish_map(rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub
 
 void save_to_pcd()
 {
+    if (pcl_wait_pub->empty())
+        throw std::runtime_error("No accumulated map points; wait for valid LiDAR data.");
+    const std::filesystem::path destination(map_file_path);
+    if (destination.has_parent_path())
+        std::filesystem::create_directories(destination.parent_path());
+    const std::string temporary = map_file_path + ".tmp";
     pcl::PCDWriter pcd_writer;
-    pcd_writer.writeBinary(map_file_path, *pcl_wait_pub);
+    try {
+        if (pcd_writer.writeBinary(temporary, *pcl_wait_pub) != 0)
+            throw std::runtime_error("PCD writer returned an error.");
+        std::filesystem::rename(temporary, destination);
+    } catch (...) {
+        std::error_code ignored;
+        std::filesystem::remove(temporary, ignored);
+        throw;
+    }
 }
 
 template<typename T>
@@ -1127,9 +1143,15 @@ private:
         RCLCPP_INFO(this->get_logger(), "Saving map to %s...", map_file_path.c_str());
         if (pcd_save_en)
         {
-            save_to_pcd();
-            res->success = true;
-            res->message = "Map saved.";
+            try {
+                save_to_pcd();
+                res->success = true;
+                res->message = "Map saved: " + map_file_path;
+            } catch (const std::exception & error) {
+                res->success = false;
+                res->message = error.what();
+                RCLCPP_ERROR(this->get_logger(), "Map save failed: %s", error.what());
+            }
         }
         else
         {

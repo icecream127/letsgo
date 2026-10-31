@@ -6,12 +6,15 @@ from launch.actions import DeclareLaunchArgument
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
     config = os.path.join(get_package_share_directory('ros2_to_stm32'), 'config')
     return LaunchDescription([
         DeclareLaunchArgument('show_rviz', default_value='true'),
+        DeclareLaunchArgument('save_pcd', default_value='false'),
+        DeclareLaunchArgument('map_file_path', default_value='./maps/default/cloud.pcd'),
         Node(
             package='livox_ros_driver2',
             executable='livox_ros_driver2_node',
@@ -26,7 +29,9 @@ def generate_launch_description():
             executable='fastlio_mapping',
             output='screen',
             parameters=[os.path.join(config, 'fast_lio_mid360_real.yaml'),
-                        {'use_sim_time': False}],
+                        {'use_sim_time': False,
+                         'pcd_save.pcd_save_en': ParameterValue(LaunchConfiguration('save_pcd'), value_type=bool),
+                         'map_file_path': LaunchConfiguration('map_file_path')}],
         ),
         Node(
             package='rviz2',

@@ -24,6 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'nav_adapter = ros2_to_stm32.nav_adapter:main',
+            'nav_cmd_gate = ros2_to_stm32.nav_cmd_gate:main',
         'pos_trans = ros2_to_stm32.trans:main',
             'info_trans = ros2_to_stm32.info_transmiting:main',
             'serial_node = ros2_to_stm32.serial:main',

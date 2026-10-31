@@ -1,5 +1,13 @@
 # letsgo：完整上位机独立源码包
 
+## Nav2 定位与速度输出（2026-10-31）
+
+新地图完成后运行 `bash run/navigation.sh <地图名>`，在 RViz 指定初始位置和导航目标，查看 `/cmd_vel`。此入口不启动电控，不包含自动倾斜校正。完整命令、暂定安装参数及模拟验证结果见 [validation/NAVIGATION.md](validation/NAVIGATION.md)。下方旧区域控制说明不适用于这个入口。
+
+## 本地地图接入
+
+新增统一的 `maps/<地图名>/` 目录：保存 FAST-LIO 的 `cloud.pcd`，投影生成 `map.pgm`、`map.yaml`，再由 Nav2 map_server 加载。使用方法和验证边界见 [maps/README.md](maps/README.md)。入口依次为 `run/mapping.sh`、`run/save_map.sh`、`run/map_to_2d.sh`、`run/nav2_map.sh`；不会启动电控或旧路线。
+
 ## 2026-10-26 电控配套版（以下历史说明以本节为准）
 
 - 当前接线改为板端串口6，上位机发送 `53 key 45` 原始三字节，115200、8N1、无流控。电脑端设备仍按实际配置（默认 `/dev/ttyUSB0`）。电控需提供适配串口6的固件；原1026固件配置的是USART3。

@@ -1,0 +1,39 @@
+{
+  "source": "/home/zxy/letsgo/maps/competition/cloud.pcd",
+  "source_sha256": "4ce084b48e1bbe31b89bd8a7698534d201003de58b4d57926a3e852e3bff8147",
+  "plane_z_ax_by_c": [
+    -0.04167635814181028,
+    -0.02677289215689293,
+    -0.02290776469301825
+  ],
+  "cells": 1223,
+  "inliers": 473,
+  "below": 0,
+  "target": "/home/zxy/letsgo/maps/competition_leveled_preview/cloud.pcd",
+  "target_sha256": "0f202ca9c2aced1088cede75da8bef9302394a98dc70f0fc3831fd5591c58199",
+  "transform_convention": "p_leveled = R @ p_original + t",
+  "R": [
+    [
+      0.9991331355335086,
+      -0.0005568737267552614,
+      -0.04162532126761296
+    ],
+    [
+      -0.0005568737267552614,
+      0.9996422643221201,
+      -0.026740106069292363
+    ],
+    [
+      0.04162532126761296,
+      0.026740106069292363,
+      0.9987753998556287
+    ]
+  ],
+  "t": [
+    0.0,
+    0.0,
+    0.02287971184106796
+  ],
+  "ground_z": 0.0,
+  "status": "preview only; floor identification and navigation alignment require validation"
+}

@@ -11,7 +11,8 @@
     # Local-map width, NOT maximum lidar distance. Must exceed 3 * det_range.
     cube_side_length: 200.0
     runtime_pos_log_enable: false
-    map_file_path: "./test.pcd"
+    # mapping.sh supplies an absolute maps/<name>/cloud.pcd path.
+    map_file_path: "./maps/default/cloud.pcd"
     common:
       lid_topic: /livox/lidar
       imu_topic: /livox/imu
@@ -43,6 +44,6 @@
       dense_publish_en: true
       scan_bodyframe_pub_en: true
     pcd_save:
-      # PCD saving is disabled for this project.
+      # Ordinary sensor-only startup keeps saving disabled; mapping.sh enables it.
       pcd_save_en: false
       interval: -1
