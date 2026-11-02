@@ -1,9 +1,9 @@
 {
-  "created_utc": "2026-10-29T14:28:42.222635+00:00",
+  "created_utc": "2026-10-31T05:08:50.965351+00:00",
   "source": "cloud.pcd",
-  "source_sha256": "4ce084b48e1bbe31b89bd8a7698534d201003de58b4d57926a3e852e3bff8147",
-  "image_sha256": "b990c0bcfdd8eb0dfdb43c5f856081e3e3f9f25d66ef5af5a78999310047912b",
-  "yaml_sha256": "1b00cdd54eef686deef7e0d29c07970b0c44760398747d5195255a724a46da15",
+  "source_sha256": "6edd690d2569b91bbd6be1b2a7b4534c96ea5cb5085fa0535fd3ec0c6c7ed47e",
+  "image_sha256": "83986ce05daf7fdd99c3dc1a5d1290f071847c101e3466ba389e46f8c791542e",
+  "yaml_sha256": "1a512b24f8c0bf03832edbb8f9cdac2e914fabd937b6853a287ee78b657e90d4",
   "coordinate_frame": "saved FAST-LIO odom axes, served as map; localization must align live odom",
   "ground_z": -0.75,
   "ground_tolerance": 0.05,
@@ -11,16 +11,34 @@
   "max_height": 2.0,
   "resolution": 0.05,
   "origin": [
-    -6.8500000000000005,
-    -3.2,
+    -1.9,
+    -7.25,
     0.0
   ],
-  "width": 236,
-  "height": 236,
+  "width": 260,
+  "height": 260,
   "cells": {
-    "free": 2,
-    "occupied": 18713,
-    "unknown": 36981
+    "free": 11257,
+    "occupied": 14941,
+    "unknown": 41402
   },
-  "limitations": "Flat-ground projection; no ray tracing, loop closure or traversability inference."
+  "limitations": "Flat-ground projection; no ray tracing, loop closure or traversability inference.",
+  "crop": {
+    "original_width": 591,
+    "original_height": 350,
+    "original_origin": [
+      -14.4,
+      -7.25,
+      0.0
+    ],
+    "pixel_box": [
+      250,
+      90,
+      510,
+      350
+    ],
+    "backup": "before_crop",
+    "removed_occupied": 93,
+    "note": "Removed outer unknown margin and sparse distant returns; retained all free cells. PCD unchanged."
+  }
 }

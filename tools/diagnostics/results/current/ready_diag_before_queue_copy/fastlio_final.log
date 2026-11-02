@@ -1,0 +1,121 @@
+[INFO] [1793540336.265026849] [laser_mapping]: p_pre->lidar_type 1
+Multi thread started 
+~~~~/home/jetson/letsgo/lidar_ws/src/fastlio/ file opened
+[INFO] [1793540336.362998294] [laser_mapping]: Node init finished.
+[WARN] [1793540337.406728010] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540337.515518191] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.555022521] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.565038831] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.575022916] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.585075739] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.594925835] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.605023492] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.615027833] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.625033871] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.635074246] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.645010873] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.655071024] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.707724694] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.795010618] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.915164288] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540338.995277999] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.096428170] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.205024867] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.317933199] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.405120365] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.507351213] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.615060680] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.707256177] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.806317701] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.915031330] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540339.995700834] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.096550801] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.195195444] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.305114424] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.405196588] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.506850678] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.597133308] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.715098354] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.805012876] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.895005352] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540340.995161023] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.105042399] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.216082982] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.315013393] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.415104164] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.496531098] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.608594916] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.709517331] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.805043850] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540341.905032857] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540342.005019656] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540342.115166222] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540342.205687833] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793540342.306698568] [laser_mapping]: No point, skip this scan!
+
+IMU Initial Done
+[WARN] [1793540342.405204226] [laser_mapping]: No point, skip this scan!
+
+[INFO] [1793540342.509577797] [laser_mapping]: Initialize the map kdtree
+[INFO] [1793540345.223989026] [laser_mapping]: latency lidar_in=0.119 imu_in=0.001 odom=0.038 queue=0/4 imu_gap=0.016 imu_waits=64 pre=0.5 process=17.7 update=12.4 map=0.8 odom_pub=1.5 clouds=1.0 points=1500 tree=2449 beg=1793540345.086578608 end=1793540345.186388731 steady=2292.688668812 wait_ms=0.551 oldest_ms=0.000 undistort_ms=1.652
+[INFO] [1793540350.234301016] [laser_mapping]: latency lidar_in=0.113 imu_in=0.002 odom=0.048 queue=0/2 imu_gap=0.006 imu_waits=66 pre=0.5 process=34.5 update=24.4 map=0.4 odom_pub=5.1 clouds=1.0 points=1449 tree=2495 beg=1793540350.085778713 end=1793540350.186563730 steady=2297.682167114 wait_ms=0.617 oldest_ms=0.000 undistort_ms=3.143
+[INFO] [1793540355.235198932] [laser_mapping]: latency lidar_in=0.120 imu_in=0.009 odom=0.048 queue=0/3 imu_gap=0.011 imu_waits=67 pre=0.6 process=28.3 update=14.8 map=0.3 odom_pub=9.2 clouds=1.7 points=1472 tree=2533 beg=1793540355.086418629 end=1793540355.186728477 steady=2302.689254363 wait_ms=0.847 oldest_ms=0.000 undistort_ms=1.782
+[INFO] [1793540360.248004557] [laser_mapping]: latency lidar_in=0.108 imu_in=0.002 odom=0.064 queue=0/2 imu_gap=0.008 imu_waits=68 pre=0.5 process=53.0 update=42.2 map=0.6 odom_pub=1.1 clouds=0.9 points=1388 tree=2531 beg=1793540360.086098671 end=1793540360.184488535 steady=2307.677311094 wait_ms=0.971 oldest_ms=0.000 undistort_ms=7.742
+[INFO] [1793540365.260486794] [laser_mapping]: latency lidar_in=0.117 imu_in=0.017 odom=0.074 queue=0/1 imu_gap=0.001 imu_waits=68 pre=0.8 process=55.0 update=46.5 map=0.4 odom_pub=1.8 clouds=2.6 points=1481 tree=2617 beg=1793540365.086258650 end=1793540365.186563730 steady=2312.687809110 wait_ms=2.414 oldest_ms=0.000 undistort_ms=3.335
+[INFO] [1793540370.262801413] [laser_mapping]: latency lidar_in=0.134 imu_in=-0.001 odom=0.077 queue=0/8 imu_gap=0.036 imu_waits=70 pre=5.7 process=36.1 update=19.5 map=0.3 odom_pub=8.4 clouds=1.3 points=1453 tree=2589 beg=1793540370.086418629 end=1793540370.186243534 steady=2317.709054544 wait_ms=11.347 oldest_ms=0.000 undistort_ms=6.078
+[INFO] [1793540375.260821612] [laser_mapping]: latency lidar_in=0.113 imu_in=-0.001 odom=0.074 queue=0/4 imu_gap=0.016 imu_waits=72 pre=0.6 process=55.7 update=39.6 map=0.2 odom_pub=0.4 clouds=12.1 points=1457 tree=2577 beg=1793540375.086098671 end=1793540375.186403751 steady=2322.687470925 wait_ms=6.042 oldest_ms=0.000 undistort_ms=2.398
+[INFO] [1793540380.237373354] [laser_mapping]: latency lidar_in=0.127 imu_in=-0.001 odom=0.053 queue=0/6 imu_gap=0.028 imu_waits=73 pre=0.5 process=22.3 update=16.2 map=0.7 odom_pub=1.6 clouds=1.3 points=1444 tree=2671 beg=1793540380.080018759 end=1793540380.184163809 steady=2327.697461257 wait_ms=8.241 oldest_ms=0.000 undistort_ms=1.980
+[INFO] [1793540385.235485341] [laser_mapping]: latency lidar_in=0.113 imu_in=-0.001 odom=0.049 queue=0/4 imu_gap=0.016 imu_waits=73 pre=0.8 process=30.5 update=23.8 map=0.5 odom_pub=1.0 clouds=1.3 points=1429 tree=2742 beg=1793540385.084498644 end=1793540385.186243773 steady=2332.687360429 wait_ms=7.057 oldest_ms=0.000 undistort_ms=3.066
+[INFO] [1793540390.243045906] [laser_mapping]: latency lidar_in=0.121 imu_in=0.021 odom=0.058 queue=0/1 imu_gap=0.003 imu_waits=74 pre=2.2 process=33.4 update=18.4 map=0.3 odom_pub=1.3 clouds=7.0 points=1453 tree=2719 beg=1793540390.086098671 end=1793540390.185107231 steady=2337.691983877 wait_ms=2.814 oldest_ms=0.000 undistort_ms=5.934
+[INFO] [1793540395.237669131] [laser_mapping]: latency lidar_in=0.111 imu_in=-0.001 odom=0.053 queue=0/4 imu_gap=0.018 imu_waits=75 pre=1.7 process=32.6 update=26.4 map=0.3 odom_pub=1.6 clouds=0.9 points=1426 tree=2761 beg=1793540395.085778713 end=1793540395.184163809 steady=2342.687411483 wait_ms=7.887 oldest_ms=0.000 undistort_ms=1.795
+[INFO] [1793540399.359115132] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+Rebuild thread terminated normally

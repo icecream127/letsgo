@@ -26,6 +26,8 @@
 
 #include "livox_lidar_api.h"
 #include <string>
+#include <chrono>
+#include <cstdio>
 #include <thread>
 #include <iostream>
 
@@ -139,6 +141,9 @@ void LivoxLidarCallback::SetDataTypeCallback(livox_status status, uint32_t handl
     lidar_device->livox_config.set_bits &= ~((uint32_t)(kConfigDataType));
     if (!lidar_device->livox_config.set_bits) {
       lidar_device->connect_state = kConnectStateSampling;
+      fprintf(stderr, "sampling_ready handle=%u steady_ns=%lld wall_ns=%lld\n", handle,
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count(),
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
     }
     std::cout << "successfully set data type, handle: " << handle
               << ", set_bit: " << lidar_device->livox_config.set_bits << std::endl;
@@ -172,6 +177,9 @@ void LivoxLidarCallback::SetPatternModeCallback(livox_status status, uint32_t ha
     lidar_device->livox_config.set_bits &= ~((uint32_t)(kConfigScanPattern));
     if (!lidar_device->livox_config.set_bits) {
       lidar_device->connect_state = kConnectStateSampling;
+      fprintf(stderr, "sampling_ready handle=%u steady_ns=%lld wall_ns=%lld\n", handle,
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count(),
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
     }
     std::cout << "successfully set pattern mode, handle: " << handle
               << ", set_bit: " << lidar_device->livox_config.set_bits << std::endl;
@@ -205,6 +213,9 @@ void LivoxLidarCallback::SetBlindSpotCallback(livox_status status, uint32_t hand
     lidar_device->livox_config.set_bits &= ~((uint32_t)(kConfigBlindSpot));
     if (!lidar_device->livox_config.set_bits) {
       lidar_device->connect_state = kConnectStateSampling;
+      fprintf(stderr, "sampling_ready handle=%u steady_ns=%lld wall_ns=%lld\n", handle,
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count(),
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
     }
     std::cout << "successfully set blind spot, handle: " << handle
               << ", set_bit: " << lidar_device->livox_config.set_bits << std::endl;
@@ -238,6 +249,9 @@ void LivoxLidarCallback::SetDualEmitCallback(livox_status status, uint32_t handl
     lidar_device->livox_config.set_bits &= ~((uint32_t)(kConfigDualEmit));
     if (!lidar_device->livox_config.set_bits) {
       lidar_device->connect_state = kConnectStateSampling;
+      fprintf(stderr, "sampling_ready handle=%u steady_ns=%lld wall_ns=%lld\n", handle,
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count(),
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
     }
     std::cout << "successfully set dual emit mode, handle: " << handle
               << ", set_bit: " << lidar_device->livox_config.set_bits << std::endl;

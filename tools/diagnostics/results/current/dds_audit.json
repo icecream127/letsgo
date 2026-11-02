@@ -1,0 +1,66 @@
+{
+  "/livox/imu": {
+    "publishers": [
+      {
+        "node": "mid360_real_driver",
+        "depth": 0,
+        "reliability": "ReliabilityPolicy.RELIABLE",
+        "durability": "DurabilityPolicy.VOLATILE"
+      }
+    ],
+    "subscriptions": [
+      {
+        "node": "laser_mapping",
+        "depth": 0,
+        "reliability": "ReliabilityPolicy.RELIABLE",
+        "durability": "DurabilityPolicy.VOLATILE"
+      }
+    ]
+  },
+  "/livox/lidar": {
+    "publishers": [
+      {
+        "node": "mid360_real_driver",
+        "depth": 0,
+        "reliability": "ReliabilityPolicy.RELIABLE",
+        "durability": "DurabilityPolicy.VOLATILE"
+      }
+    ],
+    "subscriptions": [
+      {
+        "node": "laser_mapping",
+        "depth": 0,
+        "reliability": "ReliabilityPolicy.RELIABLE",
+        "durability": "DurabilityPolicy.VOLATILE"
+      }
+    ]
+  },
+  "/Odometry": {
+    "publishers": [
+      {
+        "node": "laser_mapping",
+        "depth": 0,
+        "reliability": "ReliabilityPolicy.RELIABLE",
+        "durability": "DurabilityPolicy.VOLATILE"
+      }
+    ],
+    "subscriptions": [
+      {
+        "node": "navigation_evidence_observer",
+        "depth": 0,
+        "reliability": "ReliabilityPolicy.BEST_EFFORT",
+        "durability": "DurabilityPolicy.VOLATILE"
+      },
+      {
+        "node": "nav_adapter",
+        "depth": 0,
+        "reliability": "ReliabilityPolicy.BEST_EFFORT",
+        "durability": "DurabilityPolicy.VOLATILE"
+      }
+    ]
+  },
+  "driver_dds_env": [
+    "ROS_DOMAIN_ID=42",
+    "ROS_LOCALHOST_ONLY=0"
+  ]
+}

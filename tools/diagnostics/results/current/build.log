@@ -1,0 +1,27 @@
+Starting >>> livox_ros_driver2
+--- stderr: livox_ros_driver2
+/usr/include/apr-1.0
+apr-1
+---
+Finished <<< livox_ros_driver2 [13.0s]
+Starting >>> fast_lio
+--- stderr: fast_lio
+Current CPU archtecture: aarch64
+CMake Warning (dev) at CMakeLists.txt:80 (find_package):
+  Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.
+  Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy
+  command to set the policy and suppress this warning.
+
+  CMake variable PCL_ROOT is set to:
+
+    /usr
+
+  For compatibility, CMake is ignoring the variable.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Eigen:/usr/include/eigen3
+---
+Finished <<< fast_lio [8.54s]
+
+Summary: 2 packages finished [22.7s]
+  2 packages had stderr output: fast_lio livox_ros_driver2

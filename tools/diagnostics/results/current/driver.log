@@ -1,0 +1,24 @@
+[INFO] [1793539187.807983881] [mid360_real_driver]: Livox Ros Driver2 Version: 1.2.6
+[INFO] [1793539187.818054809] [mid360_real_driver]: Data Source is raw lidar.
+[INFO] [1793539187.818302143] [mid360_real_driver]: Config file : /home/jetson/letsgo/lidar_ws/src/ros2_to_stm32/config/mid360_real.json
+LdsLidar *GetInstance
+config lidar type: 8
+successfully parse base config, counts: 1
+[INFO] [1793539187.822117466] [mid360_real_driver]: Init lds lidar success!
+GetFreeIndex key:livox_lidar_1862379712.
+Init queue, real query size:16.
+Lidar[0] storage queue size: 10
+set pcl data type, handle: 1862379712, data type: 1
+set scan pattern, handle: 1862379712, scan pattern: 0
+begin to change work mode to 'Normal', handle: 1862379712
+successfully set data type, handle: 1862379712, set_bit: 2
+successfully set pattern mode, handle: 1862379712, set_bit: 0
+successfully set lidar attitude, ip: 192.168.1.111
+successfully change work mode, handle: 1862379712
+successfully enable Livox Lidar imu, ip: 192.168.1.111
+[INFO] [1793539190.823279576] [mid360_real_driver]: livox/imu publish use imu format
+[INFO] [1793539190.830184477] [mid360_real_driver]: livox/lidar publish use livox custom format
+[INFO] [1793539829.968597917] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+Livox Lidar SDK Deinit completely!
+lddc destory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[ros2run]: Segmentation fault

@@ -1,0 +1,77 @@
+[INFO] [1793540334.862317880] [mid360_real_driver]: Livox Ros Driver2 Version: 1.2.6
+[INFO] [1793540334.863236791] [mid360_real_driver]: Data Source is raw lidar.
+[INFO] [1793540334.863309242] [mid360_real_driver]: Config file : /home/jetson/letsgo/lidar_ws/src/ros2_to_stm32/config/mid360_real.json
+LdsLidar *GetInstance
+config lidar type: 8
+successfully parse base config, counts: 1
+[INFO] [1793540334.865682955] [mid360_real_driver]: Init lds lidar success!
+clock_diag handle=1862379712 type=0 raw_ns=1211422952940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2282366501862 mapped_ns=1793540334884178692 age_ms=-0.038 wall_step_ms=-0.038 device_vs_steady_ms=0.000 backtrack_ms=0.000
+frame_diag base_ns=1793540335085778692 receive_steady_ns=2282568299743 assembled_steady_ns=2282673887930 receive_to_assembled_ms=105.588
+GetFreeIndex key:livox_lidar_1862379712.
+Init queue, real query size:16.
+Lidar[0] storage queue size: 10
+set pcl data type, handle: 1862379712, data type: 1
+set scan pattern, handle: 1862379712, scan pattern: 0
+begin to change work mode to 'Normal', handle: 1862379712
+successfully set data type, handle: 1862379712, set_bit: 2
+sampling_ready handle=1862379712 steady_ns=2284371943497 wall_ns=1793540336889586502
+successfully set pattern mode, handle: 1862379712, set_bit: 0
+successfully set lidar attitude, ip: 192.168.1.111
+successfully change work mode, handle: 1862379712
+successfully enable Livox Lidar imu, ip: 192.168.1.111
+[INFO] [1793540336.891017879] [mid360_real_driver]: livox/imu publish use imu format
+imu_first_publish receive_steady_ns=0 publish_steady_ns=2284382357293 queue_ms=-1.000 stamp_ns=1793540334888087152
+[INFO] [1793540336.992789614] [mid360_real_driver]: livox/lidar publish use livox custom format
+publish_diag base_ns=1793540335085778692 last_offset_ns=99349965 steady_ns=2284497441002 age_ms=1932.752 publish_ms=3.446 points=19872
+clock_diag handle=1862379712 type=0 raw_ns=1216423592940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2287366582186 mapped_ns=1793540339884818692 age_ms=-0.594 wall_step_ms=-0.034 device_vs_steady_ms=0.560 backtrack_ms=0.000
+frame_diag base_ns=1793540340086418692 receive_steady_ns=2287568516145 assembled_steady_ns=2287668303836 receive_to_assembled_ms=99.788
+publish_diag base_ns=1793540340086418692 last_offset_ns=99829965 steady_ns=2287671363044 age_ms=109.206 publish_ms=6.619 points=19968
+imu_publish_diag stamp_ns=1793540341902392212 count=1404 age_min_ms=-1.450 age_max_ms=2013.780 publish_max_ms=12.963 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1221423752940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2292366653705 mapped_ns=1793540344884978692 age_ms=-0.683 wall_step_ms=-0.035 device_vs_steady_ms=0.648 backtrack_ms=0.000
+frame_diag base_ns=1793540345086578692 receive_steady_ns=2292568600891 assembled_steady_ns=2292668356953 receive_to_assembled_ms=99.756
+publish_diag base_ns=1793540345086578692 last_offset_ns=99829965 steady_ns=2292671207642 age_ms=117.557 publish_ms=15.285 points=19968
+imu_publish_diag stamp_ns=1793540346908004812 count=1001 age_min_ms=-1.429 age_max_ms=15.195 publish_max_ms=10.411 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1226423912940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2297366745802 mapped_ns=1793540349885138692 age_ms=-0.751 wall_step_ms=-0.034 device_vs_steady_ms=0.716 backtrack_ms=0.000
+frame_diag base_ns=1793540350085778692 receive_steady_ns=2297567394874 assembled_steady_ns=2297668579454 receive_to_assembled_ms=101.185
+publish_diag base_ns=1793540350085778692 last_offset_ns=100789965 steady_ns=2297673414146 age_ms=108.633 publish_ms=3.355 points=20160
+imu_publish_diag stamp_ns=1793540351908077052 count=1000 age_min_ms=-1.372 age_max_ms=18.849 publish_max_ms=11.534 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1231424072940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2302367191581 mapped_ns=1793540354885298692 age_ms=-0.465 wall_step_ms=-0.035 device_vs_steady_ms=0.430 backtrack_ms=0.000
+frame_diag base_ns=1793540355086418692 receive_steady_ns=2302568646098 assembled_steady_ns=2302668581377 receive_to_assembled_ms=99.935
+publish_diag base_ns=1793540355086418692 last_offset_ns=100309965 steady_ns=2302671178169 age_ms=118.214 publish_ms=15.812 points=20064
+imu_publish_diag stamp_ns=1793540356912270132 count=1001 age_min_ms=-1.319 age_max_ms=19.569 publish_max_ms=18.565 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1236424232940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2307367244557 mapped_ns=1793540359885458692 age_ms=-0.572 wall_step_ms=-0.034 device_vs_steady_ms=0.537 backtrack_ms=0.000
+frame_diag base_ns=1793540360086098692 receive_steady_ns=2307573409196 assembled_steady_ns=2307668243013 receive_to_assembled_ms=94.834
+publish_diag base_ns=1793540360086098692 last_offset_ns=98389965 steady_ns=2307671067972 age_ms=106.307 publish_ms=3.695 points=19680
+imu_publish_diag stamp_ns=1793540361917948292 count=1001 age_min_ms=-1.292 age_max_ms=18.857 publish_max_ms=10.399 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1241424392940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2312367472309 mapped_ns=1793540364885618692 age_ms=-0.504 wall_step_ms=-0.035 device_vs_steady_ms=0.470 backtrack_ms=0.000
+frame_diag base_ns=1793540365086258692 receive_steady_ns=2312568731481 assembled_steady_ns=2312670826876 receive_to_assembled_ms=102.095
+publish_diag base_ns=1793540365086258692 last_offset_ns=100309965 steady_ns=2312674235598 age_ms=108.793 publish_ms=3.173 points=20064
+imu_publish_diag stamp_ns=1793540366922076572 count=1001 age_min_ms=-1.261 age_max_ms=15.954 publish_max_ms=12.258 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1246424552940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2317367473610 mapped_ns=1793540369885778692 age_ms=-0.663 wall_step_ms=-0.034 device_vs_steady_ms=0.628 backtrack_ms=0.000
+frame_diag base_ns=1793540370086418692 receive_steady_ns=2317568898783 assembled_steady_ns=2317668549541 receive_to_assembled_ms=99.651
+publish_diag base_ns=1793540370086418692 last_offset_ns=99829965 steady_ns=2317672149822 age_ms=107.048 publish_ms=3.674 points=19968
+imu_publish_diag stamp_ns=1793540371927960032 count=1001 age_min_ms=-1.248 age_max_ms=17.514 publish_max_ms=10.457 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1251424712940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2322368578335 mapped_ns=1793540374885938692 age_ms=0.282 wall_step_ms=-0.035 device_vs_steady_ms=-0.316 backtrack_ms=0.000
+frame_diag base_ns=1793540375086098692 receive_steady_ns=2322572119110 assembled_steady_ns=2322668661370 receive_to_assembled_ms=96.542
+publish_diag base_ns=1793540375086098692 last_offset_ns=100309965 steady_ns=2322671237392 age_ms=109.213 publish_ms=6.432 points=20064
+imu_publish_diag stamp_ns=1793540376928063482 count=1000 age_min_ms=-1.180 age_max_ms=31.926 publish_max_ms=10.364 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1256424872940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2327368670770 mapped_ns=1793540379886098692 age_ms=0.214 wall_step_ms=-0.035 device_vs_steady_ms=-0.249 backtrack_ms=0.000
+frame_diag base_ns=1793540380080018692 receive_steady_ns=2327568237984 assembled_steady_ns=2327675254246 receive_to_assembled_ms=107.016
+publish_diag base_ns=1793540380080018692 last_offset_ns=104149965 steady_ns=2327683496568 age_ms=125.315 publish_ms=4.194 points=20832
+imu_publish_diag stamp_ns=1793540381932363932 count=1001 age_min_ms=-1.173 age_max_ms=12.519 publish_max_ms=10.293 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1261424552940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2332369301627 mapped_ns=1793540384885778692 age_ms=1.165 wall_step_ms=-0.035 device_vs_steady_ms=-1.200 backtrack_ms=0.000
+frame_diag base_ns=1793540385084498692 receive_steady_ns=2332567985432 assembled_steady_ns=2332668686754 receive_to_assembled_ms=100.701
+publish_diag base_ns=1793540385084498692 last_offset_ns=101749965 steady_ns=2332674814606 age_ms=111.645 publish_ms=3.687 points=20352
+imu_publish_diag stamp_ns=1793540386928057492 count=999 age_min_ms=-1.143 age_max_ms=20.356 publish_max_ms=13.456 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1266426632940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2337370473024 mapped_ns=1793540389887858692 age_ms=0.257 wall_step_ms=-0.035 device_vs_steady_ms=-0.291 backtrack_ms=0.197
+frame_diag base_ns=1793540390086098692 receive_steady_ns=2337569069062 assembled_steady_ns=2337668886697 receive_to_assembled_ms=99.818
+publish_diag base_ns=1793540390086098692 last_offset_ns=100309965 steady_ns=2337674995091 age_ms=117.336 publish_ms=10.797 points=20064
+imu_publish_diag stamp_ns=1793540391938079292 count=1002 age_min_ms=-1.076 age_max_ms=15.928 publish_max_ms=10.497 queue_max_ms=0.000
+clock_diag handle=1862379712 type=0 raw_ns=1271426792940 anchor_raw_ns=1211422952940 anchor_epoch_ns=1793540334884178692 steady_ns=2342370656915 mapped_ns=1793540394888018692 age_ms=0.280 wall_step_ms=-0.035 device_vs_steady_ms=-0.315 backtrack_ms=0.035
+frame_diag base_ns=1793540395085778692 receive_steady_ns=2342569881914 assembled_steady_ns=2342667822166 receive_to_assembled_ms=97.940
+publish_diag base_ns=1793540395085778692 last_offset_ns=98389965 steady_ns=2342670652979 age_ms=110.004 publish_ms=7.486 points=19680
+imu_publish_diag stamp_ns=1793540396942235492 count=1001 age_min_ms=-1.054 age_max_ms=15.797 publish_max_ms=13.377 queue_max_ms=0.000
+[INFO] [1793540399.358951831] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+Livox Lidar SDK Deinit completely!
+lddc destory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[ros2run]: Segmentation fault

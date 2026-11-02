@@ -1,0 +1,22 @@
+{"topic": "/livox/lidar", "count": 284, "window_s": 30.00572146000013, "stamp_span_s": 28.8024001121521, "stamp_backtracks": 0, "over_0_5_s": 16, "hz": 10.560818952887882, "age_mean_s": 0.18975510983399943, "age_p95_s": 0.7189798355102539, "age_min_s": 0.10637640953063965, "age_max_s": 2.120154857635498}
+{"topic": "/livox/imu", "count": 5427, "window_s": 30.00572146000013, "stamp_span_s": 28.99430561065674, "stamp_backtracks": 0, "over_0_5_s": 16, "hz": 201.06716170029486, "age_mean_s": 0.007452182311126051, "age_p95_s": 0.012647628784179688, "age_min_s": -0.0012187957763671875, "age_max_s": 2.012972831726074}
+{"topic": "/Odometry", "count": 213, "window_s": 30.00572146000013, "stamp_span_s": 21.199115991592407, "stamp_backtracks": 0, "over_0_5_s": 0, "hz": 9.980351772324658, "age_mean_s": 0.04684161692158157, "age_p95_s": 0.0632622241973877, "age_min_s": 0.027362585067749023, "age_max_s": 0.09090733528137207}
+{"host_clock_offset_change_s": -4.5299530029296875e-06, "elapsed_s": 30.02363137400016}
+{"topic": "/livox/lidar", "count": 301, "window_s": 30.00218267299988, "stamp_span_s": 30.0, "stamp_backtracks": 0, "over_0_5_s": 0, "hz": 10.00283023579679, "age_mean_s": 0.11637944953386174, "age_p95_s": 0.13538050651550293, "age_min_s": 0.10527348518371582, "age_max_s": 0.14870047569274902}
+{"topic": "/livox/imu", "count": 6004, "window_s": 30.00218267299988, "stamp_span_s": 30.020030975341797, "stamp_backtracks": 0, "over_0_5_s": 0, "hz": 200.10927445120328, "age_mean_s": 0.004224298557863483, "age_p95_s": 0.015584230422973633, "age_min_s": -0.0009670257568359375, "age_max_s": 0.04724717140197754}
+{"topic": "/Odometry", "count": 300, "window_s": 30.00218267299988, "stamp_span_s": 29.8996798992157, "stamp_backtracks": 0, "over_0_5_s": 0, "hz": 9.991107256264975, "age_mean_s": 0.05312211910883586, "age_p95_s": 0.07948040962219238, "age_min_s": 0.02501368522644043, "age_max_s": 0.13140082359313965}
+{"host_clock_offset_change_s": -4.5299530029296875e-06, "elapsed_s": 60.037550466000084}
+Traceback (most recent call last):
+  File "/home/jetson/letsgo/tools/diagnostics/ros_latency.py", line 63, in <module>
+    rclpy.spin_once(n,timeout_sec=.1)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 208, in spin_once
+    executor.spin_once(timeout_sec=timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 812, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 801, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 784, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 681, in _wait_for_ready_callbacks
+    wait_set.wait(timeout_nsec)
+KeyboardInterrupt

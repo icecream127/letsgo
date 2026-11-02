@@ -1,0 +1,57 @@
+Starting >>> livox_ros_driver2
+Finished <<< livox_ros_driver2 [22.2s]
+Starting >>> fast_lio
+--- stderr: fast_lio
+In file included from /usr/include/boost/smart_ptr/detail/sp_thread_sleep.hpp:22,
+                 from /usr/include/boost/smart_ptr/detail/yield_k.hpp:23,
+                 from /usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14,
+                 from /usr/include/boost/smart_ptr/detail/spinlock.hpp:42,
+                 from /usr/include/boost/smart_ptr/detail/spinlock_pool.hpp:25,
+                 from /usr/include/boost/smart_ptr/shared_ptr.hpp:29,
+                 from /usr/include/boost/shared_ptr.hpp:17,
+                 from /usr/include/boost/date_time/microsec_time_clock.hpp:18,
+                 from /usr/include/boost/interprocess/detail/posix_time_types_wrk.hpp:31,
+                 from /usr/include/boost/interprocess/detail/os_thread_functions.hpp:36,
+                 from /usr/include/boost/interprocess/sync/file_lock.hpp:26,
+                 from /usr/include/pcl-1.12/pcl/io/pcd_io.h:46,
+                 from /opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:73,
+                 from /home/jetson/letsgo/lidar_ws/src/fastlio/src/IMU_Processing.hpp:18,
+                 from /home/jetson/letsgo/lidar_ws/src/fastlio/src/laserMapping.cpp:50:
+/usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+/home/jetson/letsgo/lidar_ws/src/fastlio/src/laserMapping.cpp: In function ‘void standard_pcl_cbk(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::UniquePtr)’:
+/home/jetson/letsgo/lidar_ws/src/fastlio/src/laserMapping.cpp:289:5: error: ‘diag_arrivals’ was not declared in this scope
+  289 |     diag_arrivals[cur_time] = diag_steady_s();
+      |     ^~~~~~~~~~~~~
+/home/jetson/letsgo/lidar_ws/src/fastlio/src/laserMapping.cpp:289:19: error: ‘cur_time’ was not declared in this scope
+  289 |     diag_arrivals[cur_time] = diag_steady_s();
+      |                   ^~~~~~~~
+/home/jetson/letsgo/lidar_ws/src/fastlio/src/laserMapping.cpp:289:31: error: ‘diag_steady_s’ was not declared in this scope
+  289 |     diag_arrivals[cur_time] = diag_steady_s();
+      |                               ^~~~~~~~~~~~~
+In file included from /home/jetson/letsgo/lidar_ws/src/fastlio/include/IKFoM_toolkit/esekfom/../mtk/types/SOn.hpp:83,
+                 from /home/jetson/letsgo/lidar_ws/src/fastlio/include/IKFoM_toolkit/esekfom/esekfom.hpp:49,
+                 from /home/jetson/letsgo/lidar_ws/src/fastlio/include/use-ikfom.hpp:4,
+                 from /home/jetson/letsgo/lidar_ws/src/fastlio/src/IMU_Processing.hpp:22,
+                 from /home/jetson/letsgo/lidar_ws/src/fastlio/src/laserMapping.cpp:50:
+/home/jetson/letsgo/lidar_ws/src/fastlio/include/IKFoM_toolkit/esekfom/../mtk/types/../src/mtkmath.hpp: In instantiation of ‘std::pair<_FIter, _FIter> MTK::cos_sinc_sqrt(const scalar&) [with scalar = double]’:
+/home/jetson/letsgo/lidar_ws/src/fastlio/include/IKFoM_toolkit/esekfom/../mtk/types/../src/mtkmath.hpp:252:52:   required from ‘scalar MTK::exp(MTK::vectview<scalar, dim>, MTK::vectview<const scalar, dim>, const scalar&) [with scalar = double; int n = 3]’
+/home/jetson/letsgo/lidar_ws/src/fastlio/include/IKFoM_toolkit/esekfom/../mtk/types/S2.hpp:140:32:   required from ‘void MTK::S2<_scalar, den, num, S2_typ>::boxplus(MTK::vectview<const _scalar, 2>, MTK::S2<_scalar, den, num, S2_typ>::scalar) [with _scalar = double; int den = 98090; int num = 10000; int S2_typ = 1; MTK::S2<_scalar, den, num, S2_typ>::scalar = double]’
+/home/jetson/letsgo/lidar_ws/src/fastlio/include/use-ikfom.hpp:12:1:   required from here
+/home/jetson/letsgo/lidar_ws/src/fastlio/include/IKFoM_toolkit/esekfom/../mtk/types/../src/mtkmath.hpp:143:27: note: parameter passing for argument of type ‘std::pair<double, double>’ when C++17 is enabled changed to match C++14 in GCC 10.1
+  143 | std::pair<scalar, scalar> cos_sinc_sqrt(const scalar &x2){
+      |                           ^~~~~~~~~~~~~
+gmake[2]: *** [CMakeFiles/fastlio_mapping.dir/build.make:76: CMakeFiles/fastlio_mapping.dir/src/laserMapping.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:612: CMakeFiles/fastlio_mapping.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
+---
+Failed   <<< fast_lio [2min 23s, exited with code 2]
+[Processing: fast_lio]
+[Processing: fast_lio]
+[Processing: fast_lio]
+[Processing: fast_lio]
+
+Summary: 1 package finished [2min 46s]
+  1 package failed: fast_lio
+  1 package had stderr output: fast_lio

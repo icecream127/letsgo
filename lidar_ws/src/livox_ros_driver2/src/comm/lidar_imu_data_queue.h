@@ -51,6 +51,7 @@ typedef struct {
   //   uint8_t slot;
   // };
   uint64_t time_stamp;
+  int64_t diag_receive_steady_ns = 0;
   float gyro_x;        /**< Gyroscope X axis, Unit:rad/s */
   float gyro_y;        /**< Gyroscope Y axis, Unit:rad/s */
   float gyro_z;        /**< Gyroscope Z axis, Unit:rad/s */

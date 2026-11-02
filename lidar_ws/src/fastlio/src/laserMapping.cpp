@@ -39,6 +39,7 @@
 #include <fstream>
 #include <csignal>
 #include <chrono>
+#include <map>
 #include <filesystem>
 #include <stdexcept>
 #include <unistd.h>
@@ -282,17 +283,26 @@ void lasermap_fov_segment()
     kdtree_delete_time = omp_get_wtime() - delete_begin;
 }
 
+double diag_steady_s() {
+    return std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
+}
+std::map<double, double> diag_arrivals;
+double diag_frame_arrival = 0.0;
+
 void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::UniquePtr msg) 
 {
     mtx_buffer.lock();
     scan_count ++;
     double cur_time = get_time_sec(msg->header.stamp);
+    diag_arrivals[cur_time] = diag_steady_s();
     double preprocess_start_time = omp_get_wtime();
     if (!is_first_lidar && cur_time < last_timestamp_lidar)
     {
         std::cerr << "LiDAR timestamp moved backward by "
                   << (last_timestamp_lidar - cur_time)
                   << " s; clear LiDAR and time buffers" << std::endl;
+        diag_arrivals.clear();
+        diag_arrivals[cur_time] = diag_steady_s();
         lidar_buffer.clear();
         time_buffer.clear();
         lidar_pushed = false;
@@ -307,17 +317,20 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::UniquePtr msg)
     lidar_buffer.push_back(ptr);
     time_buffer.push_back(cur_time);
     last_timestamp_lidar = cur_time;
-    s_plot11[scan_count] = omp_get_wtime() - preprocess_start_time;
+    if (scan_count < MAXN) s_plot11[scan_count] = omp_get_wtime() - preprocess_start_time;
     mtx_buffer.unlock();
     sig_buffer.notify_all();
 }
 
+double input_lidar_age = 0.0, input_imu_age = 0.0, preprocess_ms = 0.0;
+uint64_t sync_imu_waits = 0;
 double timediff_lidar_wrt_imu = 0.0;
 bool   timediff_set_flg = false;
 void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg) 
 {
     mtx_buffer.lock();
     double cur_time = get_time_sec(msg->header.stamp);
+    diag_arrivals[cur_time] = diag_steady_s();
     double preprocess_start_time = omp_get_wtime();
     scan_count ++;
     if (!is_first_lidar && cur_time < last_timestamp_lidar)
@@ -325,6 +338,8 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
         std::cerr << "LiDAR timestamp moved backward by "
                   << (last_timestamp_lidar - cur_time)
                   << " s; clear LiDAR and time buffers" << std::endl;
+        diag_arrivals.clear();
+        diag_arrivals[cur_time] = diag_steady_s();
         lidar_buffer.clear();
         time_buffer.clear();
         lidar_pushed = false;
@@ -334,6 +349,7 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
         is_first_lidar = false;
     }
     last_timestamp_lidar = cur_time;
+    input_lidar_age = rclcpp::Clock(RCL_SYSTEM_TIME).now().seconds() - cur_time;
     
     if (!time_sync_en && abs(last_timestamp_imu - last_timestamp_lidar) > 10.0 && !imu_buffer.empty() && !lidar_buffer.empty() )
     {
@@ -351,8 +367,9 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
     p_pre->process(msg, ptr);
     lidar_buffer.push_back(ptr);
     time_buffer.push_back(last_timestamp_lidar);
+    preprocess_ms = (omp_get_wtime() - preprocess_start_time) * 1000.0;
     
-    s_plot11[scan_count] = omp_get_wtime() - preprocess_start_time;
+    if (scan_count < MAXN) s_plot11[scan_count] = omp_get_wtime() - preprocess_start_time;
     mtx_buffer.unlock();
     sig_buffer.notify_all();
 }
@@ -384,6 +401,7 @@ void imu_cbk(const sensor_msgs::msg::Imu::UniquePtr msg_in)
     }
 
     last_timestamp_imu = timestamp;
+    input_imu_age = rclcpp::Clock(RCL_SYSTEM_TIME).now().seconds() - timestamp;
 
     imu_buffer.push_back(msg);
     mtx_buffer.unlock();
@@ -403,6 +421,8 @@ bool sync_packages(MeasureGroup &meas)
     {
         meas.lidar = lidar_buffer.front();
         meas.lidar_beg_time = time_buffer.front();
+        auto arrival = diag_arrivals.find(meas.lidar_beg_time);
+        diag_frame_arrival = arrival == diag_arrivals.end() ? diag_steady_s() : arrival->second;
         if (meas.lidar->points.size() <= 1) // time too little
         {
             lidar_end_time = meas.lidar_beg_time + lidar_mean_scantime;
@@ -426,6 +446,7 @@ bool sync_packages(MeasureGroup &meas)
 
     if (last_timestamp_imu < lidar_end_time)
     {
+        ++sync_imu_waits;
         return false;
     }
 
@@ -440,6 +461,7 @@ bool sync_packages(MeasureGroup &meas)
         imu_buffer.pop_front();
     }
 
+    diag_arrivals.erase(meas.lidar_beg_time);
     lidar_buffer.pop_front();
     time_buffer.pop_front();
     lidar_pushed = false;
@@ -952,7 +974,9 @@ public:
         {
             sub_pcl_pc_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(lid_topic, rclcpp::SensorDataQoS(), standard_pcl_cbk);
         }
-        sub_imu_ = this->create_subscription<sensor_msgs::msg::Imu>(imu_topic, 10, imu_cbk);
+        // 200 Hz IMU: retain up to one second while the single-threaded
+        // executor processes a scan; depth 10 only covered 50 ms.
+        sub_imu_ = this->create_subscription<sensor_msgs::msg::Imu>(imu_topic, 200, imu_cbk);
         pubLaserCloudFull_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/cloud_registered", 20);
         pubLaserCloudFull_body_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/cloud_registered_body", 20);
         pubLaserCloudEffect_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/cloud_effected", 20);
@@ -983,6 +1007,8 @@ public:
 private:
     void timer_callback()
     {
+        const double callback_start = omp_get_wtime();
+        const double diag_start = diag_steady_s();
         if(sync_packages(Measures))
         {
             if (flg_first_scan)
@@ -1003,6 +1029,7 @@ private:
             t0 = omp_get_wtime();
 
             p_imu->Process(Measures, kf, feats_undistort);
+            const double diag_undistort_ms = (diag_steady_s()-diag_start)*1000.0;
             state_point = kf.get_x();
             pos_lid = state_point.pos + state_point.rot * state_point.offset_T_L_I;
 
@@ -1054,7 +1081,7 @@ private:
             feats_down_world->resize(feats_down_size);
 
             V3D ext_euler = SO3ToEuler(state_point.offset_R_L_I);
-            fout_pre<<setw(20)<<Measures.lidar_beg_time - first_lidar_time<<" "<<euler_cur.transpose()<<" "<< state_point.pos.transpose()<<" "<<ext_euler.transpose() << " "<<state_point.offset_T_L_I.transpose()<< " " << state_point.vel.transpose() \
+            if (runtime_pos_log) fout_pre<<setw(20)<<Measures.lidar_beg_time - first_lidar_time<<" "<<euler_cur.transpose()<<" "<< state_point.pos.transpose()<<" "<<ext_euler.transpose() << " "<<state_point.offset_T_L_I.transpose()<< " " << state_point.vel.transpose() \
             <<" "<<state_point.bg.transpose()<<" "<<state_point.ba.transpose()<<" "<<state_point.grav<< endl;
 
             if(0) // If you need to see map point, change to "if(1)"
@@ -1087,7 +1114,9 @@ private:
             double t_update_end = omp_get_wtime();
 
             /******* Publish odometry *******/
+            const double odom_pub_start = omp_get_wtime();
             publish_odometry(pubOdomAftMapped_, tf_broadcaster_);
+            const double odom_pub_ms = (omp_get_wtime() - odom_pub_start) * 1000.0;
 
             /*** add the feature points to map kdtree ***/
             t3 = omp_get_wtime();
@@ -1101,8 +1130,22 @@ private:
             if (effect_pub_en) publish_effect_world(pubLaserCloudEffect_);
             // if (map_pub_en) publish_map(pubLaserCloudMap_);
 
+            // The same measurement-time bucket is sampled by the driver.
+            if ((static_cast<uint64_t>(Measures.lidar_beg_time * 1e9) / 100000000ULL) % 50 == 0)
+            RCLCPP_INFO(this->get_logger(),
+                "latency lidar_in=%.3f imu_in=%.3f odom=%.3f queue=%zu/%zu imu_gap=%.3f imu_waits=%llu pre=%.1f process=%.1f update=%.1f map=%.1f odom_pub=%.1f clouds=%.1f points=%d tree=%d beg=%.9f end=%.9f steady=%.9f wait_ms=%.3f oldest_ms=%.3f undistort_ms=%.3f",
+                input_lidar_age, input_imu_age, this->now().seconds() - lidar_end_time,
+                lidar_buffer.size(), imu_buffer.size(), last_timestamp_imu - lidar_end_time,
+                static_cast<unsigned long long>(sync_imu_waits), preprocess_ms, (omp_get_wtime() - callback_start)*1000.0,
+                (t_update_end-t_update_start)*1000.0, (t5-t3)*1000.0,
+                odom_pub_ms, (omp_get_wtime()-t5)*1000.0, feats_down_size, ikdtree.size(),
+                Measures.lidar_beg_time, lidar_end_time, diag_start,
+                (diag_start-diag_frame_arrival)*1000.0,
+                diag_arrivals.empty() ? 0.0 : (diag_steady_s()-diag_arrivals.begin()->second)*1000.0,
+                diag_undistort_ms);
+
             /*** Debug variables ***/
-            if (runtime_pos_log)
+            if (runtime_pos_log && time_log_counter < MAXN)
             {
                 frame_num ++;
                 kdtree_size_end = ikdtree.size();

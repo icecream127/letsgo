@@ -1,0 +1,1221 @@
+[INFO] [launch]: All log files can be found below /home/jetson/.ros/log/2026-11-01-21-22-26-264418-yahboom-86447
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [nav_adapter-1]: process started with pid [86505]
+[INFO] [pointcloud_to_laserscan_node-2]: process started with pid [86507]
+[INFO] [nav_cmd_gate-3]: process started with pid [86509]
+[INFO] [map_server-4]: process started with pid [86511]
+[INFO] [amcl-5]: process started with pid [86517]
+[INFO] [controller_server-6]: process started with pid [86530]
+[INFO] [planner_server-7]: process started with pid [86532]
+[INFO] [smoother_server-8]: process started with pid [86534]
+[INFO] [behavior_server-9]: process started with pid [86537]
+[INFO] [bt_navigator-10]: process started with pid [86542]
+[INFO] [lifecycle_manager-11]: process started with pid [86551]
+[INFO] [lifecycle_manager-12]: process started with pid [86574]
+[INFO] [rviz2-13]: process started with pid [86603]
+[controller_server-6] [INFO] [1793539346.758827242] [controller_server]: 
+[controller_server-6] 	controller_server lifecycle node launched. 
+[controller_server-6] 	Waiting on external lifecycle transitions to activate
+[controller_server-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-6] [INFO] [1793539346.811537191] [controller_server]: Creating controller server
+[planner_server-7] [INFO] [1793539346.671874157] [planner_server]: 
+[planner_server-7] 	planner_server lifecycle node launched. 
+[planner_server-7] 	Waiting on external lifecycle transitions to activate
+[planner_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-7] [INFO] [1793539346.712766785] [planner_server]: Creating
+[behavior_server-9] [INFO] [1793539346.797509037] [behavior_server]: 
+[behavior_server-9] 	behavior_server lifecycle node launched. 
+[behavior_server-9] 	Waiting on external lifecycle transitions to activate
+[behavior_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[lifecycle_manager-11] [INFO] [1793539346.783113066] [lifecycle_manager_localization]: Creating
+[lifecycle_manager-11] [INFO] [1793539346.788844458] [lifecycle_manager_localization]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[lifecycle_manager-12] [INFO] [1793539346.811543367] [lifecycle_manager_navigation]: Creating
+[lifecycle_manager-12] [INFO] [1793539346.816283153] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[bt_navigator-10] [INFO] [1793539346.822423515] [bt_navigator]: 
+[bt_navigator-10] 	bt_navigator lifecycle node launched. 
+[bt_navigator-10] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-10] [INFO] [1793539346.824139842] [bt_navigator]: Creating
+[controller_server-6] [INFO] [1793539346.920719830] [local_costmap.local_costmap]: 
+[controller_server-6] 	local_costmap lifecycle node launched. 
+[controller_server-6] 	Waiting on external lifecycle transitions to activate
+[controller_server-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-6] [INFO] [1793539346.924630542] [local_costmap.local_costmap]: Creating Costmap
+[amcl-5] [INFO] [1793539347.155161468] [amcl]: 
+[amcl-5] 	amcl lifecycle node launched. 
+[amcl-5] 	Waiting on external lifecycle transitions to activate
+[amcl-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[amcl-5] [INFO] [1793539347.161033920] [amcl]: Creating
+[smoother_server-8] [INFO] [1793539347.205111388] [smoother_server]: 
+[smoother_server-8] 	smoother_server lifecycle node launched. 
+[smoother_server-8] 	Waiting on external lifecycle transitions to activate
+[smoother_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[smoother_server-8] [INFO] [1793539347.207888794] [smoother_server]: Creating smoother server
+[planner_server-7] [INFO] [1793539347.408738222] [global_costmap.global_costmap]: 
+[planner_server-7] 	global_costmap lifecycle node launched. 
+[planner_server-7] 	Waiting on external lifecycle transitions to activate
+[planner_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-7] [INFO] [1793539347.409902152] [global_costmap.global_costmap]: Creating Costmap
+[map_server-4] [INFO] [1793539347.646090197] [map_server]: 
+[map_server-4] 	map_server lifecycle node launched. 
+[map_server-4] 	Waiting on external lifecycle transitions to activate
+[map_server-4] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-4] [INFO] [1793539347.646427452] [map_server]: Creating
+[lifecycle_manager-11] [INFO] [1793539347.763532732] [lifecycle_manager_localization]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-11] [INFO] [1793539347.765883249] [lifecycle_manager_localization]: [34m[1mConfiguring map_server[0m[0m
+[map_server-4] [INFO] [1793539347.775040926] [map_server]: Configuring
+[map_server-4] [INFO] [1793539347.775246979] [map_io]: Loading yaml file: /home/jetson/letsgo/maps/competition/map.yaml
+[map_server-4] [INFO] [1793539347.775751182] [map_io]: resolution: 0.05
+[map_server-4] [INFO] [1793539347.775772783] [map_io]: origin[0]: -1.9
+[map_server-4] [INFO] [1793539347.775810960] [map_io]: origin[1]: -7.25
+[map_server-4] [INFO] [1793539347.775822416] [map_io]: origin[2]: 0
+[map_server-4] [INFO] [1793539347.775829808] [map_io]: free_thresh: 0.196
+[map_server-4] [INFO] [1793539347.775836048] [map_io]: occupied_thresh: 0.65
+[map_server-4] [INFO] [1793539347.775843248] [map_io]: mode: trinary
+[map_server-4] [INFO] [1793539347.775851953] [map_io]: negate: 0
+[map_server-4] [INFO] [1793539347.782318241] [map_io]: Loading image_file: /home/jetson/letsgo/maps/competition/map.pgm
+[lifecycle_manager-12] [INFO] [1793539347.795654380] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-12] [INFO] [1793539347.795893042] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[map_server-4] [INFO] [1793539347.795970195] [map_io]: Read map /home/jetson/letsgo/maps/competition/map.pgm: 260 X 260 map @ 0.05 m/cell
+[controller_server-6] [INFO] [1793539347.797299377] [controller_server]: Configuring controller interface
+[controller_server-6] [INFO] [1793539347.797805596] [controller_server]: getting goal checker plugins..
+[controller_server-6] [INFO] [1793539347.797941952] [controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-6] [INFO] [1793539347.798008897] [local_costmap.local_costmap]: Configuring
+[controller_server-6] [INFO] [1793539347.819523779] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[controller_server-6] [INFO] [1793539347.841366221] [local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-6] [INFO] [1793539347.898614415] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[controller_server-6] [INFO] [1793539347.898716338] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[lifecycle_manager-11] [INFO] [1793539347.901819767] [lifecycle_manager_localization]: [34m[1mConfiguring amcl[0m[0m
+[amcl-5] [INFO] [1793539347.903908742] [amcl]: Configuring
+[amcl-5] [INFO] [1793539347.904113515] [amcl]: initTransforms
+[controller_server-6] [INFO] [1793539347.925177827] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[pointcloud_to_laserscan_node-2] [INFO] [1793539347.926558658] [pointcloud_to_laserscan]: Got a subscriber to laserscan, starting pointcloud subscriber
+[amcl-5] [INFO] [1793539347.954211565] [amcl]: initPubSub
+[amcl-5] [INFO] [1793539348.005221188] [amcl]: Subscribed to map topic.
+[controller_server-6] [INFO] [1793539348.008814325] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-6] [INFO] [1793539348.015816690] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-6] [INFO] [1793539348.018513454] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-6] [INFO] [1793539348.028474733] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[controller_server-6] [INFO] [1793539348.046648676] [controller_server]: Setting transform_tolerance to 0.200000
+[lifecycle_manager-11] [INFO] [1793539348.059058362] [lifecycle_manager_localization]: [34m[1mActivating map_server[0m[0m
+[map_server-4] [INFO] [1793539348.060871907] [map_server]: Activating
+[map_server-4] [INFO] [1793539348.061256811] [map_server]: Creating bond (map_server) to lifecycle manager.
+[controller_server-6] [INFO] [1793539348.156572291] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[controller_server-6] [INFO] [1793539348.158985817] [controller_server]: Critic plugin initialized
+[controller_server-6] [INFO] [1793539348.159461315] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[controller_server-6] [INFO] [1793539348.163222936] [controller_server]: Critic plugin initialized
+[controller_server-6] [INFO] [1793539348.164045898] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[controller_server-6] [INFO] [1793539348.165328039] [controller_server]: Critic plugin initialized
+[controller_server-6] [INFO] [1793539348.172246882] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[controller_server-6] [INFO] [1793539348.173881254] [controller_server]: Critic plugin initialized
+[controller_server-6] [INFO] [1793539348.174330000] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[controller_server-6] [INFO] [1793539348.176145465] [controller_server]: Critic plugin initialized
+[controller_server-6] [INFO] [1793539348.178677586] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[controller_server-6] [INFO] [1793539348.187119311] [controller_server]: Critic plugin initialized
+[controller_server-6] [INFO] [1793539348.189617543] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[controller_server-6] [INFO] [1793539348.192364452] [controller_server]: Critic plugin initialized
+[controller_server-6] [INFO] [1793539348.192459815] [controller_server]: Controller Server has FollowPath  controllers available.
+[lifecycle_manager-12] [INFO] [1793539348.274097451] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-7] [INFO] [1793539348.276064375] [planner_server]: Configuring
+[planner_server-7] [INFO] [1793539348.276191066] [global_costmap.global_costmap]: Configuring
+[planner_server-7] [INFO] [1793539348.301772055] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-7] [INFO] [1793539348.319403458] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-7] [INFO] [1793539348.330030480] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-7] [INFO] [1793539348.332445542] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[planner_server-7] [INFO] [1793539348.346369598] [global_costmap.global_costmap]: Subscribed to Topics: scan
+[lifecycle_manager-11] [INFO] [1793539348.354268431] [lifecycle_manager_localization]: Server map_server connected with bond.
+[lifecycle_manager-11] [INFO] [1793539348.354385170] [lifecycle_manager_localization]: [34m[1mActivating amcl[0m[0m
+[amcl-5] [INFO] [1793539348.359226430] [amcl]: Activating
+[amcl-5] [INFO] [1793539348.359394594] [amcl]: Creating bond (amcl) to lifecycle manager.
+[planner_server-7] [INFO] [1793539348.420742752] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[planner_server-7] [INFO] [1793539348.420842467] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-7] [INFO] [1793539348.438723315] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[lifecycle_manager-11] [INFO] [1793539348.480328727] [lifecycle_manager_localization]: Server amcl connected with bond.
+[lifecycle_manager-11] [INFO] [1793539348.480442618] [lifecycle_manager_localization]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-11] [INFO] [1793539348.480467386] [lifecycle_manager_localization]: [34m[1mCreating bond timer...[0m[0m
+[planner_server-7] [INFO] [1793539348.562673580] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 260 X 260 at 0.050000 m/pix
+[planner_server-7] [INFO] [1793539348.570275894] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+[planner_server-7] [INFO] [1793539348.570403673] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-7] [INFO] [1793539348.571095944] [planner_server]: Planner Server has GridBased  planners available.
+[amcl-5] [INFO] [1793539348.671610196] [amcl]: Received a 260 X 260 map @ 0.050 m/pix
+[lifecycle_manager-12] [INFO] [1793539348.722179937] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[smoother_server-8] [INFO] [1793539348.724158157] [smoother_server]: Configuring smoother server
+[smoother_server-8] [INFO] [1793539348.815952245] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+[smoother_server-8] [INFO] [1793539348.816872362] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+[lifecycle_manager-12] [INFO] [1793539348.996027927] [lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793539348.999469572] [behavior_server]: Configuring
+[behavior_server-9] [INFO] [1793539349.034869757] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors/Spin
+[nav_adapter-1] [INFO] [1793539349.036627429] [nav_adapter]: Navigation adapter started
+[behavior_server-9] [INFO] [1793539349.055643598] [behavior_server]: Configuring spin
+[behavior_server-9] [INFO] [1793539349.143257272] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors/BackUp
+[behavior_server-9] [INFO] [1793539349.162475655] [behavior_server]: Configuring backup
+[behavior_server-9] [INFO] [1793539349.258321961] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors/DriveOnHeading
+[behavior_server-9] [INFO] [1793539349.264257134] [behavior_server]: Configuring drive_on_heading
+[behavior_server-9] [INFO] [1793539349.300468537] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors/AssistedTeleop
+[behavior_server-9] [INFO] [1793539349.306632931] [behavior_server]: Configuring assisted_teleop
+[behavior_server-9] [INFO] [1793539349.350368887] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors/Wait
+[behavior_server-9] [INFO] [1793539349.352802765] [behavior_server]: Configuring wait
+[lifecycle_manager-12] [INFO] [1793539349.390800480] [lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793539349.392395588] [bt_navigator]: Configuring
+[amcl-5] [INFO] [1793539349.664577107] [amcl]: createLaserObject
+[lifecycle_manager-12] [INFO] [1793539349.971384138] [lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[controller_server-6] [INFO] [1793539349.973107440] [controller_server]: Activating
+[controller_server-6] [INFO] [1793539349.973257716] [local_costmap.local_costmap]: Activating
+[controller_server-6] [INFO] [1793539349.973292981] [local_costmap.local_costmap]: Checking transform
+[controller_server-6] [INFO] [1793539349.973544570] [local_costmap.local_costmap]: start
+[amcl-5] [WARN] [1793539349.990364147] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[controller_server-6] [INFO] [1793539350.028393766] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[rviz2-13] [INFO] [1793539350.100488404] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-13] [INFO] [1793539350.100727738] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[lifecycle_manager-12] [INFO] [1793539350.151631117] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793539350.151762544] [lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[planner_server-7] [INFO] [1793539350.152503041] [planner_server]: Activating
+[planner_server-7] [INFO] [1793539350.152659300] [global_costmap.global_costmap]: Activating
+[planner_server-7] [INFO] [1793539350.152693957] [global_costmap.global_costmap]: Checking transform
+[planner_server-7] [INFO] [1793539350.152749254] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539350.234786803] [rviz2]: Stereo is NOT SUPPORTED
+[pointcloud_to_laserscan_node-2] [WARN] [1793539350.642727680] [pointcloud_to_laserscan]: New subscription discovered on topic '/scan', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[planner_server-7] [INFO] [1793539350.652818466] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539350.681631431] [amcl]: New subscription discovered on topic '/particle_cloud', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[planner_server-7] [INFO] [1793539351.153724111] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539351.194660579] [rviz2]: Trying to create a map of size 260 x 260 using 1 swatches
+[planner_server-7] [INFO] [1793539351.652823057] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539351.984536753] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539350.924 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539352.065998480] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539352.153375123] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539352.652814650] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539353.152826060] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539353.201236807] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539351.124 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539353.652814780] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539354.066547330] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539354.152813291] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539354.513481036] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539353.425 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539354.652793111] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539355.152816995] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539355.652824269] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539355.792730308] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539353.725 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539356.152814293] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539356.184212083] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539356.652823483] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539357.073071242] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539356.025 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539357.152808608] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539357.205331509] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539351.184 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539357.653172459] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[pointcloud_to_laserscan_node-2] [INFO] [1793539358.058874675] [pointcloud_to_laserscan]: Message Filter dropping message: frame 'livox_frame' at time 1793539347.925 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [INFO] [1793539358.153742522] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539358.279960061] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539358.384708768] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539356.324 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539358.654448361] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539359.152821635] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539359.579268341] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539358.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539359.652824000] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539360.152805435] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539360.188800766] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539354.182 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539360.372896940] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539360.652853365] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539361.008931522] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539358.925 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539361.152815756] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539361.652806498] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539362.152831704] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539362.193806378] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539361.124 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539362.465704572] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539362.652804650] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539363.152805660] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539363.185886750] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539357.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539363.600798116] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539361.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539363.652795755] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539364.152814586] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539364.487416479] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539364.652816615] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539364.789294378] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539363.724 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539365.152820179] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539365.652796923] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539366.152813348] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539366.195488219] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539360.187 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539366.195866500] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539364.124 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539366.579331493] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539366.653217299] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539367.152935826] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539367.386010395] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539366.324 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539367.652801811] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539368.152819701] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539368.652815637] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539368.679765645] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539368.785297276] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539366.724 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539369.152989400] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539369.201177673] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539363.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539369.652856722] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539370.013208041] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539368.925 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539370.152808717] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539370.652810471] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539370.766049247] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539371.152811680] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539371.419560400] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539369.325 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539371.652806102] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539372.152806892] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539372.210106247] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539366.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539372.593765534] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539371.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539372.652814496] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539372.882072940] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539373.152800242] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539373.652791395] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539374.002174077] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539371.924 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539374.152812083] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539374.652813536] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539374.968244326] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539375.152825165] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539375.185911341] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539374.125 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539375.218045591] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539369.183 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539375.652809944] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539376.152815905] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539376.593484706] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539374.425 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539376.653728765] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539376.985848594] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539377.152854993] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539377.652852149] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539377.778555486] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539376.725 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539378.152817816] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539378.197038766] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539372.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539378.652831194] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539379.087217097] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539379.152815226] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539379.194277011] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539377.120 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539379.652813657] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539380.166929648] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539380.312388205] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539379.224 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539380.652816466] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539381.152803692] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539381.169857415] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539381.207322726] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539375.197 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539381.652998121] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539381.790499253] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539379.725 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539382.152813373] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539382.652914997] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539382.889900319] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539381.825 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539383.153185296] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539383.273890853] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539383.652821627] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539384.152813900] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539384.243913681] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539378.184 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539384.390254782] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539382.225 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539384.652812924] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539385.152813835] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539385.274348466] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539385.478871048] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539384.422 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539385.652811096] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539386.152819908] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539386.652827343] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539387.021519866] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539384.925 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539387.152862201] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539387.198349065] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539381.182 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539387.379988257] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539387.655573660] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539387.998113250] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539386.925 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539388.152820229] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539388.652832938] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539389.152820493] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539389.478067184] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539389.598997958] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539387.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539389.652811246] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539390.152806959] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539390.184445707] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539384.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539390.503136347] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539389.425 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539390.653222007] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539391.153862818] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539391.481079982] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539391.652758118] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539392.152823490] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539392.191202611] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539390.125 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539392.652852764] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539393.055308742] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539392.025 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539393.153067480] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539393.214309635] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539387.182 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539393.554084097] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539393.652898539] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539394.152811774] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539394.652805329] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539394.815771782] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539392.725 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539395.152831524] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539395.574163145] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539395.582974860] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539394.522 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539395.652801172] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539396.152807428] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539396.195300079] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539390.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539396.652819186] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539397.152810943] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539397.406813836] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539395.314 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539397.585983780] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539397.652812073] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539398.152882005] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539398.174218701] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539397.114 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539398.659773782] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539399.152813315] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539399.199231268] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539393.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539399.652815977] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539399.672830659] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539399.998954567] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539397.925 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539400.152834990] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539400.652839376] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539400.703101830] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539399.616 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539401.152811346] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539401.652777297] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539401.768564557] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539402.152866866] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539402.208306714] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539396.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539402.592074161] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539400.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539402.652762861] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539403.152809642] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539403.294938955] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539402.225 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539403.652810533] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539403.794474843] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539404.158673632] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539404.652814070] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539405.152836046] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539405.183983261] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539399.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539405.184184225] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539403.126 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539405.653976124] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539405.868381301] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539405.869224808] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539404.825 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539406.152865144] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539406.652804873] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539407.152818875] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539407.652806890] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539407.808373712] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539405.725 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539407.880240481] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539408.153230499] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539408.196448443] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539402.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539408.383720795] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539407.326 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539408.652831175] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539409.152815571] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539409.652815517] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539409.967713945] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539410.152831367] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539410.401799701] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539408.318 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539410.652821455] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539410.976472298] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539409.925 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539411.153996912] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539411.200311148] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539405.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539411.652809051] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539411.968824460] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539412.158258807] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539412.652814466] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539412.992259957] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539410.926 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539413.153155787] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539413.598842848] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539412.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539413.652821348] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539414.067427692] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539414.152820035] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539414.211372268] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539408.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539414.652810368] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539415.152806525] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539415.588203082] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539413.526 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539415.657811718] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539416.095508421] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539416.099582911] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539415.018 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539416.152823538] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539416.652819530] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539417.152805921] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539417.202297890] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539411.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539417.652805591] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539418.108983592] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539418.152822860] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539418.212443147] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539416.125 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539418.652807231] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539418.693299993] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539417.625 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539419.152824498] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539419.652793762] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539420.152809810] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539420.164139787] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539420.198919079] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539414.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539420.652833952] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539420.806827609] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539418.717 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539421.152811181] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539421.289292996] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539420.214 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539421.652809016] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539422.152816995] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539422.169179755] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539422.652810540] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539423.154290837] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539423.208266615] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539417.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539423.401018656] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539421.326 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539423.653119906] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539423.907976384] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539422.826 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539424.152835521] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539424.255768950] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539424.652779524] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539425.152814472] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539425.652827530] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539425.990390493] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539423.925 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539426.152803946] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539426.215482986] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539420.191 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539426.264486429] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539426.468972774] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539425.422 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539426.652865322] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539427.152811271] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539427.652818340] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539428.152811584] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539428.276056592] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539428.612454180] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539426.526 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539428.655346161] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539429.008000843] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539427.926 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539429.154090063] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539429.193219337] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539423.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539429.653250996] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539430.152824482] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539430.371691874] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539430.653583144] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539431.152840076] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539431.206118108] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539429.126 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539431.589010023] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539430.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539431.654526884] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539432.157724348] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539432.199768373] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539426.182 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539432.465353235] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539432.652811040] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539433.152812848] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539433.652827550] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539433.810183671] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539431.721 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539434.116975482] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539433.025 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539434.156553117] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539434.565027379] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539434.652841111] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539435.153075623] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539435.214468968] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539429.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539435.652805162] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539436.152841364] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539436.391724836] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539434.326 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539436.580237124] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539436.652838906] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539436.678435179] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539435.626 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539437.152813984] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539437.660307112] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539438.157904183] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539438.191211281] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539432.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539438.658707179] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539438.663489076] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539438.989959231] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539436.822 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539439.158077919] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539439.186152549] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539438.126 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539439.652806731] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539440.152869867] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539440.652828616] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539440.674015511] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539441.152806852] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539441.200976034] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539435.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539441.614284116] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539439.525 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539441.654356097] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539441.778346009] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539440.725 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539442.153022238] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539442.652848947] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539442.777913698] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539443.153304565] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539443.652831937] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539444.152980569] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539444.205512982] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539438.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539444.205969472] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539442.126 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539444.370276328] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539443.326 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539444.652813866] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539444.867113527] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539445.153242663] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539445.652819471] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539446.159443441] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539446.653862790] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539446.798418302] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539444.717 for reason 'discarding message because the queue is full'
+[amcl-5] [WARN] [1793539446.869074534] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[rviz2-13] [INFO] [1793539446.967782387] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539445.926 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539447.167185496] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539447.213266663] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539441.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539447.652815787] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539448.152816952] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539448.652821859] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[amcl-5] [WARN] [1793539448.875107131] [amcl]: AMCL cannot publish a pose or update the transform. Please set the initial pose...
+[planner_server-7] [INFO] [1793539449.152827981] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rviz2-13] [INFO] [1793539449.390878685] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539447.326 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539449.486631976] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539448.425 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793539449.603404254] [rviz2]: Setting estimate pose: Frame:map, Position(2.42246, -0.222068, 0), Orientation(0, 0, 0.500137, 0.865946) = Angle: 1.04751
+[amcl-5] [INFO] [1793539449.605965526] [amcl]: initialPoseReceived
+[amcl-5] [WARN] [1793539449.606604516] [amcl]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1793539449.606097 but the latest data is at time 1793539449.525793, when looking up transform from frame [base_footprint] to frame [odom_nav])
+[amcl-5] [INFO] [1793539449.606690822] [amcl]: Setting pose (1793539449.606687): 2.422 -0.222 1.048
+[planner_server-7] [INFO] [1793539449.652807509] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-7] [INFO] [1793539450.154822409] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1793539450.020193 but the earliest data is at time 1793539450.625633, when looking up transform from frame [base_footprint] to frame [map]
+[rviz2-13] [INFO] [1793539450.226866223] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539444.182 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793539450.652875813] [global_costmap.global_costmap]: Timed out waiting for transform from base_footprint to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1793539450.525633 but the earliest data is at time 1793539450.625633, when looking up transform from frame [base_footprint] to frame [map]
+[rviz2-13] [INFO] [1793539450.803074997] [rviz2]: Trying to create a map of size 60 x 60 using 1 swatches
+[planner_server-7] [INFO] [1793539451.153038798] [global_costmap.global_costmap]: start
+[planner_server-7] [INFO] [1793539452.164996187] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-7] [INFO] [1793539452.167375567] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[rviz2-13] [INFO] [1793539452.175243739] [rviz2]: Trying to create a map of size 260 x 260 using 1 swatches
+[lifecycle_manager-12] [INFO] [1793539452.275277538] [lifecycle_manager_navigation]: Server planner_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793539452.275444870] [lifecycle_manager_navigation]: [34m[1mActivating smoother_server[0m[0m
+[smoother_server-8] [INFO] [1793539452.280530645] [smoother_server]: Activating
+[smoother_server-8] [INFO] [1793539452.280904349] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793539452.404470406] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793539452.404646570] [lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-9] [INFO] [1793539452.406644886] [behavior_server]: Activating
+[behavior_server-9] [INFO] [1793539452.406751352] [behavior_server]: Activating spin
+[behavior_server-9] [INFO] [1793539452.406784537] [behavior_server]: Activating backup
+[behavior_server-9] [INFO] [1793539452.406809145] [behavior_server]: Activating drive_on_heading
+[behavior_server-9] [INFO] [1793539452.406827514] [behavior_server]: Activating assisted_teleop
+[behavior_server-9] [INFO] [1793539452.406840698] [behavior_server]: Activating wait
+[behavior_server-9] [INFO] [1793539452.406868731] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793539452.525837183] [lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793539452.525985571] [lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-10] [INFO] [1793539452.526787508] [bt_navigator]: Activating
+[bt_navigator-10] [INFO] [1793539452.761773245] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793539452.882579338] [lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[lifecycle_manager-12] [INFO] [1793539452.882728590] [lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-12] [INFO] [1793539452.882754958] [lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[rviz2-13] [INFO] [1793539454.474739523] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539445.382 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793539457.466234311] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539448.383 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793539458.061583132] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539448.926 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793539459.765337329] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793539449.720 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[amcl-5] [INFO] [1793539497.749139419] [amcl]: Requesting no-motion update
+[rviz2-13] [INFO] [1793539633.891818661] [rviz_navigation_dialog_action_client]: NavigateToPose will be called using the BT Navigator's default behavior tree.
+[bt_navigator-10] [INFO] [1793539633.894296442] [bt_navigator]: Begin navigating from current location (2.42, -0.15) to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539633.897168407] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539633.909310777] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539633.909809476] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-7] [INFO] [1793539633.925441616] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539634.005278224] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539634.035662742] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539634.168234422] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539634.168384986] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539634.168415738] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[bt_navigator-10] [WARN] [1793539634.168498332] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[controller_server-6] [INFO] [1793539634.169269516] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[planner_server-7] [INFO] [1793539634.170434245] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539634.346162043] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539634.995712291] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539635.163213994] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539635.163341805] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539635.163372877] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-7] [INFO] [1793539635.175359340] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539635.187707570] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539635.684780754] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539636.157385098] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539636.157500044] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539636.157528749] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[behavior_server-9] [INFO] [1793539636.165850430] [behavior_server]: Running spin
+[behavior_server-9] [INFO] [1793539636.167232347] [behavior_server]: Turning 1.57 for spin behavior.
+[bt_navigator-10] [WARN] [1793539636.626239889] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539637.136883984] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539638.034489353] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539638.105930774] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539638.235853310] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539638.266768878] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539638.337577230] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539638.406483429] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539638.807707662] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539641.036544271] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539641.105709036] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539641.136837920] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539641.337462820] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539641.388094199] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539641.918492916] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539642.224902781] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539642.937739258] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539643.136118061] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539643.377286540] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539643.486236181] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539643.604492611] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539643.682193141] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539643.804838656] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539643.905121009] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539644.046652621] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539644.406098138] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539644.435771696] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539644.806934774] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539645.446485403] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539645.604792539] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539645.885100760] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539645.930164820] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539646.134635559] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [WARN] [1793539646.167492449] [behavior_server]: Exceeded time allowance before reaching the Spin goal - Exiting Spin
+[behavior_server-9] [WARN] [1793539646.167604419] [behavior_server]: spin failed
+[behavior_server-9] [WARN] [1793539646.167638404] [behavior_server]: [spin] [ActionServer] Aborting handle.
+[behavior_server-9] [INFO] [1793539646.185599041] [behavior_server]: Running wait
+[bt_navigator-10] [WARN] [1793539646.446085753] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539647.406153069] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539647.505491017] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539647.974566890] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.006378989] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.204502681] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.404770002] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.436703543] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.537577939] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.634819106] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.807789752] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.836117681] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539648.956929557] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.039168485] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.238644717] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.476593733] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.575691035] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.637177556] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.675715589] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.826604070] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539649.886524509] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539650.160492017] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539650.774609780] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539651.046061714] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [INFO] [1793539651.186138861] [behavior_server]: wait completed successfully
+[bt_navigator-10] [WARN] [1793539651.226348098] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539651.228403822] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539651.228580657] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539651.228611378] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[bt_navigator-10] [WARN] [1793539651.245611803] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [INFO] [1793539651.248080847] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539651.557993500] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539651.594241149] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539651.594753320] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539652.163348644] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539652.163542536] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539652.163575881] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[behavior_server-9] [INFO] [1793539652.186337547] [behavior_server]: Running backup
+[behavior_server-9] [INFO] [1793539652.189502671] [behavior_server]: DriveOnHeading: no acceleration or deceleration limits set
+[bt_navigator-10] [WARN] [1793539652.190746665] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539652.384579448] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539652.445736521] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539652.474579117] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539652.509144746] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539653.298183431] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539653.484816061] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539654.414930696] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539654.545374774] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539654.584987518] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539654.616721183] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539654.956995919] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539655.054770984] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539655.189010342] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539655.195965977] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539655.775857376] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.016795061] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.045822364] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.115580515] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.176016388] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.324537105] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.377157164] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.474917381] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.574927693] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539656.854672952] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539657.086125603] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539657.835982810] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539659.344343901] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539659.345189999] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539660.046363356] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539660.874560683] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.075312490] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.174503424] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.607466710] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.746281140] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.816156188] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.885342678] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.944984774] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539661.975706257] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [WARN] [1793539662.189262878] [behavior_server]: Exceeded time allowance before reaching the DriveOnHeading goal - Exiting DriveOnHeading
+[behavior_server-9] [WARN] [1793539662.189365472] [behavior_server]: backup failed
+[behavior_server-9] [WARN] [1793539662.189397249] [behavior_server]: [backup] [ActionServer] Aborting handle.
+[controller_server-6] [INFO] [1793539662.205198096] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[planner_server-7] [INFO] [1793539662.206136740] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539662.220422354] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539662.688759062] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539663.170292464] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539663.170468756] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539663.170564278] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-7] [INFO] [1793539663.192946960] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539663.595558626] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539663.667682554] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539663.905808847] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539664.168592334] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539664.168722737] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539664.168753714] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[behavior_server-9] [INFO] [1793539664.187297563] [behavior_server]: Running spin
+[behavior_server-9] [INFO] [1793539664.188928637] [behavior_server]: Turning 1.57 for spin behavior.
+[bt_navigator-10] [WARN] [1793539664.335735715] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539664.415518013] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539665.096147056] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539665.485159840] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539666.026108355] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539666.477925828] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539666.757433188] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539666.850182417] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539666.888430907] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539666.976237727] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.041297153] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.046501263] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.066776988] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.377140233] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.476390719] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.734133458] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.756257543] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.873110481] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.876921602] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.954280904] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.992040904] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539667.996730539] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.145822017] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.296525304] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.314154029] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.346235957] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.545233963] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.576108953] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.615307351] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539668.984497345] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539669.045525101] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539669.585307347] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539669.645404012] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539669.860616729] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539669.860732155] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (2.98, -0.97)
+[planner_server-7] [WARN] [1793539669.860758588] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[bt_navigator-10] [WARN] [1793539670.285286424] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539670.916374570] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539671.014655211] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539671.028262987] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539671.063092653] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539671.316801864] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539671.386356777] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539671.871346724] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539671.987025717] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539672.385343877] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539672.906438620] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539673.015722886] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539673.285359441] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539673.608905650] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539673.646762483] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539673.846027725] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539673.886355363] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [WARN] [1793539674.203453434] [behavior_server]: Exceeded time allowance before reaching the Spin goal - Exiting Spin
+[behavior_server-9] [WARN] [1793539674.203570557] [behavior_server]: spin failed
+[behavior_server-9] [WARN] [1793539674.203599357] [behavior_server]: [spin] [ActionServer] Aborting handle.
+[behavior_server-9] [INFO] [1793539674.217077275] [behavior_server]: Running wait
+[bt_navigator-10] [WARN] [1793539675.516195362] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539676.485763304] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539676.525028999] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539676.716803010] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539677.216191913] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539677.587097489] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539677.655985027] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539677.795193765] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539677.824890521] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539678.469619138] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539678.499661854] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539678.525840328] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539678.566409858] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539678.816775475] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [INFO] [1793539679.217464497] [behavior_server]: wait completed successfully
+[planner_server-7] [WARN] [1793539679.246422293] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539679.246577817] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539679.246617401] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-7] [INFO] [1793539679.255081101] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539679.586356813] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539680.158828732] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539680.159157347] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539680.159213732] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[behavior_server-9] [INFO] [1793539680.175520541] [behavior_server]: Running backup
+[bt_navigator-10] [WARN] [1793539680.386025538] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539680.616249032] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539680.715802658] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539680.819614934] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539680.885074975] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539681.016433434] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539681.055938621] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539681.117851291] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539681.425525287] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539682.644522239] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539683.130616935] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539684.822763025] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539685.762781782] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539686.061915179] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539686.888809654] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539688.020736561] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539688.062037690] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539688.090268623] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539689.890850749] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [WARN] [1793539690.175881542] [behavior_server]: Exceeded time allowance before reaching the DriveOnHeading goal - Exiting DriveOnHeading
+[behavior_server-9] [WARN] [1793539690.175983528] [behavior_server]: backup failed
+[behavior_server-9] [WARN] [1793539690.176009257] [behavior_server]: [backup] [ActionServer] Aborting handle.
+[controller_server-6] [INFO] [1793539690.201254366] [local_costmap.local_costmap]: Received request to clear entirely the local_costmap
+[planner_server-7] [INFO] [1793539690.202375030] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539690.632960131] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539690.921316018] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539691.022151397] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539691.166703796] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539691.166863031] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539691.166896056] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[planner_server-7] [INFO] [1793539691.187987574] [global_costmap.global_costmap]: Received request to clear entirely the global_costmap
+[bt_navigator-10] [WARN] [1793539691.209046803] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539691.469978110] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539691.790843771] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [WARN] [1793539692.164907164] [planner_server]: GridBased: failed to create plan with tolerance 0.50.
+[planner_server-7] [WARN] [1793539692.165059455] [planner_server]: Planning algorithm GridBased failed to generate a valid path to (3.91, -1.74)
+[planner_server-7] [WARN] [1793539692.165092928] [planner_server]: [compute_path_to_pose] [ActionServer] Aborting handle.
+[bt_navigator-10] [WARN] [1793539692.189823115] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [INFO] [1793539692.192264990] [behavior_server]: Running spin
+[behavior_server-9] [INFO] [1793539692.192473731] [behavior_server]: Turning 1.57 for spin behavior.
+[bt_navigator-10] [WARN] [1793539692.309426442] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539692.921216107] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539693.089424942] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539693.390744141] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539693.438038900] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539693.490165506] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539693.720658152] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539693.820189503] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539695.189516676] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539695.199507159] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539695.389547878] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539695.490685407] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539695.659868086] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539695.729741562] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539695.789353861] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539696.020980163] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539696.321757365] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539696.389392266] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539696.419851950] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539696.590766600] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539696.924248493] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539697.589069673] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539697.791747491] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539698.489582647] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539698.819917528] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539698.859734657] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539698.889224720] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539698.971258677] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539699.000293978] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539699.479932333] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539699.510026856] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539699.582277054] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539699.671145043] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539699.934376811] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539700.670980719] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539701.009430491] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539701.750139733] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539701.781358184] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539701.860056454] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539701.881095106] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539702.019648656] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539702.050948613] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539702.089550548] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [WARN] [1793539702.196260289] [behavior_server]: Exceeded time allowance before reaching the Spin goal - Exiting Spin
+[behavior_server-9] [WARN] [1793539702.196370276] [behavior_server]: spin failed
+[behavior_server-9] [WARN] [1793539702.196396452] [behavior_server]: [spin] [ActionServer] Aborting handle.
+[bt_navigator-10] [WARN] [1793539702.199547623] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[behavior_server-9] [INFO] [1793539702.208344768] [behavior_server]: Running wait
+[bt_navigator-10] [WARN] [1793539702.230424435] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539702.261195580] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539702.470125496] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539702.600860449] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539703.270323576] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539703.910150174] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539703.940051573] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539704.380076159] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539704.639439619] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[planner_server-7] [INFO] [1793539704.790044942] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793539704.422 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[bt_navigator-10] [WARN] [1793539704.871799980] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [WARN] [1793539704.915571240] [BehaviorTreeEngine]: Behavior Tree tick rate 100.00 was exceeded!
+[bt_navigator-10] [ERROR] [1793539705.279602509] [bt_navigator_navigate_to_pose_rclcpp_node]: Failed to get result for wait in node halt!
+[bt_navigator-10] [INFO] [1793539705.279920564] [bt_navigator]: [navigate_to_pose] [ActionServer] Client requested to cancel the goal. Cancelling.
+[bt_navigator-10] [INFO] [1793539705.283685476] [bt_navigator]: Goal canceled
+[behavior_server-9] [INFO] [1793539705.309351233] [behavior_server]: Canceling wait
+[behavior_server-9] [INFO] [1793539705.309610599] [behavior_server]: [wait] [ActionServer] Client requested to cancel the goal. Cancelling.
+[planner_server-7] [INFO] [1793539830.157018088] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793539829.828 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-6] [INFO] [1793539830.157133835] [local_costmap.local_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793539829.828 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793539837.396756944] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793539831.182 for reason 'discarding message because the queue is full'
+[controller_server-6] [INFO] [1793540056.145895927] [local_costmap.local_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540055.780 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [INFO] [1793540056.147864640] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540055.780 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540062.997014572] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540056.982 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793540065.992666166] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540059.988 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793540068.336400683] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540067.856 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [ERROR] [1793540068.462141793] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1793540068.342973 but the earliest data is at time 1793540068.756893, when looking up transform from frame [base_footprint] to frame [map]
+[planner_server-7] 
+[rviz2-13] [INFO] [1793540077.110447937] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540068.052 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540077.521827432] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540068.382 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540077.915845062] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793540067.856 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-6] [INFO] [1793540331.466315910] [local_costmap.local_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540331.055 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [INFO] [1793540331.471002695] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540331.055 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540338.412300496] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540332.382 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793540341.389093325] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540335.382 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793540343.030272934] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540342.687 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [ERROR] [1793540343.463329719] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1793540343.386409 but the earliest data is at time 1793540343.586244, when looking up transform from frame [base_footprint] to frame [map]
+[planner_server-7] 
+[rviz2-13] [INFO] [1793540351.842358291] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540342.687 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540352.240696796] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540343.182 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540352.830263656] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793540342.687 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [INFO] [1793540399.648374017] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540399.286 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-6] [INFO] [1793540399.654200865] [local_costmap.local_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540399.286 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540406.800828918] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540400.793 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793540409.808813146] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540403.782 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793540412.784227690] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540406.782 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793540415.797368638] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540409.782 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793540418.797113012] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540412.782 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793540421.805290449] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540415.785 for reason 'discarding message because the queue is full'
+[planner_server-7] [INFO] [1793540423.029260392] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793540422.794 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [ERROR] [1793540423.460021171] [transformPoseInTargetFrame]: Extrapolation Error looking up target frame: Lookup would require extrapolation into the past.  Requested time 1793540423.495329 but the earliest data is at time 1793540423.688395, when looking up transform from frame [base_footprint] to frame [map]
+[planner_server-7] 
+[rviz2-13] [INFO] [1793540431.736418913] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540422.794 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540431.935322323] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793540422.988 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793540432.734403263] [rviz]: Message Filter dropping message: frame 'nav_scan' at time 1793540422.794 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [INFO] [1793541005.698840410] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793541005.394 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-6] [INFO] [1793541005.700755339] [local_costmap.local_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793541005.394 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[planner_server-7] [INFO] [1793541145.816013314] [global_costmap.global_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793541145.595 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[controller_server-6] [INFO] [1793541145.819212563] [local_costmap.local_costmap]: Message Filter dropping message: frame 'nav_scan' at time 1793541145.595 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[rviz2-13] [INFO] [1793541153.186496049] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541147.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541156.192433913] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541150.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541159.200352426] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541153.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541162.183124860] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541156.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541165.184420056] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541159.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541168.192751389] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541162.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541171.200386185] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541165.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541174.208323158] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541168.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541177.185260883] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541171.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541180.193017166] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541174.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541183.200532733] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541177.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541186.208493169] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541180.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541189.185076462] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541183.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541192.193148985] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541186.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541195.202397852] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541189.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541198.208874901] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541192.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541201.184457893] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541195.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541204.192451802] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541198.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541207.201301312] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541201.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541210.209045350] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541204.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541213.189455550] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541207.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541216.197340319] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541210.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541219.205383713] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541213.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541222.213177369] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541216.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541225.188895855] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541219.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541228.196582814] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541222.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541231.205402886] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541225.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541234.213266132] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541228.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541237.188746363] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541231.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541240.197068176] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541234.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541243.205323456] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541237.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541246.212764571] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541240.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541249.189855524] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541243.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541252.196867729] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541246.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541255.214748265] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541249.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541258.199291720] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541252.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541261.202320047] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541255.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541264.210042186] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541258.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541267.185591208] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541261.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541270.192737012] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541264.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541273.201152031] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541267.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541276.209375909] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541270.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541279.185542517] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541273.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541282.199025533] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541276.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541285.202033444] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541279.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541288.209191154] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541282.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541291.185996918] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541285.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541294.193385260] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541288.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541297.201518965] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541291.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541300.209817925] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541294.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541303.185975263] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541297.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541306.193069749] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541300.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541309.205573777] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541303.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541312.218465561] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541306.186 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541315.185865734] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541309.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541318.193710615] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541312.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541321.203453273] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541315.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541324.209676488] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541318.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541327.185029350] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541321.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541330.194075264] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541324.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541333.201840415] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541327.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541336.211137063] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541330.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541339.185901957] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541333.186 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541342.193287429] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541336.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541345.202071276] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541339.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541348.210198920] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541342.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541351.185366465] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541345.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541354.193741452] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541348.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541357.201950007] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541351.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541360.209363475] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541354.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541363.185726431] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541357.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541366.194493926] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541360.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541369.201419271] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541363.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541372.212156169] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541366.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541375.185557924] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541369.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541378.193252584] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541372.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541381.202038988] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541375.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541384.210277930] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541378.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541387.185869619] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541381.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541390.193517231] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541384.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541393.201394839] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541387.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541396.210232605] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541390.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541399.185302549] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541393.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541402.193932068] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541396.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541405.201517121] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541399.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541408.183049772] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541402.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541411.218350009] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541405.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541414.194278604] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541408.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541417.202358899] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541411.189 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541420.211053904] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541414.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541423.186355565] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541417.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541426.201528632] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541420.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541429.201459450] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541423.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541432.210661669] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541426.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541435.186337709] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541429.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541438.193693981] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541432.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541441.201884202] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541435.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541444.209455409] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541438.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541447.186394524] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541441.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541450.194755176] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541444.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541453.201596378] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541447.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541456.209958969] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541450.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541459.186811049] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541453.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541462.194091778] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541456.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541465.202237657] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541459.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541468.212586928] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541462.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541471.185781745] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541465.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541474.193728642] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541468.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541477.201881347] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541471.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541480.212028543] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541474.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541483.187008789] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541477.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541486.194985010] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541480.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541489.201992450] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541483.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541492.213059103] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541486.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541495.186419452] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541489.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541498.193960923] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541492.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541501.202474780] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541495.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541504.210866086] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541498.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541507.186670285] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541501.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541510.194453216] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541504.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541513.203499485] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541507.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541516.184772203] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541510.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541519.186386574] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541513.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541522.194608284] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541516.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541525.205817022] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541519.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541528.210432974] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541522.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541531.186778661] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541525.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541534.195104360] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541528.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541537.202511329] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541531.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541540.211285096] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541534.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541543.186337588] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541537.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541546.194821774] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541540.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541549.202957742] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541543.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541552.211076506] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541546.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541555.186770892] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541549.184 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541558.194364998] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541552.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541561.202525596] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541555.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541564.210935686] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541558.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541567.186806580] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541561.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541570.199775943] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541564.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541573.203284741] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541567.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541576.211935437] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541570.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541579.218302669] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541573.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541582.194734512] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541576.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541585.203077500] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541579.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541588.211860097] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541582.188 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541591.186957713] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541585.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541594.197782564] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541588.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541597.202747323] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541591.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541600.212304238] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541594.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541603.200884668] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541597.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541606.195377670] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541600.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541609.203157085] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541603.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541612.211247882] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541606.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541615.188039933] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541609.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541618.195422649] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541612.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541621.202572159] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541615.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541624.212204720] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541618.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541627.187745445] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541621.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541630.196186041] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541624.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541633.203322207] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541627.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541636.214379858] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541630.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541639.187002403] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541633.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541642.195207923] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541636.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541645.203189742] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541639.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541648.212686397] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541642.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541651.186647473] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541645.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541654.199216683] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541648.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541657.203729399] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541651.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541660.213718901] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541654.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541663.187018685] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541657.186 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541666.195699615] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541660.184 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541669.203321272] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541663.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541672.188987130] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541666.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541675.187898472] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541669.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541678.196898326] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541672.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541681.203985352] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541675.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541684.211905984] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541678.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541687.188096602] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541681.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541690.195803536] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541684.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541693.203194033] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541687.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541696.212390414] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541690.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541699.187122797] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541693.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541702.195748225] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541696.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541705.203043528] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541699.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541708.210813196] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541702.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541711.188047152] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541705.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541714.196558923] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541708.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541717.204043679] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541711.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541720.210991258] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541714.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541723.220775850] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541717.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541726.195583539] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541720.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541729.204553397] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541723.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541732.211562781] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541726.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541735.187476056] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541729.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541738.195279257] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541732.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541741.203806205] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541735.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541744.211473984] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541738.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541747.187442250] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541741.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541750.208307148] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541744.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541753.214537575] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541747.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541756.211693856] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541750.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541759.187534486] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541753.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541762.197144700] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541756.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541765.206308907] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541759.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541768.212704556] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541762.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541771.188427727] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541765.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541774.200355611] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541768.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541777.204274078] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541771.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541780.211947949] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541774.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541783.187985096] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541777.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541786.195448731] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541780.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541789.205159959] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541783.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541792.212818424] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541786.190 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541795.187590246] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541789.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541798.196128804] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541792.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541801.204598581] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541795.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541804.212373354] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541798.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541807.188382697] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541801.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541810.196366412] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541804.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541813.204295332] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541807.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541816.213364874] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541810.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541819.202008550] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541813.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541822.195946803] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541816.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541825.204459596] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541819.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541828.234360368] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541822.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541831.187849062] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541825.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541834.196937260] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541828.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541837.204926350] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541831.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541840.216847457] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541834.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541843.187585059] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541837.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541846.196430296] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541840.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541849.204168682] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541843.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541852.185016634] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541846.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541855.201548165] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541849.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541858.197265246] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541852.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541861.204893188] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541855.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541864.213758588] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541858.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541867.189909708] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541861.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541870.197302062] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541864.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541873.205010574] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541867.183 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541876.212798821] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541870.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541879.188837643] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541873.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541882.191033260] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541876.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541885.200257224] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541879.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541888.204874286] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541882.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541891.215434198] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541885.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541894.188955985] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541888.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541897.196884393] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541891.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541900.211007944] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541894.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541903.212598616] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541897.182 for reason 'discarding message because the queue is full'
+[rviz2-13] [INFO] [1793541906.189665473] [rviz]: Message Filter dropping message: frame 'odom_nav' at time 1793541900.182 for reason 'discarding message because the queue is full'
+[ERROR] [rviz2-13]: process has died [pid 86603, exit code -11, cmd '/opt/ros/humble/lib/rviz2/rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz --ros-args --params-file /tmp/launch_params_yv6cnmm2'].
+[controller_server-6] [WARN] [1793541998.222194762] [rcl_lifecycle]: No transition matching 1 found for current state active
+[controller_server-6] [WARN] [1793541998.222269515] [rcl_lifecycle]: No transition matching 1 found for current state active
+[controller_server-6] [ERROR] [1793541998.222288652] [controller_server]: Unable to start transition 1 from current state active: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[map_server-4] [WARN] [1793541998.372036785] [rcl_lifecycle]: No transition matching 1 found for current state active
+[map_server-4] [WARN] [1793541998.372120723] [rcl_lifecycle]: No transition matching 1 found for current state active
+[map_server-4] [ERROR] [1793541998.372140691] [map_server]: Unable to start transition 1 from current state active: Transition is not registered., at ./src/rcl_lifecycle.c:355
+[pointcloud_to_laserscan_node-2] [WARN] [1793542002.819802252] [pointcloud_to_laserscan]: New subscription discovered on topic '/scan', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[amcl-5] [WARN] [1793542002.870395560] [amcl]: New subscription discovered on topic '/particle_cloud', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY

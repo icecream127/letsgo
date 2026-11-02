@@ -1,0 +1,158 @@
+[INFO] [1793539833.774431903] [laser_mapping]: p_pre->lidar_type 1
+Multi thread started 
+~~~~/home/jetson/letsgo/lidar_ws/src/fastlio/ file opened
+[INFO] [1793539833.943627991] [laser_mapping]: Node init finished.
+[WARN] [1793539834.636250336] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.645622308] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.654177176] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.668806154] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.674404543] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.684158571] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.710754808] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.715108020] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.724088080] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.739232941] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.744198933] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.754083972] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.764474941] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.774068294] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.785142958] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.794123882] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.804145308] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.814208815] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.894829799] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539834.994124423] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.094472540] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.194187717] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.294159410] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.394218241] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.504179264] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.594129852] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.704186397] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.804162154] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.894262121] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539835.995498513] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.094334407] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.204152291] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.304167825] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.394132717] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.494160347] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.604166811] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.694408733] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.794178022] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539836.904365129] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.004729119] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.094116911] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.204139599] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.295598218] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.402992755] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.495024346] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.594413883] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.694153827] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.794165522] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539837.904268531] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539838.014519128] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539838.104171373] [laser_mapping]: No point, skip this scan!
+
+[WARN] [1793539838.205407061] [laser_mapping]: No point, skip this scan!
+
+IMU Initial Done
+[WARN] [1793539838.294274009] [laser_mapping]: No point, skip this scan!
+
+[INFO] [1793539838.406191329] [laser_mapping]: Initialize the map kdtree
+[INFO] [1793539840.226602692] [laser_mapping]: latency lidar_in=0.121 imu_in=0.012 odom=0.046 queue=0/2 imu_gap=0.008 imu_waits=1 pre=6.8 process=26.8 update=18.4 map=1.0 odom_pub=0.8 clouds=2.0 points=1443 tree=2389 beg=1793539840.071990252 end=1793539840.180410862 steady=1787.682174390 wait_ms=7.067 oldest_ms=0.000 undistort_ms=4.199
+[INFO] [1793539845.222587248] [laser_mapping]: latency lidar_in=0.108 imu_in=-0.001 odom=0.044 queue=0/3 imu_gap=0.014 imu_waits=1 pre=0.5 process=20.9 update=14.5 map=0.5 odom_pub=1.2 clouds=2.5 points=1470 tree=2538 beg=1793539845.080310345 end=1793539845.178220272 steady=1792.684027069 wait_ms=13.623 oldest_ms=0.000 undistort_ms=1.758
+[INFO] [1793539850.220071492] [laser_mapping]: latency lidar_in=0.110 imu_in=-0.002 odom=0.048 queue=0/4 imu_gap=0.016 imu_waits=2 pre=0.4 process=25.7 update=18.5 map=1.8 odom_pub=2.0 clouds=1.5 points=1427 tree=2545 beg=1793539850.080470324 end=1793539850.171714783 steady=1797.676743437 wait_ms=4.374 oldest_ms=0.000 undistort_ms=1.518
+[INFO] [1793539855.225322882] [laser_mapping]: latency lidar_in=0.110 imu_in=-0.001 odom=0.045 queue=0/3 imu_gap=0.012 imu_waits=2 pre=0.5 process=31.2 update=19.9 map=0.3 odom_pub=2.7 clouds=6.1 points=1454 tree=2599 beg=1793539855.080630302 end=1793539855.179950476 steady=1802.676482553 wait_ms=3.304 oldest_ms=0.000 undistort_ms=1.756
+[INFO] [1793539860.222664036] [laser_mapping]: latency lidar_in=0.112 imu_in=0.001 odom=0.043 queue=0/3 imu_gap=0.013 imu_waits=3 pre=0.4 process=28.5 update=19.8 map=0.4 odom_pub=1.4 clouds=1.2 points=1406 tree=2644 beg=1793539860.080310345 end=1793539860.179180384 steady=1807.676488627 wait_ms=1.811 oldest_ms=0.000 undistort_ms=3.974
+[INFO] [1793539865.229178160] [laser_mapping]: latency lidar_in=0.113 imu_in=0.001 odom=0.058 queue=0/5 imu_gap=0.022 imu_waits=3 pre=0.4 process=35.1 update=17.8 map=0.3 odom_pub=14.1 clouds=0.9 points=1419 tree=2606 beg=1793539865.079990387 end=1793539865.170695305 steady=1812.676426804 wait_ms=1.033 oldest_ms=0.000 undistort_ms=1.511
+[INFO] [1793539870.238891560] [laser_mapping]: latency lidar_in=0.112 imu_in=0.002 odom=0.058 queue=0/3 imu_gap=0.012 imu_waits=3 pre=0.5 process=44.8 update=33.9 map=0.8 odom_pub=1.7 clouds=4.5 points=1475 tree=2686 beg=1793539870.079190254 end=1793539870.180455208 steady=1817.676462850 wait_ms=2.681 oldest_ms=0.000 undistort_ms=3.256
+[INFO] [1793539875.226644543] [laser_mapping]: latency lidar_in=0.114 imu_in=-0.002 odom=0.049 queue=0/4 imu_gap=0.015 imu_waits=4 pre=0.7 process=31.5 update=25.4 map=0.4 odom_pub=1.3 clouds=1.2 points=1437 tree=2474 beg=1793539875.080310345 end=1793539875.177255392 steady=1822.677487727 wait_ms=0.802 oldest_ms=0.000 undistort_ms=2.666
+[INFO] [1793539880.240939275] [laser_mapping]: latency lidar_in=0.118 imu_in=0.007 odom=0.061 queue=0/2 imu_gap=0.008 imu_waits=5 pre=0.5 process=45.9 update=28.5 map=0.4 odom_pub=4.0 clouds=2.6 points=1495 tree=2627 beg=1793539880.076150179 end=1793539880.179815292 steady=1827.677425807 wait_ms=0.652 oldest_ms=0.000 undistort_ms=9.905
+[INFO] [1793539885.224546913] [laser_mapping]: latency lidar_in=0.110 imu_in=-0.001 odom=0.044 queue=0/3 imu_gap=0.012 imu_waits=7 pre=0.5 process=30.5 update=22.8 map=0.3 odom_pub=2.9 clouds=1.0 points=1487 tree=2652 beg=1793539885.080630302 end=1793539885.180455208 steady=1832.676446344 wait_ms=3.853 oldest_ms=0.000 undistort_ms=2.891
+[INFO] [1793539890.235908135] [laser_mapping]: latency lidar_in=0.109 imu_in=0.002 odom=0.055 queue=0/2 imu_gap=0.007 imu_waits=9 pre=0.5 process=41.8 update=21.9 map=0.3 odom_pub=11.8 clouds=1.1 points=1452 tree=2703 beg=1793539890.080310345 end=1793539890.180615425 steady=1837.676501217 wait_ms=5.258 oldest_ms=0.000 undistort_ms=5.969
+[INFO] [1793539895.226263521] [laser_mapping]: latency lidar_in=0.108 imu_in=-0.001 odom=0.056 queue=0/5 imu_gap=0.022 imu_waits=12 pre=0.4 process=32.1 update=23.0 map=2.1 odom_pub=2.8 clouds=2.4 points=1365 tree=2664 beg=1793539895.080470324 end=1793539895.170700312 steady=1842.676474405 wait_ms=5.929 oldest_ms=0.000 undistort_ms=1.415
+[INFO] [1793539900.228449439] [laser_mapping]: latency lidar_in=0.114 imu_in=-0.001 odom=0.057 queue=0/5 imu_gap=0.021 imu_waits=13 pre=0.7 process=33.3 update=26.5 map=1.0 odom_pub=1.6 clouds=0.9 points=1408 tree=2703 beg=1793539900.076790333 end=1793539900.171820402 steady=1847.677539371 wait_ms=4.338 oldest_ms=0.000 undistort_ms=1.759
+[INFO] [1793539905.232396463] [laser_mapping]: latency lidar_in=0.116 imu_in=-0.002 odom=0.054 queue=0/3 imu_gap=0.014 imu_waits=13 pre=0.8 process=36.5 update=23.7 map=0.7 odom_pub=2.3 clouds=7.2 points=1480 tree=2646 beg=1793539905.072150230 end=1793539905.178215265 steady=1852.678262360 wait_ms=8.020 oldest_ms=0.000 undistort_ms=2.185
+[INFO] [1793539910.245517770] [laser_mapping]: latency lidar_in=0.124 imu_in=0.003 odom=0.068 queue=0/6 imu_gap=0.025 imu_waits=13 pre=0.8 process=40.7 update=27.7 map=1.8 odom_pub=4.4 clouds=4.2 points=1426 tree=2755 beg=1793539910.079990387 end=1793539910.177400589 steady=1857.687213437 wait_ms=1.084 oldest_ms=0.000 undistort_ms=1.805
+[INFO] [1793539915.218919895] [laser_mapping]: latency lidar_in=0.109 imu_in=-0.002 odom=0.038 queue=0/3 imu_gap=0.012 imu_waits=13 pre=0.5 process=24.8 update=18.6 map=0.2 odom_pub=0.7 clouds=3.0 points=1472 tree=2728 beg=1793539915.080150366 end=1793539915.180460215 steady=1862.676459092 wait_ms=5.391 oldest_ms=0.000 undistort_ms=1.741
+[INFO] [1793539920.217467933] [laser_mapping]: latency lidar_in=0.108 imu_in=0.001 odom=0.037 queue=0/3 imu_gap=0.012 imu_waits=13 pre=0.9 process=23.4 update=18.1 map=0.2 odom_pub=1.8 clouds=1.0 points=1445 tree=2811 beg=1793539920.080790281 end=1793539920.180615187 steady=1867.676439960 wait_ms=5.260 oldest_ms=0.000 undistort_ms=1.687
+[INFO] [1793539925.226279817] [laser_mapping]: latency lidar_in=0.106 imu_in=0.000 odom=0.046 queue=0/3 imu_gap=0.012 imu_waits=15 pre=0.5 process=32.2 update=23.6 map=0.4 odom_pub=2.2 clouds=1.2 points=1458 tree=2787 beg=1793539925.080950260 end=1793539925.180775166 steady=1872.676452428 wait_ms=6.938 oldest_ms=0.000 undistort_ms=1.990
+[INFO] [1793539930.229174535] [laser_mapping]: latency lidar_in=0.119 imu_in=-0.001 odom=0.048 queue=0/5 imu_gap=0.021 imu_waits=17 pre=0.4 process=25.1 update=13.3 map=0.3 odom_pub=6.0 clouds=3.1 points=1429 tree=2819 beg=1793539930.079670191 end=1793539930.180940151 steady=1877.686452958 wait_ms=4.932 oldest_ms=0.000 undistort_ms=1.765
+[INFO] [1793539935.230447922] [laser_mapping]: latency lidar_in=0.109 imu_in=0.003 odom=0.049 queue=0/2 imu_gap=0.007 imu_waits=17 pre=0.4 process=36.3 update=31.7 map=0.2 odom_pub=0.8 clouds=1.1 points=1474 tree=2819 beg=1793539935.081270218 end=1793539935.181100130 steady=1882.676490591 wait_ms=3.433 oldest_ms=0.000 undistort_ms=2.148
+[INFO] [1793539940.240841418] [laser_mapping]: latency lidar_in=0.118 imu_in=-0.002 odom=0.060 queue=0/5 imu_gap=0.022 imu_waits=21 pre=0.8 process=36.7 update=29.3 map=0.2 odom_pub=3.8 clouds=1.0 points=1448 tree=2736 beg=1793539940.080950260 end=1793539940.180780172 steady=1887.686505200 wait_ms=5.591 oldest_ms=0.000 undistort_ms=1.901
+[INFO] [1793539945.237866395] [laser_mapping]: latency lidar_in=0.109 imu_in=-0.000 odom=0.057 queue=0/3 imu_gap=0.011 imu_waits=22 pre=1.0 process=43.6 update=37.6 map=0.4 odom_pub=2.4 clouds=1.1 points=1453 tree=2756 beg=1793539945.081590176 end=1793539945.180940151 steady=1892.676631505 wait_ms=3.604 oldest_ms=0.000 undistort_ms=1.596
+[INFO] [1793539950.242213876] [laser_mapping]: latency lidar_in=0.112 imu_in=-0.002 odom=0.061 queue=0/5 imu_gap=0.021 imu_waits=24 pre=0.5 process=37.9 update=21.1 map=6.3 odom_pub=7.0 clouds=1.1 points=1411 tree=2751 beg=1793539950.081270218 end=1793539950.181575298 steady=1897.686648865 wait_ms=10.890 oldest_ms=0.000 undistort_ms=1.707
+[INFO] [1793539955.235552760] [laser_mapping]: latency lidar_in=0.114 imu_in=0.000 odom=0.056 queue=0/5 imu_gap=0.022 imu_waits=25 pre=0.5 process=17.2 update=13.3 map=0.2 odom_pub=0.8 clouds=1.0 points=1404 tree=2790 beg=1793539955.081430197 end=1793539955.179815292 steady=1902.700718773 wait_ms=22.766 oldest_ms=0.000 undistort_ms=1.586
+[INFO] [1793539960.226389689] [laser_mapping]: latency lidar_in=0.123 imu_in=0.017 odom=0.045 queue=0/2 imu_gap=0.007 imu_waits=26 pre=0.5 process=21.6 update=17.9 map=0.2 odom_pub=0.3 clouds=1.0 points=1464 tree=2815 beg=1793539960.081590176 end=1793539960.180935144 steady=1907.687100792 wait_ms=0.626 oldest_ms=0.000 undistort_ms=1.836
+[INFO] [1793539965.239608732] [laser_mapping]: latency lidar_in=0.115 imu_in=-0.002 odom=0.058 queue=0/5 imu_gap=0.021 imu_waits=27 pre=0.5 process=35.4 update=30.3 map=0.3 odom_pub=1.3 clouds=1.0 points=1432 tree=2724 beg=1793539965.080790281 end=1793539965.181575298 steady=1912.686516860 wait_ms=8.260 oldest_ms=0.000 undistort_ms=2.159
+[INFO] [1793539970.217353997] [laser_mapping]: latency lidar_in=0.111 imu_in=0.000 odom=0.043 queue=0/4 imu_gap=0.018 imu_waits=28 pre=0.4 process=22.9 update=19.2 map=0.2 odom_pub=0.2 clouds=0.9 points=1414 tree=2736 beg=1793539970.080950260 end=1793539970.174535275 steady=1917.676850260 wait_ms=2.498 oldest_ms=0.000 undistort_ms=1.916
+[INFO] [1793539975.230518034] [laser_mapping]: latency lidar_in=0.118 imu_in=-0.002 odom=0.049 queue=0/5 imu_gap=0.021 imu_waits=28 pre=0.5 process=18.5 update=14.2 map=0.3 odom_pub=1.0 clouds=1.0 points=1408 tree=2777 beg=1793539975.081110239 end=1793539975.181420088 steady=1922.694332626 wait_ms=12.881 oldest_ms=0.000 undistort_ms=1.620
+[INFO] [1793539980.233073451] [laser_mapping]: latency lidar_in=0.115 imu_in=-0.002 odom=0.052 queue=0/5 imu_gap=0.021 imu_waits=28 pre=0.7 process=26.2 update=17.6 map=0.3 odom_pub=1.3 clouds=1.2 points=1447 tree=2761 beg=1793539980.081750154 end=1793539980.181357622 steady=1927.689214092 wait_ms=9.672 oldest_ms=0.000 undistort_ms=3.569
+[INFO] [1793539985.228947914] [laser_mapping]: latency lidar_in=0.108 imu_in=-0.001 odom=0.047 queue=0/3 imu_gap=0.010 imu_waits=28 pre=1.2 process=34.8 update=28.7 map=0.3 odom_pub=0.6 clouds=3.0 points=1411 tree=2769 beg=1793539985.081910372 end=1793539985.181735277 steady=1932.676515161 wait_ms=4.077 oldest_ms=0.000 undistort_ms=1.790
+[INFO] [1793539990.236279883] [laser_mapping]: latency lidar_in=0.114 imu_in=0.015 odom=0.056 queue=0/1 imu_gap=0.002 imu_waits=30 pre=2.8 process=39.3 update=30.2 map=0.3 odom_pub=2.6 clouds=3.0 points=1432 tree=2757 beg=1793539990.079670191 end=1793539990.180460215 steady=1937.679374876 wait_ms=3.179 oldest_ms=0.000 undistort_ms=2.777
+[INFO] [1793539995.224680883] [laser_mapping]: latency lidar_in=0.108 imu_in=0.001 odom=0.045 queue=0/3 imu_gap=0.012 imu_waits=30 pre=2.2 process=30.5 update=19.2 map=0.5 odom_pub=4.9 clouds=1.7 points=1414 tree=2794 beg=1793539995.081270218 end=1793539995.180140257 steady=1942.676518651 wait_ms=5.019 oldest_ms=0.000 undistort_ms=3.660
+[INFO] [1793540000.224302296] [laser_mapping]: latency lidar_in=0.111 imu_in=-0.002 odom=0.043 queue=0/3 imu_gap=0.011 imu_waits=30 pre=0.6 process=29.2 update=23.6 map=0.3 odom_pub=1.2 clouds=1.5 points=1483 tree=2805 beg=1793540000.081910372 end=1793540000.181636572 steady=1947.677451707 wait_ms=2.314 oldest_ms=0.000 undistort_ms=2.180
+[INFO] [1793540005.232919371] [laser_mapping]: latency lidar_in=0.114 imu_in=-0.000 odom=0.051 queue=0/3 imu_gap=0.010 imu_waits=30 pre=0.5 process=37.4 update=25.8 map=0.3 odom_pub=2.1 clouds=6.8 points=1427 tree=2829 beg=1793540005.080630302 end=1793540005.181900263 steady=1952.677898564 wait_ms=0.611 oldest_ms=0.000 undistort_ms=1.697
+[INFO] [1793540010.236211587] [laser_mapping]: latency lidar_in=0.112 imu_in=-0.002 odom=0.054 queue=0/3 imu_gap=0.010 imu_waits=32 pre=0.6 process=41.3 update=35.9 map=0.3 odom_pub=1.3 clouds=1.1 points=1473 tree=2817 beg=1793540010.081750154 end=1793540010.182055235 steady=1957.677234601 wait_ms=0.692 oldest_ms=0.000 undistort_ms=2.249
+[INFO] [1793540015.245017344] [laser_mapping]: latency lidar_in=0.127 imu_in=0.005 odom=0.063 queue=0/4 imu_gap=0.016 imu_waits=33 pre=0.9 process=29.2 update=13.6 map=0.3 odom_pub=0.6 clouds=3.0 points=1454 tree=2840 beg=1793540015.079510212 end=1793540015.181735277 steady=1962.698125955 wait_ms=8.854 oldest_ms=0.000 undistort_ms=11.296
+[INFO] [1793540020.234951337] [laser_mapping]: latency lidar_in=0.117 imu_in=0.002 odom=0.053 queue=0/5 imu_gap=0.020 imu_waits=34 pre=0.5 process=30.9 update=27.0 map=0.2 odom_pub=0.6 clouds=1.0 points=1491 tree=2780 beg=1793540020.081590176 end=1793540020.181890249 steady=1967.686437929 wait_ms=5.627 oldest_ms=0.000 undistort_ms=1.655
+[INFO] [1793540025.261922344] [laser_mapping]: latency lidar_in=0.112 imu_in=-0.002 odom=0.080 queue=0/5 imu_gap=0.020 imu_waits=36 pre=0.5 process=57.8 update=46.8 map=0.3 odom_pub=6.2 clouds=1.0 points=1433 tree=2813 beg=1793540025.082230330 end=1793540025.182060242 steady=1972.686507385 wait_ms=9.847 oldest_ms=0.000 undistort_ms=3.038
+[INFO] [1793540030.237209416] [laser_mapping]: latency lidar_in=0.115 imu_in=0.007 odom=0.057 queue=0/2 imu_gap=0.008 imu_waits=37 pre=0.5 process=42.7 update=23.2 map=0.3 odom_pub=10.5 clouds=6.5 points=1428 tree=2842 beg=1793540030.078550339 end=1793540030.180300236 steady=1977.676900339 wait_ms=0.655 oldest_ms=0.000 undistort_ms=1.766
+[INFO] [1793540035.232400922] [laser_mapping]: latency lidar_in=0.118 imu_in=-0.003 odom=0.056 queue=0/6 imu_gap=0.025 imu_waits=38 pre=0.5 process=22.0 update=18.2 map=0.2 odom_pub=0.7 clouds=0.9 points=1407 tree=2876 beg=1793540035.078710318 end=1793540035.176605463 steady=1982.692758643 wait_ms=13.879 oldest_ms=0.000 undistort_ms=1.563
+[INFO] [1793540040.238651719] [laser_mapping]: latency lidar_in=0.107 imu_in=-0.001 odom=0.057 queue=0/3 imu_gap=0.010 imu_waits=38 pre=0.8 process=44.6 update=22.4 map=0.6 odom_pub=11.8 clouds=2.3 points=1503 tree=2895 beg=1793540040.082230330 end=1793540040.182055235 steady=1987.676437867 wait_ms=5.010 oldest_ms=0.000 undistort_ms=3.395
+[INFO] [1793540045.239262035] [laser_mapping]: latency lidar_in=0.109 imu_in=-0.002 odom=0.058 queue=0/5 imu_gap=0.020 imu_waits=40 pre=3.7 process=34.8 update=29.1 map=0.2 odom_pub=0.7 clouds=1.3 points=1440 tree=2889 beg=1793540045.082390308 end=1793540045.181740284 steady=1992.686770881 wait_ms=12.571 oldest_ms=0.000 undistort_ms=2.961
+[INFO] [1793540050.251123967] [laser_mapping]: latency lidar_in=0.112 imu_in=-0.003 odom=0.071 queue=0/2 imu_gap=0.007 imu_waits=42 pre=0.5 process=57.0 update=42.2 map=0.3 odom_pub=11.5 clouds=1.0 points=1473 tree=2879 beg=1793540050.081590176 end=1793540050.180460215 steady=1997.676471680 wait_ms=0.608 oldest_ms=0.000 undistort_ms=1.579
+[INFO] [1793540055.262986399] [laser_mapping]: latency lidar_in=0.123 imu_in=0.013 odom=0.083 queue=0/3 imu_gap=0.012 imu_waits=45 pre=0.6 process=46.2 update=29.9 map=0.2 odom_pub=2.3 clouds=6.9 points=1457 tree=2835 beg=1793540055.081750154 end=1793540055.180135250 steady=2002.699185250 wait_ms=12.294 oldest_ms=0.000 undistort_ms=6.113
+catch sig %d2
+Rebuild thread terminated normally

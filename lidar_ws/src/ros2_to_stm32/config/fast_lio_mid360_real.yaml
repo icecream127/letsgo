@@ -5,9 +5,9 @@
     feature_extract_enable: false
     point_filter_num: 2
     max_iteration: 3
-    filter_size_surf: 0.1
-    filter_size_map: 0.1
-    #原来是0.1
+    # Jetson: leave enough of the 100 ms scan period for IMU callbacks.
+    filter_size_surf: 0.3
+    filter_size_map: 0.3
     # Local-map width, NOT maximum lidar distance. Must exceed 3 * det_range.
     cube_side_length: 200.0
     runtime_pos_log_enable: false

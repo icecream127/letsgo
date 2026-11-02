@@ -199,6 +199,7 @@ typedef struct {
   uint8_t line_num;
   uint64_t time_stamp;
   uint64_t point_interval;
+  int64_t diag_receive_steady_ns;
   std::vector<uint8_t> raw_data;
 } RawPacket;
 

@@ -1,0 +1,4 @@
+{"topic": "/livox/lidar", "count": 1790, "window_s": 180.0, "stamp_span_s": 178.89984011650085, "stamp_backtracks": 0, "over_0_5_s": 0, "hz": 10.000072187944243, "age_mean_s": 0.11121691232287018, "age_p95_s": 0.1213066577911377, "age_min_s": 0.1036067008972168, "age_max_s": 0.19179368019104004}
+{"topic": "/livox/imu", "count": 35759, "window_s": 180.0, "stamp_span_s": 179.00555443763733, "stamp_backtracks": 0, "over_0_5_s": 0, "hz": 199.74790400448285, "age_mean_s": 0.001438206189390617, "age_p95_s": 0.009507894515991211, "age_min_s": -0.002104520797729492, "age_max_s": 0.06180095672607422}
+{"topic": "/Odometry", "count": 1779, "window_s": 180.0, "stamp_span_s": 177.80016493797302, "stamp_backtracks": 0, "over_0_5_s": 0, "hz": 9.99951603810245, "age_mean_s": 0.03890817442792664, "age_p95_s": 0.05418658256530762, "age_min_s": 0.02270650863647461, "age_max_s": 0.2412872314453125}
+{"host_clock_offset_change_s": -4.291534423828125e-06}

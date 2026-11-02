@@ -117,6 +117,8 @@ class PubHandler {
   PointFrame frame_;
 
   std::deque<RawPacket> raw_packet_queue_;
+  // Accessed only by the raw processing thread, bounded below.
+  std::map<uint64_t, int64_t> diag_raw_arrivals_;
 
   //pub config
   uint64_t publish_interval_ = 100000000; //100 ms
@@ -130,6 +132,9 @@ class PubHandler {
   struct DeviceClockAnchor {
     uint64_t device_ns;
     uint64_t epoch_ns;
+    int64_t steady_ns;
+    int64_t last_log_ns;
+    uint64_t max_device_ns;
   };
   std::mutex timestamp_mutex_;
   std::map<uint32_t, DeviceClockAnchor> timestamp_anchors_;

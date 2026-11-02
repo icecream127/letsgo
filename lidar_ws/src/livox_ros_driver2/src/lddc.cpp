@@ -406,7 +406,18 @@ void Lddc::PublishCustomPointData(const CustomMsg& livox_msg, const uint8_t inde
 #endif
 
   if (kOutputToRos == output_type_) {
+    const auto diag_begin = std::chrono::steady_clock::now();
     publisher_ptr->publish(livox_msg);
+    const auto diag_end = std::chrono::steady_clock::now();
+    if ((livox_msg.timebase / 100000000ULL) % 50 == 0) {
+      const auto wall = std::chrono::system_clock::now().time_since_epoch();
+      fprintf(stderr, "publish_diag base_ns=%llu last_offset_ns=%u steady_ns=%lld age_ms=%.3f publish_ms=%.3f points=%u\n",
+          (unsigned long long)livox_msg.timebase,
+          livox_msg.points.empty() ? 0 : livox_msg.points.back().offset_time,
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(diag_begin.time_since_epoch()).count(),
+          (std::chrono::duration_cast<std::chrono::nanoseconds>(wall).count() - (int64_t)livox_msg.timebase)/1e6,
+          std::chrono::duration<double, std::milli>(diag_end-diag_begin).count(), livox_msg.point_num);
+    }
   } else {
 #ifdef BUILDING_ROS1
     if (bag_ && enable_lidar_bag_) {
@@ -513,7 +524,35 @@ void Lddc::PublishImuData(LidarImuDataQueue& imu_data_queue, const uint8_t index
 #endif
 
   if (kOutputToRos == output_type_) {
+    const auto diag_begin = std::chrono::steady_clock::now();
     publisher_ptr->publish(imu_msg);
+    const auto diag_end = std::chrono::steady_clock::now();
+    static auto diag_last = diag_begin;
+    static uint64_t diag_count = 0;
+    static double diag_max_queue = 0.;
+    static double diag_max_publish = 0., diag_max_age = -1e9, diag_min_age = 1e9;
+    const double diag_pub_ms = std::chrono::duration<double, std::milli>(diag_end-diag_begin).count();
+    const double diag_age_ms = (std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count() - (int64_t)timestamp)/1e6;
+    const double diag_queue_ms = imu_data.diag_receive_steady_ns ?
+        (std::chrono::duration_cast<std::chrono::nanoseconds>(diag_begin.time_since_epoch()).count()-imu_data.diag_receive_steady_ns)/1e6 : -1.;
+    diag_max_queue=std::max(diag_max_queue,diag_queue_ms);
+    if (!diag_count && diag_last == diag_begin) {
+      fprintf(stderr, "imu_first_publish receive_steady_ns=%lld publish_steady_ns=%lld queue_ms=%.3f stamp_ns=%llu\n",
+          (long long)imu_data.diag_receive_steady_ns,
+          (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(diag_begin.time_since_epoch()).count(),
+          diag_queue_ms, (unsigned long long)timestamp);
+    }
+    ++diag_count;
+    diag_max_publish = std::max(diag_max_publish, diag_pub_ms);
+    diag_max_age = std::max(diag_max_age, diag_age_ms);
+    diag_min_age = std::min(diag_min_age, diag_age_ms);
+    if (diag_end-diag_last >= std::chrono::seconds(5)) {
+      fprintf(stderr, "imu_publish_diag stamp_ns=%llu count=%llu age_min_ms=%.3f age_max_ms=%.3f publish_max_ms=%.3f queue_max_ms=%.3f\n",
+          (unsigned long long)timestamp, (unsigned long long)diag_count,
+          diag_min_age, diag_max_age, diag_max_publish, diag_max_queue);
+      diag_last=diag_end; diag_count=0; diag_max_publish=0.; diag_max_age=-1e9; diag_min_age=1e9; diag_max_queue=0.;
+    }
   } else {
 #ifdef BUILDING_ROS1
     if (bag_ && enable_imu_bag_) {

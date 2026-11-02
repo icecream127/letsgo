@@ -1,0 +1,299 @@
+{"topic": "/livox/lidar", "stamp_ns": 1793539539613163099, "steady_ns": 1487610915073, "age_s": 0.5153417587280273, "timebase_ns": 1793539539613163099, "points": 22560, "sequence_length": 22560, "last_offset_ns": 112789965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539539725963099, "steady_ns": 1487612166748, "age_s": 0.4038219451904297, "timebase_ns": 1793539539725963099, "points": 19584, "sequence_length": 19584, "last_offset_ns": 97909965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539539823883099, "steady_ns": 1487613626620, "age_s": 0.307354211807251, "timebase_ns": 1793539539823883099, "points": 18816, "sequence_length": 18816, "last_offset_ns": 94069965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539539917963099, "steady_ns": 1487614891543, "age_s": 0.21455121040344238, "timebase_ns": 1793539539917963099, "points": 21120, "sequence_length": 21120, "last_offset_ns": 105589965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540023563099, "steady_ns": 1487615996975, "age_s": 0.11005830764770508, "timebase_ns": 1793539540023563099, "points": 20544, "sequence_length": 20544, "last_offset_ns": 102709965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540126283099, "steady_ns": 1487729529495, "age_s": 0.1208341121673584, "timebase_ns": 1793539540126283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540226123099, "steady_ns": 1487813370625, "age_s": 0.10484576225280762, "timebase_ns": 1793539540226123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540325963099, "steady_ns": 1487913548874, "age_s": 0.10517096519470215, "timebase_ns": 1793539540325963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540426283099, "steady_ns": 1488023455557, "age_s": 0.11477327346801758, "timebase_ns": 1793539540426283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540526123099, "steady_ns": 1488124419103, "age_s": 0.11586928367614746, "timebase_ns": 1793539540526123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539540624908924, "steady_ns": 1488143156978, "age_s": 0.03587460517883301}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540625963099, "steady_ns": 1488213396888, "age_s": 0.10495495796203613, "timebase_ns": 1793539540625963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539540726248264, "steady_ns": 1488244622743, "age_s": 0.03599286079406738}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540726283099, "steady_ns": 1488318798289, "age_s": 0.11011910438537598, "timebase_ns": 1793539540726283099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539540825628042, "steady_ns": 1488353090163, "age_s": 0.045052528381347656}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540825643099, "steady_ns": 1488428545288, "age_s": 0.12048506736755371, "timebase_ns": 1793539540825643099, "points": 19488, "sequence_length": 19488, "last_offset_ns": 97429965}
+{"topic": "/Odometry", "stamp_ns": 1793539540923068046, "steady_ns": 1488469842144, "age_s": 0.06437230110168457}
+{"topic": "/livox/lidar", "stamp_ns": 1793539540923083099, "steady_ns": 1488523214939, "age_s": 0.11771106719970703, "timebase_ns": 1793539540923083099, "points": 20640, "sequence_length": 20640, "last_offset_ns": 103189965}
+{"topic": "/Odometry", "stamp_ns": 1793539541026258230, "steady_ns": 1488543335084, "age_s": 0.03467965126037598}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541026283099, "steady_ns": 1488623798093, "age_s": 0.11510062217712402, "timebase_ns": 1793539541026283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539541126103162, "steady_ns": 1488633970472, "age_s": 0.025460243225097656}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541126123099, "steady_ns": 1488723986998, "age_s": 0.11547160148620605, "timebase_ns": 1793539541126123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539541225952863, "steady_ns": 1488742512036, "age_s": 0.03417849540710449}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541225963099, "steady_ns": 1488818875534, "age_s": 0.1104886531829834, "timebase_ns": 1793539541225963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539541326272964, "steady_ns": 1488861356639, "age_s": 0.05269265174865723}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541326283099, "steady_ns": 1488927001122, "age_s": 0.11830425262451172, "timebase_ns": 1793539541326283099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539541425632953, "steady_ns": 1488958289794, "age_s": 0.05024313926696777}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541425643099, "steady_ns": 1489013331233, "age_s": 0.10527348518371582, "timebase_ns": 1793539541425643099, "points": 19680, "sequence_length": 19680, "last_offset_ns": 98389965}
+{"topic": "/Odometry", "stamp_ns": 1793539541524032831, "steady_ns": 1489047354364, "age_s": 0.040938377380371094}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541524043099, "steady_ns": 1489119002560, "age_s": 0.1125631332397461, "timebase_ns": 1793539541524043099, "points": 20352, "sequence_length": 20352, "last_offset_ns": 101749965}
+{"topic": "/Odometry", "stamp_ns": 1793539541625689268, "steady_ns": 1489153119965, "age_s": 0.04503965377807617}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541625803099, "steady_ns": 1489216117063, "age_s": 0.10790109634399414, "timebase_ns": 1793539541625803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539541726112842, "steady_ns": 1489252409427, "age_s": 0.04391193389892578}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541726123099, "steady_ns": 1489321897001, "age_s": 0.1133415699005127, "timebase_ns": 1793539541726123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539541825947999, "steady_ns": 1489349310166, "age_s": 0.04097890853881836}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541825963099, "steady_ns": 1489416602460, "age_s": 0.10821247100830078, "timebase_ns": 1793539541825963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539541926272869, "steady_ns": 1489473206717, "age_s": 0.06452679634094238}
+{"topic": "/livox/lidar", "stamp_ns": 1793539541926283099, "steady_ns": 1489520706873, "age_s": 0.11201214790344238, "timebase_ns": 1793539541926283099, "points": 18816, "sequence_length": 18816, "last_offset_ns": 94069965}
+{"topic": "/Odometry", "stamp_ns": 1793539542020348072, "steady_ns": 1489557610098, "age_s": 0.05486416816711426}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542020363099, "steady_ns": 1489621597233, "age_s": 0.11879181861877441, "timebase_ns": 1793539542020363099, "points": 21120, "sequence_length": 21120, "last_offset_ns": 105589965}
+{"topic": "/Odometry", "stamp_ns": 1793539542125923395, "steady_ns": 1489647348539, "age_s": 0.03904461860656738}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542125963099, "steady_ns": 1489728491211, "age_s": 0.1201012134552002, "timebase_ns": 1793539542125963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539542225787878, "steady_ns": 1489764776054, "age_s": 0.056581735610961914}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542225803099, "steady_ns": 1489816394603, "age_s": 0.10817432403564453, "timebase_ns": 1793539542225803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539542326112747, "steady_ns": 1489896807819, "age_s": 0.08832073211669922}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542326123099, "steady_ns": 1489928628439, "age_s": 0.12008404731750488, "timebase_ns": 1793539542326123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539542425878763, "steady_ns": 1489959205480, "age_s": 0.050920724868774414}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542425963099, "steady_ns": 1490022996259, "age_s": 0.11461830139160156, "timebase_ns": 1793539542425963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539542525787830, "steady_ns": 1490055484285, "age_s": 0.0472865104675293}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542525803099, "steady_ns": 1490125455613, "age_s": 0.11725044250488281, "timebase_ns": 1793539542525803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539542626034021, "steady_ns": 1490149258748, "age_s": 0.040840864181518555}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542626123099, "steady_ns": 1490213090296, "age_s": 0.10455965995788574, "timebase_ns": 1793539542626123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539542725947856, "steady_ns": 1490233339243, "age_s": 0.025012493133544922}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542725963099, "steady_ns": 1490313047996, "age_s": 0.10466361045837402, "timebase_ns": 1793539542725963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539542825788021, "steady_ns": 1490342595863, "age_s": 0.03443598747253418}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542825803099, "steady_ns": 1490424954881, "age_s": 0.11673116683959961, "timebase_ns": 1793539542825803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539542926112890, "steady_ns": 1490445883491, "age_s": 0.03738546371459961}
+{"topic": "/livox/lidar", "stamp_ns": 1793539542926123099, "steady_ns": 1490513297195, "age_s": 0.10474967956542969, "timebase_ns": 1793539542926123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539543025947809, "steady_ns": 1490543574582, "age_s": 0.03521895408630371}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543025963099, "steady_ns": 1490625122926, "age_s": 0.1167459487915039, "timebase_ns": 1793539543025963099, "points": 19200, "sequence_length": 19200, "last_offset_ns": 95989965}
+{"topic": "/Odometry", "stamp_ns": 1793539543121953010, "steady_ns": 1490656845367, "age_s": 0.052518367767333984}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543121963099, "steady_ns": 1490726128616, "age_s": 0.12173843383789062, "timebase_ns": 1793539543121963099, "points": 20832, "sequence_length": 20832, "last_offset_ns": 104149965}
+{"topic": "/Odometry", "stamp_ns": 1793539543226113080, "steady_ns": 1490757837105, "age_s": 0.0493471622467041}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543226123099, "steady_ns": 1490821646572, "age_s": 0.11310815811157227, "timebase_ns": 1793539543226123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539543325947999, "steady_ns": 1490842072163, "age_s": 0.03374743461608887}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543325963099, "steady_ns": 1490915143813, "age_s": 0.10679078102111816, "timebase_ns": 1793539543325963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539543425792932, "steady_ns": 1490956446557, "age_s": 0.048278093338012695}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543425803099, "steady_ns": 1491024123659, "age_s": 0.11592960357666016, "timebase_ns": 1793539543425803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539543526108026, "steady_ns": 1491058320393, "age_s": 0.04983401298522949}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543526123099, "steady_ns": 1491121339059, "age_s": 0.11280632019042969, "timebase_ns": 1793539543526123099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539543626432895, "steady_ns": 1491158005607, "age_s": 0.04919600486755371}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543626443099, "steady_ns": 1491214309825, "age_s": 0.10536694526672363, "timebase_ns": 1793539543626443099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539543726267814, "steady_ns": 1491242852998, "age_s": 0.03420257568359375}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543726283099, "steady_ns": 1491337822143, "age_s": 0.12911343574523926, "timebase_ns": 1793539543726283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539543826107978, "steady_ns": 1491360669386, "age_s": 0.052184104919433594}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543826123099, "steady_ns": 1491414804373, "age_s": 0.10626769065856934, "timebase_ns": 1793539543826123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539543925947904, "steady_ns": 1491443548062, "age_s": 0.03522372245788574}
+{"topic": "/livox/lidar", "stamp_ns": 1793539543925963099, "steady_ns": 1491520591414, "age_s": 0.1122140884399414, "timebase_ns": 1793539543925963099, "points": 18624, "sequence_length": 18624, "last_offset_ns": 93109965}
+{"topic": "/Odometry", "stamp_ns": 1793539544019068002, "steady_ns": 1491545178374, "age_s": 0.04372978210449219}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544019083099, "steady_ns": 1491620546137, "age_s": 0.11903715133666992, "timebase_ns": 1793539544019083099, "points": 20256, "sequence_length": 20256, "last_offset_ns": 101269965}
+{"topic": "/Odometry", "stamp_ns": 1793539544120347976, "steady_ns": 1491655953874, "age_s": 0.053202152252197266}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544120363099, "steady_ns": 1491717752865, "age_s": 0.11496543884277344, "timebase_ns": 1793539544120363099, "points": 21120, "sequence_length": 21120, "last_offset_ns": 105589965}
+{"topic": "/Odometry", "stamp_ns": 1793539544225948095, "steady_ns": 1491748074573, "age_s": 0.03974175453186035}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544225963099, "steady_ns": 1491812909085, "age_s": 0.10452675819396973, "timebase_ns": 1793539544225963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539544325788021, "steady_ns": 1491834743890, "age_s": 0.026580095291137695}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544325803099, "steady_ns": 1491913230985, "age_s": 0.10501360893249512, "timebase_ns": 1793539544325803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539544426112890, "steady_ns": 1491945781316, "age_s": 0.03722095489501953}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544426123099, "steady_ns": 1492015778148, "age_s": 0.10723257064819336, "timebase_ns": 1793539544426123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539544525947809, "steady_ns": 1492051152572, "age_s": 0.042792558670043945}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544525963099, "steady_ns": 1492120600623, "age_s": 0.11221981048583984, "timebase_ns": 1793539544525963099, "points": 19776, "sequence_length": 19776, "last_offset_ns": 98869965}
+{"topic": "/Odometry", "stamp_ns": 1793539544624833106, "steady_ns": 1492155354458, "age_s": 0.048140525817871094}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544624843099, "steady_ns": 1492213428698, "age_s": 0.1061699390411377, "timebase_ns": 1793539544624843099, "points": 20256, "sequence_length": 20256, "last_offset_ns": 101269965}
+{"topic": "/Odometry", "stamp_ns": 1793539544726113080, "steady_ns": 1492232649911, "age_s": 0.023970603942871094}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544726123099, "steady_ns": 1492316343773, "age_s": 0.10780453681945801, "timebase_ns": 1793539544726123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539544825947999, "steady_ns": 1492351270699, "age_s": 0.04290437698364258}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544825963099, "steady_ns": 1492413963662, "age_s": 0.10558605194091797, "timebase_ns": 1793539544825963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539544926272869, "steady_ns": 1492432231958, "age_s": 0.02358222007751465}
+{"topic": "/livox/lidar", "stamp_ns": 1793539544926283099, "steady_ns": 1492514392603, "age_s": 0.10568904876708984, "timebase_ns": 1793539544926283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539545026108026, "steady_ns": 1492553115131, "age_s": 0.04463458061218262}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545026123099, "steady_ns": 1492613294055, "age_s": 0.10475468635559082, "timebase_ns": 1793539545026123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539545125943183, "steady_ns": 1492632973486, "age_s": 0.024655818939208984}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545125963099, "steady_ns": 1492712599773, "age_s": 0.1042182445526123, "timebase_ns": 1793539545125963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539545225792884, "steady_ns": 1492735323333, "age_s": 0.027129650115966797}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545225803099, "steady_ns": 1492820077601, "age_s": 0.11182761192321777, "timebase_ns": 1793539545225803099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539545325627803, "steady_ns": 1492847779316, "age_s": 0.03977680206298828}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545325643099, "steady_ns": 1492915513795, "age_s": 0.10744476318359375, "timebase_ns": 1793539545325643099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539545425948143, "steady_ns": 1492936906799, "age_s": 0.028585433959960938}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545425963099, "steady_ns": 1493014686901, "age_s": 0.10631513595581055, "timebase_ns": 1793539545425963099, "points": 18432, "sequence_length": 18432, "last_offset_ns": 92149965}
+{"topic": "/Odometry", "stamp_ns": 1793539545517880439, "steady_ns": 1493057442700, "age_s": 0.05718994140625}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545518123099, "steady_ns": 1493121925557, "age_s": 0.12138748168945312, "timebase_ns": 1793539545518123099, "points": 21312, "sequence_length": 21312, "last_offset_ns": 106549965}
+{"topic": "/Odometry", "stamp_ns": 1793539545624672889, "steady_ns": 1493148076230, "age_s": 0.040963172912597656}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545624683099, "steady_ns": 1493213094875, "age_s": 0.10599827766418457, "timebase_ns": 1793539545624683099, "points": 17568, "sequence_length": 17568, "last_offset_ns": 87829965}
+{"topic": "/Odometry", "stamp_ns": 1793539545712438583, "steady_ns": 1493268731110, "age_s": 0.07388901710510254}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545712523099, "steady_ns": 1493314428028, "age_s": 0.11949443817138672, "timebase_ns": 1793539545712523099, "points": 22752, "sequence_length": 22752, "last_offset_ns": 113749965}
+{"topic": "/Odometry", "stamp_ns": 1793539545826267957, "steady_ns": 1493353156923, "age_s": 0.044490814208984375}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545826283099, "steady_ns": 1493415971233, "age_s": 0.10727095603942871, "timebase_ns": 1793539545826283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539545926107883, "steady_ns": 1493436994756, "age_s": 0.02849435806274414}
+{"topic": "/livox/lidar", "stamp_ns": 1793539545926123099, "steady_ns": 1493519556434, "age_s": 0.11102175712585449, "timebase_ns": 1793539545926123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539546025947809, "steady_ns": 1493546453619, "age_s": 0.03810572624206543}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546025963099, "steady_ns": 1493618876967, "age_s": 0.11049723625183105, "timebase_ns": 1793539546025963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539546126258134, "steady_ns": 1493654519780, "age_s": 0.04588794708251953}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546126283099, "steady_ns": 1493712997100, "age_s": 0.10432195663452148, "timebase_ns": 1793539546126283099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539546225632905, "steady_ns": 1493748621065, "age_s": 0.04058337211608887}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546225643099, "steady_ns": 1493814704660, "age_s": 0.10664653778076172, "timebase_ns": 1793539546225643099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539546325952768, "steady_ns": 1493832745688, "age_s": 0.024409055709838867}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546325963099, "steady_ns": 1493922883976, "age_s": 0.11450743675231934, "timebase_ns": 1793539546325963099, "points": 18048, "sequence_length": 18048, "last_offset_ns": 90229965}
+{"topic": "/Odometry", "stamp_ns": 1793539546416178226, "steady_ns": 1493935542615, "age_s": 0.036962032318115234}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546416203099, "steady_ns": 1494017539096, "age_s": 0.11892247200012207, "timebase_ns": 1793539546416203099, "points": 21984, "sequence_length": 21984, "last_offset_ns": 109909965}
+{"topic": "/Odometry", "stamp_ns": 1793539546526113033, "steady_ns": 1494047155189, "age_s": 0.03864932060241699}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546526123099, "steady_ns": 1494118306477, "age_s": 0.10976958274841309, "timebase_ns": 1793539546526123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539546625947952, "steady_ns": 1494145597271, "age_s": 0.03724956512451172}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546625963099, "steady_ns": 1494217463166, "age_s": 0.10908627510070801, "timebase_ns": 1793539546625963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539546725792884, "steady_ns": 1494246328810, "age_s": 0.03813648223876953}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546725803099, "steady_ns": 1494321513689, "age_s": 0.1132974624633789, "timebase_ns": 1793539546725803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539546826102972, "steady_ns": 1494344959344, "age_s": 0.03645801544189453}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546826123099, "steady_ns": 1494415509788, "age_s": 0.1069941520690918, "timebase_ns": 1793539546826123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539546925952911, "steady_ns": 1494444417704, "age_s": 0.03606414794921875}
+{"topic": "/livox/lidar", "stamp_ns": 1793539546925963099, "steady_ns": 1494519279024, "age_s": 0.11092877388000488, "timebase_ns": 1793539546925963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539547026268005, "steady_ns": 1494549634844, "age_s": 0.04096269607543945}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547026283099, "steady_ns": 1494614847796, "age_s": 0.10615897178649902, "timebase_ns": 1793539547026283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539547125781536, "steady_ns": 1494640340632, "age_s": 0.03213620185852051}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547126123099, "steady_ns": 1494716481563, "age_s": 0.10794591903686523, "timebase_ns": 1793539547126123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539547225225448, "steady_ns": 1494750839868, "age_s": 0.043120622634887695}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547225963099, "steady_ns": 1494814590869, "age_s": 0.10620975494384766, "timebase_ns": 1793539547225963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539547326253175, "steady_ns": 1494859813600, "age_s": 0.05114889144897461}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547326283099, "steady_ns": 1494919156123, "age_s": 0.11048221588134766, "timebase_ns": 1793539547326283099, "points": 19008, "sequence_length": 19008, "last_offset_ns": 95029965}
+{"topic": "/Odometry", "stamp_ns": 1793539547421313047, "steady_ns": 1494974261082, "age_s": 0.07057309150695801}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547421323099, "steady_ns": 1495017164819, "age_s": 0.11342763900756836, "timebase_ns": 1793539547421323099, "points": 21024, "sequence_length": 21024, "last_offset_ns": 105109965}
+{"topic": "/Odometry", "stamp_ns": 1793539547526423215, "steady_ns": 1495070955606, "age_s": 0.06215786933898926}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547526443099, "steady_ns": 1495121467667, "age_s": 0.11240196228027344, "timebase_ns": 1793539547526443099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539547626178979, "steady_ns": 1495133688762, "age_s": 0.02510809898376465}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547626283099, "steady_ns": 1495214601155, "age_s": 0.10590267181396484, "timebase_ns": 1793539547626283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539547726004123, "steady_ns": 1495243132488, "age_s": 0.03473305702209473}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547726123099, "steady_ns": 1495313550000, "age_s": 0.10502767562866211, "timebase_ns": 1793539547726123099, "points": 19680, "sequence_length": 19680, "last_offset_ns": 98389965}
+{"topic": "/Odometry", "stamp_ns": 1793539547824512958, "steady_ns": 1495343119659, "age_s": 0.03620433807373047}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547824523099, "steady_ns": 1495436827239, "age_s": 0.12992334365844727, "timebase_ns": 1793539547824523099, "points": 18144, "sequence_length": 18144, "last_offset_ns": 90709965}
+{"topic": "/Odometry", "stamp_ns": 1793539547915232896, "steady_ns": 1495487810990, "age_s": 0.09020256996154785}
+{"topic": "/livox/lidar", "stamp_ns": 1793539547915243099, "steady_ns": 1495517174756, "age_s": 0.11954069137573242, "timebase_ns": 1793539547915243099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539548015404462, "steady_ns": 1495555395801, "age_s": 0.05762004852294922}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548015563099, "steady_ns": 1495616210771, "age_s": 0.11823415756225586, "timebase_ns": 1793539548015563099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539548115872859, "steady_ns": 1495649335578, "age_s": 0.05109047889709473}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548115883099, "steady_ns": 1495721621546, "age_s": 0.12330865859985352, "timebase_ns": 1793539548115883099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539548215228080, "steady_ns": 1495760364970, "age_s": 0.06273603439331055}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548215243099, "steady_ns": 1495821902003, "age_s": 0.12426924705505371, "timebase_ns": 1793539548215243099, "points": 20160, "sequence_length": 20160, "last_offset_ns": 100789965}
+{"topic": "/Odometry", "stamp_ns": 1793539548316033124, "steady_ns": 1495847830303, "age_s": 0.04929304122924805}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548316043099, "steady_ns": 1495913420704, "age_s": 0.1149754524230957, "timebase_ns": 1793539548316043099, "points": 21984, "sequence_length": 21984, "last_offset_ns": 109909965}
+{"topic": "/Odometry", "stamp_ns": 1793539548425947904, "steady_ns": 1495948882585, "age_s": 0.04053306579589844}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548425963099, "steady_ns": 1496025767436, "age_s": 0.1174004077911377, "timebase_ns": 1793539548425963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539548526268005, "steady_ns": 1496046257988, "age_s": 0.03757810592651367}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548526283099, "steady_ns": 1496117176406, "age_s": 0.10846686363220215, "timebase_ns": 1793539548526283099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539548625633001, "steady_ns": 1496144854633, "age_s": 0.036818742752075195}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548625643099, "steady_ns": 1496217988139, "age_s": 0.10992431640625, "timebase_ns": 1793539548625643099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539548725952863, "steady_ns": 1496245614108, "age_s": 0.03726315498352051}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548725963099, "steady_ns": 1496313692018, "age_s": 0.10532999038696289, "timebase_ns": 1793539548725963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539548825778245, "steady_ns": 1496345973351, "age_s": 0.03779125213623047}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548825803099, "steady_ns": 1496413378574, "age_s": 0.10517048835754395, "timebase_ns": 1793539548825803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539548926112890, "steady_ns": 1496443689145, "age_s": 0.03518390655517578}
+{"topic": "/livox/lidar", "stamp_ns": 1793539548926123099, "steady_ns": 1496514046463, "age_s": 0.10552048683166504, "timebase_ns": 1793539548926123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539549025947809, "steady_ns": 1496537507223, "age_s": 0.02917790412902832}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549025963099, "steady_ns": 1496613597752, "age_s": 0.10522341728210449, "timebase_ns": 1793539549025963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539549125743627, "steady_ns": 1496645131389, "age_s": 0.03699445724487305}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549125803099, "steady_ns": 1496713492825, "age_s": 0.10529851913452148, "timebase_ns": 1793539549125803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539549226108074, "steady_ns": 1496736588457, "age_s": 0.02810811996459961}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549226123099, "steady_ns": 1496815231681, "age_s": 0.10669612884521484, "timebase_ns": 1793539549226123099, "points": 19584, "sequence_length": 19584, "last_offset_ns": 97909965}
+{"topic": "/Odometry", "stamp_ns": 1793539549324028015, "steady_ns": 1496873454147, "age_s": 0.06705188751220703}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549324043099, "steady_ns": 1496919423166, "age_s": 0.1129751205444336, "timebase_ns": 1793539549324043099, "points": 20160, "sequence_length": 20160, "last_offset_ns": 100789965}
+{"topic": "/Odometry", "stamp_ns": 1793539549424828052, "steady_ns": 1496973196992, "age_s": 0.05335211753845215}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549424843099, "steady_ns": 1497020583065, "age_s": 0.11332178115844727, "timebase_ns": 1793539549424843099, "points": 20256, "sequence_length": 20256, "last_offset_ns": 101269965}
+{"topic": "/Odometry", "stamp_ns": 1793539549526108026, "steady_ns": 1497072616534, "age_s": 0.06412696838378906}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549526123099, "steady_ns": 1497113154461, "age_s": 0.10462045669555664, "timebase_ns": 1793539549526123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539549625947952, "steady_ns": 1497145931420, "age_s": 0.03759932518005371}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549625963099, "steady_ns": 1497213950960, "age_s": 0.10549783706665039, "timebase_ns": 1793539549625963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539549726272821, "steady_ns": 1497236793403, "age_s": 0.028130292892456055}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549726283099, "steady_ns": 1497321921918, "age_s": 0.11322188377380371, "timebase_ns": 1793539549726283099, "points": 18048, "sequence_length": 18048, "last_offset_ns": 90229965}
+{"topic": "/Odometry", "stamp_ns": 1793539549816513061, "steady_ns": 1497351188915, "age_s": 0.05210304260253906}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549816523099, "steady_ns": 1497414048824, "age_s": 0.11509346961975098, "timebase_ns": 1793539549816523099, "points": 21888, "sequence_length": 21888, "last_offset_ns": 109429965}
+{"topic": "/Odometry", "stamp_ns": 1793539549925953149, "steady_ns": 1497462099679, "age_s": 0.05377030372619629}
+{"topic": "/livox/lidar", "stamp_ns": 1793539549925963099, "steady_ns": 1497517512613, "age_s": 0.1090545654296875, "timebase_ns": 1793539549925963099, "points": 19776, "sequence_length": 19776, "last_offset_ns": 98869965}
+{"topic": "/Odometry", "stamp_ns": 1793539550024832963, "steady_ns": 1497537150826, "age_s": 0.029944181442260742}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550024843099, "steady_ns": 1497614387140, "age_s": 0.10714173316955566, "timebase_ns": 1793539550024843099, "points": 20256, "sequence_length": 20256, "last_offset_ns": 101269965}
+{"topic": "/Odometry", "stamp_ns": 1793539550126107931, "steady_ns": 1497648372894, "age_s": 0.03985190391540527}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550126123099, "steady_ns": 1497714059136, "age_s": 0.10550570487976074, "timebase_ns": 1793539550126123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539550225952863, "steady_ns": 1497730654916, "age_s": 0.02227044105529785}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550225963099, "steady_ns": 1497825493272, "age_s": 0.1171109676361084, "timebase_ns": 1793539550225963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539550326272964, "steady_ns": 1497850877208, "age_s": 0.04223036766052246}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550326283099, "steady_ns": 1497914201992, "age_s": 0.10552430152893066, "timebase_ns": 1793539550326283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539550426107883, "steady_ns": 1497944806488, "age_s": 0.03612065315246582}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550426123099, "steady_ns": 1498014004358, "age_s": 0.10546374320983887, "timebase_ns": 1793539550426123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539550525952816, "steady_ns": 1498051383912, "age_s": 0.043059349060058594}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550525963099, "steady_ns": 1498117126187, "age_s": 0.10876154899597168, "timebase_ns": 1793539550525963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539550626268148, "steady_ns": 1498162922914, "age_s": 0.05427718162536621}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550626283099, "steady_ns": 1498213338396, "age_s": 0.10463833808898926, "timebase_ns": 1793539550626283099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539550725627899, "steady_ns": 1498243654791, "age_s": 0.035593271255493164}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550725643099, "steady_ns": 1498313080889, "age_s": 0.10500574111938477, "timebase_ns": 1793539550725643099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539550825947999, "steady_ns": 1498332241781, "age_s": 0.02391982078552246}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550825963099, "steady_ns": 1498414655805, "age_s": 0.10628509521484375, "timebase_ns": 1793539550825963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539550926272869, "steady_ns": 1498468093720, "age_s": 0.05943799018859863}
+{"topic": "/livox/lidar", "stamp_ns": 1793539550926283099, "steady_ns": 1498513442374, "age_s": 0.10477066040039062, "timebase_ns": 1793539550926283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539551026108026, "steady_ns": 1498551546712, "age_s": 0.04306745529174805}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551026123099, "steady_ns": 1498614360636, "age_s": 0.10582852363586426, "timebase_ns": 1793539551026123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539551125952959, "steady_ns": 1498642601754, "age_s": 0.03421354293823242}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551125963099, "steady_ns": 1498714353566, "age_s": 0.10596942901611328, "timebase_ns": 1793539551125963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539551226272821, "steady_ns": 1498751613565, "age_s": 0.04296731948852539}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551226283099, "steady_ns": 1498815462519, "age_s": 0.10678744316101074, "timebase_ns": 1793539551226283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539551326112985, "steady_ns": 1498856771790, "age_s": 0.048285484313964844}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551326123099, "steady_ns": 1498914207775, "age_s": 0.1056673526763916, "timebase_ns": 1793539551326123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539551425952911, "steady_ns": 1498933841572, "age_s": 0.025510787963867188}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551425963099, "steady_ns": 1499014221921, "age_s": 0.10585689544677734, "timebase_ns": 1793539551425963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539551525792837, "steady_ns": 1499043002155, "age_s": 0.03475451469421387}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551525803099, "steady_ns": 1499113404722, "age_s": 0.10518193244934082, "timebase_ns": 1793539551525803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539551626112937, "steady_ns": 1499144766515, "age_s": 0.03624749183654785}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551626123099, "steady_ns": 1499218916682, "age_s": 0.1103818416595459, "timebase_ns": 1793539551626123099, "points": 18432, "sequence_length": 18432, "last_offset_ns": 92149965}
+{"topic": "/Odometry", "stamp_ns": 1793539551718262910, "steady_ns": 1499245800331, "age_s": 0.045134782791137695}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551718283099, "steady_ns": 1499312279422, "age_s": 0.11158442497253418, "timebase_ns": 1793539551718283099, "points": 19104, "sequence_length": 19104, "last_offset_ns": 95509965}
+{"topic": "/Odometry", "stamp_ns": 1793539551813787937, "steady_ns": 1499334526011, "age_s": 0.03835725784301758}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551813803099, "steady_ns": 1499416965988, "age_s": 0.12074017524719238, "timebase_ns": 1793539551813803099, "points": 22464, "sequence_length": 22464, "last_offset_ns": 112309965}
+{"topic": "/Odometry", "stamp_ns": 1793539551926107883, "steady_ns": 1499440061012, "age_s": 0.03156423568725586}
+{"topic": "/livox/lidar", "stamp_ns": 1793539551926123099, "steady_ns": 1499514621972, "age_s": 0.10608291625976562, "timebase_ns": 1793539551926123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539552025952816, "steady_ns": 1499536345542, "age_s": 0.028014659881591797}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552025963099, "steady_ns": 1499619336347, "age_s": 0.11094951629638672, "timebase_ns": 1793539552025963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539552126272916, "steady_ns": 1499657333803, "age_s": 0.04868197441101074}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552126283099, "steady_ns": 1499716986123, "age_s": 0.10825347900390625, "timebase_ns": 1793539552126283099, "points": 18432, "sequence_length": 18432, "last_offset_ns": 92149965}
+{"topic": "/Odometry", "stamp_ns": 1793539552218427896, "steady_ns": 1499764495494, "age_s": 0.06369423866271973}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552218443099, "steady_ns": 1499814293811, "age_s": 0.11343240737915039, "timebase_ns": 1793539552218443099, "points": 21504, "sequence_length": 21504, "last_offset_ns": 107509965}
+{"topic": "/Odometry", "stamp_ns": 1793539552325947999, "steady_ns": 1499847467098, "age_s": 0.03914618492126465}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552325963099, "steady_ns": 1499914781983, "age_s": 0.10640144348144531, "timebase_ns": 1793539552325963099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539552425792932, "steady_ns": 1499942268557, "age_s": 0.03409910202026367}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552425803099, "steady_ns": 1500013650600, "age_s": 0.10543274879455566, "timebase_ns": 1793539552425803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539552526112794, "steady_ns": 1500047658850, "age_s": 0.03902411460876465}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552526123099, "steady_ns": 1500113361700, "age_s": 0.10481715202331543, "timebase_ns": 1793539552526123099, "points": 17568, "sequence_length": 17568, "last_offset_ns": 87829965}
+{"topic": "/Odometry", "stamp_ns": 1793539552613948106, "steady_ns": 1500154266482, "age_s": 0.057944536209106445}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552613963099, "steady_ns": 1500218149741, "age_s": 0.12178993225097656, "timebase_ns": 1793539552613963099, "points": 22464, "sequence_length": 22464, "last_offset_ns": 112309965}
+{"topic": "/Odometry", "stamp_ns": 1793539552726238489, "steady_ns": 1500252368715, "age_s": 0.041849613189697266}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552726283099, "steady_ns": 1500315420180, "age_s": 0.10672879219055176, "timebase_ns": 1793539552726283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539552826107978, "steady_ns": 1500353201727, "age_s": 0.044719696044921875}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552826123099, "steady_ns": 1500423471779, "age_s": 0.11494302749633789, "timebase_ns": 1793539552826123099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539552926378488, "steady_ns": 1500434871319, "age_s": 0.02608489990234375}
+{"topic": "/livox/lidar", "stamp_ns": 1793539552926443099, "steady_ns": 1500513140807, "age_s": 0.10430216789245605, "timebase_ns": 1793539552926443099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539553025783061, "steady_ns": 1500543402032, "age_s": 0.03522682189941406}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553025803099, "steady_ns": 1500613385613, "age_s": 0.1051781177520752, "timebase_ns": 1793539553025803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539553126108169, "steady_ns": 1500634717303, "age_s": 0.026232481002807617}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553126123099, "steady_ns": 1500713092969, "age_s": 0.10456156730651855, "timebase_ns": 1793539553126123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539553225952863, "steady_ns": 1500737386002, "age_s": 0.029042959213256836}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553225963099, "steady_ns": 1500818034036, "age_s": 0.10966181755065918, "timebase_ns": 1793539553225963099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539553325308084, "steady_ns": 1500853991384, "age_s": 0.04628610610961914}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553325323099, "steady_ns": 1500915826438, "age_s": 0.1080927848815918, "timebase_ns": 1793539553325323099, "points": 20160, "sequence_length": 20160, "last_offset_ns": 100789965}
+{"topic": "/Odometry", "stamp_ns": 1793539553426113128, "steady_ns": 1500945670791, "age_s": 0.037153005599975586}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553426123099, "steady_ns": 1501025208785, "age_s": 0.11666440963745117, "timebase_ns": 1793539553426123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539553525947809, "steady_ns": 1501044929304, "age_s": 0.0366063117980957}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553525963099, "steady_ns": 1501129010276, "age_s": 0.12064170837402344, "timebase_ns": 1793539553525963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539553626268148, "steady_ns": 1501182149880, "age_s": 0.07350754737854004}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553626283099, "steady_ns": 1501218595974, "age_s": 0.10988640785217285, "timebase_ns": 1793539553626283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539553726107835, "steady_ns": 1501259860764, "age_s": 0.05137467384338379}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553726123099, "steady_ns": 1501312076284, "age_s": 0.10356307029724121, "timebase_ns": 1793539553726123099, "points": 15168, "sequence_length": 15168, "last_offset_ns": 75829965}
+{"topic": "/Odometry", "stamp_ns": 1793539553801953077, "steady_ns": 1501344128172, "age_s": 0.059770822525024414}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553801963099, "steady_ns": 1501417778424, "age_s": 0.13338518142700195, "timebase_ns": 1793539553801963099, "points": 24864, "sequence_length": 24864, "last_offset_ns": 124309965}
+{"topic": "/Odometry", "stamp_ns": 1793539553925100326, "steady_ns": 1501452429087, "age_s": 0.04492807388305664}
+{"topic": "/livox/lidar", "stamp_ns": 1793539553926283099, "steady_ns": 1501516278681, "age_s": 0.107574462890625, "timebase_ns": 1793539553926283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539554026088237, "steady_ns": 1501549827561, "age_s": 0.041335344314575195}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554026123099, "steady_ns": 1501618975636, "age_s": 0.11044025421142578, "timebase_ns": 1793539554026123099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539554125947952, "steady_ns": 1501673626408, "age_s": 0.06530284881591797}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554125963099, "steady_ns": 1501714366994, "age_s": 0.10597705841064453, "timebase_ns": 1793539554125963099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539554226258039, "steady_ns": 1501745481934, "age_s": 0.036824703216552734}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554226283099, "steady_ns": 1501815292968, "age_s": 0.1065988540649414, "timebase_ns": 1793539554226283099, "points": 19968, "sequence_length": 19968, "last_offset_ns": 99829965}
+{"topic": "/Odometry", "stamp_ns": 1793539554325806379, "steady_ns": 1501840401890, "age_s": 0.03206825256347656}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554326123099, "steady_ns": 1501923107120, "age_s": 0.11457085609436035, "timebase_ns": 1793539554326123099, "points": 19776, "sequence_length": 19776, "last_offset_ns": 98869965}
+{"topic": "/Odometry", "stamp_ns": 1793539554424983024, "steady_ns": 1501932934467, "age_s": 0.025537967681884766}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554425003099, "steady_ns": 1502015704403, "age_s": 0.10829687118530273, "timebase_ns": 1793539554425003099, "points": 20160, "sequence_length": 20160, "last_offset_ns": 100789965}
+{"topic": "/Odometry", "stamp_ns": 1793539554525783061, "steady_ns": 1502048093802, "age_s": 0.03990483283996582}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554525803099, "steady_ns": 1502114550011, "age_s": 0.10632705688476562, "timebase_ns": 1793539554525803099, "points": 20064, "sequence_length": 20064, "last_offset_ns": 100309965}
+{"topic": "/Odometry", "stamp_ns": 1793539554626108169, "steady_ns": 1502145498035, "age_s": 0.03568005561828613}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554626123099, "steady_ns": 1502220678272, "age_s": 0.11214327812194824, "timebase_ns": 1793539554626123099, "points": 19872, "sequence_length": 19872, "last_offset_ns": 99349965}
+{"topic": "/Odometry", "stamp_ns": 1793539554725467920, "steady_ns": 1502256233179, "age_s": 0.04839158058166504}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554725483099, "steady_ns": 1502315759800, "age_s": 0.10786080360412598, "timebase_ns": 1793539554725483099, "points": 20160, "sequence_length": 20160, "last_offset_ns": 100789965}
+{"topic": "/Odometry", "stamp_ns": 1793539554825664281, "steady_ns": 1502357944609, "age_s": 0.04989337921142578}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554826283099, "steady_ns": 1502414940519, "age_s": 0.10624146461486816, "timebase_ns": 1793539554826283099, "points": 18144, "sequence_length": 18144, "last_offset_ns": 90709965}
+{"topic": "/Odometry", "stamp_ns": 1793539554916953325, "steady_ns": 1502439291634, "age_s": 0.03993368148803711}
+{"topic": "/livox/lidar", "stamp_ns": 1793539554917003099, "steady_ns": 1502515412018, "age_s": 0.11598920822143555, "timebase_ns": 1793539554917003099, "points": 21792, "sequence_length": 21792, "last_offset_ns": 108949965}
+{"topic": "/Odometry", "stamp_ns": 1793539555025314569, "steady_ns": 1502539229617, "age_s": 0.03152799606323242}

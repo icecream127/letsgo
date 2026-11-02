@@ -25,6 +25,7 @@
 #include "pub_handler.h"
 #include "livox_lidar_api.h"
 #include <cstdlib>
+#include <cstdio>
 #include <chrono>
 #include <iostream>
 #include <limits>
@@ -112,6 +113,8 @@ void PubHandler::OnLivoxLidarPointCloudCallback(uint32_t handle, const uint8_t d
     if (self->imu_callback_) {
       RawImuPoint* imu = (RawImuPoint*) data->data;
       ImuData imu_data;
+      imu_data.diag_receive_steady_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+          std::chrono::steady_clock::now().time_since_epoch()).count();
       imu_data.lidar_type = static_cast<uint8_t>(LidarProtoType::kLivoxLidarType);
       imu_data.handle = handle;
       imu_data.time_stamp = self->GetEthPacketTimestamp(handle, data->time_type,
@@ -127,6 +130,8 @@ void PubHandler::OnLivoxLidarPointCloudCallback(uint32_t handle, const uint8_t d
     return;
   }
   RawPacket packet = {};
+  packet.diag_receive_steady_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+      std::chrono::steady_clock::now().time_since_epoch()).count();
   packet.handle = handle;
   packet.lidar_type = LidarProtoType::kLivoxLidarType;
   packet.extrinsic_enable = false; 
@@ -154,7 +159,18 @@ void PubHandler::OnLivoxLidarPointCloudCallback(uint32_t handle, const uint8_t d
 }
 
 void PubHandler::PublishPointCloud() {
-  //publish point
+  // Correlate the first packet in a frame by its mapped measurement timestamp.
+  const int64_t now_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+      std::chrono::steady_clock::now().time_since_epoch()).count();
+  if (frame_.lidar_num && (frame_.base_time[0] / 100000000ULL) % 50 == 0) {
+    for (uint32_t i = 0; i < frame_.lidar_num; ++i) {
+      auto arrival = diag_raw_arrivals_.find(frame_.base_time[i]);
+      fprintf(stderr, "frame_diag base_ns=%llu receive_steady_ns=%lld assembled_steady_ns=%lld receive_to_assembled_ms=%.3f\n",
+          (unsigned long long)frame_.base_time[i],
+          (long long)(arrival == diag_raw_arrivals_.end() ? 0 : arrival->second),
+          (long long)now_ns, arrival == diag_raw_arrivals_.end() ? -1. : (now_ns-arrival->second)/1e6);
+    }
+  }
   if (points_callback_) {
     points_callback_(&frame_, pub_client_data_);
   }
@@ -240,6 +256,8 @@ void PubHandler::RawDataProcess() {
       raw_data = raw_packet_queue_.front();
       raw_packet_queue_.pop_front();
     }
+    diag_raw_arrivals_[raw_data.time_stamp] = raw_data.diag_receive_steady_ns;
+    while (diag_raw_arrivals_.size() > 8192) diag_raw_arrivals_.erase(diag_raw_arrivals_.begin());
     uint32_t id = 0;
     GetLidarId(raw_data.lidar_type, raw_data.handle, id);
     if (lidar_process_handlers_.find(id) == lidar_process_handlers_.end()) {
@@ -278,18 +296,34 @@ uint64_t PubHandler::GetEthPacketTimestamp(uint32_t handle, uint8_t timestamp_ty
   // either stream or their relative timing.
   const uint64_t device_ns = static_cast<uint64_t>(time.stamp);
   std::lock_guard<std::mutex> lock(timestamp_mutex_);
+  const int64_t wall_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+      std::chrono::system_clock::now().time_since_epoch()).count();
+  const int64_t steady_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+      std::chrono::steady_clock::now().time_since_epoch()).count();
   auto anchor = timestamp_anchors_.find(handle);
   if (anchor == timestamp_anchors_.end()) {
     const uint64_t epoch_ns = static_cast<uint64_t>(
         std::chrono::duration_cast<std::chrono::nanoseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count());
     anchor = timestamp_anchors_.emplace(
-        handle, DeviceClockAnchor{device_ns, epoch_ns}).first;
+        handle, DeviceClockAnchor{device_ns, epoch_ns, steady_ns, 0, device_ns}).first;
   }
-  if (device_ns >= anchor->second.device_ns) {
-    return anchor->second.epoch_ns + (device_ns - anchor->second.device_ns);
+  auto& clock = anchor->second;
+  const int64_t mapped_ns = static_cast<int64_t>(clock.epoch_ns) +
+      (static_cast<int64_t>(device_ns) - static_cast<int64_t>(clock.device_ns));
+  // Observe only: do not re-anchor on network reordering or conceal old data.
+  if (steady_ns - clock.last_log_ns >= 5000000000LL) {
+    fprintf(stderr, "clock_diag handle=%u type=%u raw_ns=%llu anchor_raw_ns=%llu anchor_epoch_ns=%llu steady_ns=%lld mapped_ns=%lld age_ms=%.3f wall_step_ms=%.3f device_vs_steady_ms=%.3f backtrack_ms=%.3f\n",
+        handle, timestamp_type, (unsigned long long)device_ns,
+        (unsigned long long)clock.device_ns, (unsigned long long)clock.epoch_ns,
+        (long long)steady_ns, (long long)mapped_ns, (wall_ns-mapped_ns)/1e6,
+        ((wall_ns-static_cast<int64_t>(clock.epoch_ns))-(steady_ns-clock.steady_ns))/1e6,
+        ((static_cast<int64_t>(device_ns)-static_cast<int64_t>(clock.device_ns))-(steady_ns-clock.steady_ns))/1e6,
+        device_ns < clock.max_device_ns ? (clock.max_device_ns-device_ns)/1e6 : 0.0);
+    clock.last_log_ns = steady_ns;
   }
-  return anchor->second.epoch_ns - (anchor->second.device_ns - device_ns);
+  clock.max_device_ns = std::max(clock.max_device_ns, device_ns);
+  return static_cast<uint64_t>(mapped_ns);
 }
 
 /*******************************/

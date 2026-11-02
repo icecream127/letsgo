@@ -1,0 +1,14 @@
+{
+  "publishers": [
+    {
+      "node": "nav_cmd_gate",
+      "namespace": "/"
+    }
+  ],
+  "subscriptions": [
+    {
+      "node": "navigation_evidence_observer",
+      "namespace": "/"
+    }
+  ]
+}

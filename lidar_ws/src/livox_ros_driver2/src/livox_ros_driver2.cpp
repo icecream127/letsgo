@@ -196,7 +196,9 @@ RCLCPP_COMPONENTS_REGISTER_NODE(livox_ros::DriverNode)
 void DriverNode::PointCloudDataPollThread()
 {
   std::future_status status;
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  // Lds is registered and initialized before this thread is created.
+  // Distribute* waits on the data semaphore; a fixed sleep accumulated three
+  // seconds of already timestamped sensor data at every driver startup.
   do {
     lddc_ptr_->DistributePointCloudData();
     status = future_.wait_for(std::chrono::microseconds(0));
@@ -206,7 +208,9 @@ void DriverNode::PointCloudDataPollThread()
 void DriverNode::ImuDataPollThread()
 {
   std::future_status status;
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  // Lds is registered and initialized before this thread is created.
+  // Distribute* waits on the data semaphore; a fixed sleep accumulated three
+  // seconds of already timestamped sensor data at every driver startup.
   do {
     lddc_ptr_->DistributeImuData();
     status = future_.wait_for(std::chrono::microseconds(0));

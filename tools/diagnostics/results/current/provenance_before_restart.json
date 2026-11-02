@@ -1,0 +1,26 @@
+{
+  "wall_ns": 1793539816225625623,
+  "git_head": "b034f517d9b9c4842be877cad71e009a7e5037e6",
+  "boot_id": "ce1aab75-85aa-4bb5-9e81-4531c874d5e1",
+  "files": {
+    "lidar_ws/src/fastlio/src/laserMapping.cpp": "d5973e30ef8e0d7dfb68682b0287a08fe32e75b17fd7396d56f46eb64bece939",
+    "lidar_ws/src/ros2_to_stm32/config/fast_lio_mid360_real.yaml": "29d4d6ec91265f9e26e6f15bcbe2b1b2c3e22b1e1bced50a051b97ee28b2e050",
+    "lidar_ws/src/livox_ros_driver2/src/comm/pub_handler.cpp": "8646eadbfcb79df1659892462bda99dcf49ed6ac8ece18c2d48a26972e50aa69",
+    "lidar_ws/src/livox_ros_driver2/src/lddc.cpp": "2c16b835815e2687714e38d04a89e53c21485e56a9b4003dc48156dd58f14eb5",
+    "maps/competition/map.pgm": "83986ce05daf7fdd99c3dc1a5d1290f071847c101e3466ba389e46f8c791542e",
+    "maps/competition/map.yaml": "1a512b24f8c0bf03832edbb8f9cdac2e914fabd937b6853a287ee78b657e90d4",
+    "maps/competition/projection.json": "154484d0b95aafc4c859fba7003972016afcc14c372558c0568dd5d639f3938a"
+  },
+  "original_running": {
+    "76434": {
+      "exe": "/home/jetson/letsgo/lidar_ws/build/livox_ros_driver2/livox_ros_driver2_node",
+      "sha256": "e890968452df9854c0f1d146c128c1aece5c130464c164e8919d220083101455",
+      "cmdline": "/home/jetson/letsgo/lidar_ws/install/livox_ros_driver2/lib/livox_ros_driver2/livox_ros_driver2_node --ros-args -r __node:=mid360_real_driver --params-file lidar_ws/src/ros2_to_stm32/config/livox_driver.yaml -p user_config_path:=/home/jetson/letsgo/lidar_ws/src/ros2_to_stm32/config/mid360_real.json "
+    },
+    "76523": {
+      "exe": "/home/jetson/letsgo/lidar_ws/build/fast_lio/fastlio_mapping (deleted)",
+      "sha256": "a14bb024bb320621f169756eff1845c3efae03869bb8069b55ba576e380c614d",
+      "cmdline": "/home/jetson/letsgo/lidar_ws/install/fast_lio/lib/fast_lio/fastlio_mapping --ros-args --params-file lidar_ws/src/ros2_to_stm32/config/fast_lio_mid360_real.yaml -p publish.map_en:=false -p publish.path_en:=false -p pcd_save.pcd_save_en:=false "
+    }
+  }
+}

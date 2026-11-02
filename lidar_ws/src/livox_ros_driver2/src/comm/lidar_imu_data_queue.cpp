@@ -31,6 +31,7 @@ void LidarImuDataQueue::Push(ImuData* imu_data) {
   data.lidar_type = imu_data->lidar_type;
   data.handle = imu_data->handle;
   data.time_stamp = imu_data->time_stamp;
+  data.diag_receive_steady_ns = imu_data->diag_receive_steady_ns;
 
   data.gyro_x = imu_data->gyro_x;
   data.gyro_y = imu_data->gyro_y;
