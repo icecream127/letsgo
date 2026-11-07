@@ -1,0 +1,16 @@
+{
+  "result": "ORIGINAL_C_TARGET_BLOCKED",
+  "map_sha256": "cd729af9731dc42458a3f78c5f70fa5edc6f137e59a8a6e85cf8ae361afa23dd",
+  "original_C": [
+    5.0,
+    -4.2
+  ],
+  "cost": 99,
+  "planner_fallback_goal_error_m": 0.11180339720898946,
+  "note": "Original C lies in inscribed inflation zone on edited map; test a center point on verified route without modifying user pixels.",
+  "revised_C_test_target": [
+    4.925,
+    -4.075
+  ],
+  "revised_target_planning": "PASS: field_to_C and C_to_A, zero goal error"
+}

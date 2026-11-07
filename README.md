@@ -6,7 +6,7 @@
 
 ## 本地地图接入
 
-新增统一的 `maps/<地图名>/` 目录：保存 FAST-LIO 的 `cloud.pcd`，投影生成 `map.pgm`、`map.yaml`，再由 Nav2 map_server 加载。使用方法和验证边界见 [maps/README.md](maps/README.md)。入口依次为 `run/mapping.sh`、`run/save_map.sh`、`run/map_to_2d.sh`、`run/nav2_map.sh`；不会启动电控或旧路线。
+新增统一的 `maps/<地图名>/` 目录：保存 FAST-LIO 的 `cloud.pcd`，投影生成 `map.pgm`、`map.yaml`，再由 Nav2 map_server 加载。使用方法和验证边界见 [maps/competition/README.md](maps/competition/README.md)。入口依次为 `run/mapping.sh`、`run/save_map.sh`、`run/map_to_2d.sh`、`run/nav2_map.sh`；不会启动电控或旧路线。
 
 ## 2026-10-26 电控配套版（以下历史说明以本节为准）
 

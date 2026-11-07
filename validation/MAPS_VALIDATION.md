@@ -10,7 +10,7 @@
 - 启动已构建的 FAST-LIO 节点（没有驱动或传感器输入），真实 `/map_save` 返回空地图失败，未产生伪空地图文件。
 - 新旧 launch 的 `--show-args` 检查通过；新增 shell 脚本 `bash -n` 和 `git diff --check` 通过。
 
-最终联合测试：**7 passed**，隔离 `ROS_DOMAIN_ID=189`、`ROS_LOCALHOST_ONLY=1`、Cyclone DDS。早期默认 Fast DDS 测试出现跨进程服务请求超时（不是地图解析失败）；没有以这些失败运行作为通过证据，没有改全局 RMW 配置。复现命令见 maps/README.md。
+最终联合测试：**7 passed**，隔离 `ROS_DOMAIN_ID=189`、`ROS_LOCALHOST_ONLY=1`、Cyclone DDS。早期默认 Fast DDS 测试出现跨进程服务请求超时（不是地图解析失败）；没有以这些失败运行作为通过证据，没有改全局 RMW 配置。复现命令见 maps/competition/README.md。
 
 ## 边界
 

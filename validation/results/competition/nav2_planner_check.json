@@ -1,0 +1,5 @@
+{
+  "result": "STALE",
+  "map_sha256": "17e37af61b89426745816f6d580ba0f7e4538ec7d48be31abad50d9dfbcac21d",
+  "reason": "Image imported; rerun planning checks"
+}

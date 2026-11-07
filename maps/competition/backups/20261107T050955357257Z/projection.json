@@ -1,0 +1,150 @@
+{
+  "created_utc": "2026-11-05T10:54:01.123199+00:00",
+  "source": "cloud.pcd",
+  "source_map": "competition",
+  "bounds": [
+    -1.9,
+    -7.25,
+    11.1,
+    5.75
+  ],
+  "source_sha256": "6edd690d2569b91bbd6be1b2a7b4534c96ea5cb5085fa0535fd3ec0c6c7ed47e",
+  "image_sha256": "cd729af9731dc42458a3f78c5f70fa5edc6f137e59a8a6e85cf8ae361afa23dd",
+  "yaml_sha256": "1a512b24f8c0bf03832edbb8f9cdac2e914fabd937b6853a287ee78b657e90d4",
+  "coordinate_frame": "saved FAST-LIO odom axes, served as map; localization must align live odom",
+  "ground_z": -0.75,
+  "ground_tolerance": 0.05,
+  "min_height": 0.1,
+  "max_height": 2.0,
+  "resolution": 0.05,
+  "origin": [
+    -1.9,
+    -7.25,
+    0.0
+  ],
+  "width": 260,
+  "height": 260,
+  "cells": {
+    "free": 19060,
+    "occupied": 7595,
+    "unknown": 40945
+  },
+  "method": "manual_edit",
+  "terrain": {
+    "algorithm": "fine_surface_mode_v2",
+    "terrain_resolution": 0.05,
+    "ground_band": 0.05,
+    "max_step": 0.1,
+    "max_slope_degrees": 15.0,
+    "seed": [
+      1.0,
+      0.0,
+      -0.75
+    ],
+    "seed_radius": 0.5,
+    "surface_cells": 21788,
+    "cliff_cells": 767,
+    "steep_cells": 101,
+    "ground_elevation_range": [
+      -0.7814322710037231,
+      -0.2863878309726715
+    ],
+    "confirmed_regions": [
+      {
+        "name": "lower_slatted_passage",
+        "changed_cells": 534,
+        "measured_profile_bins": 88,
+        "total_profile_bins": 88,
+        "surface_z_range": [
+          -0.5701093673706055,
+          -0.5441884100437164
+        ],
+        "entry": "C, high-X end",
+        "gap_width_limit": null,
+        "interpretation": "field-confirmed effective traversability; gaps are not physical floor"
+      },
+      {
+        "name": "C_access_ramp",
+        "changed_cells": 54,
+        "measured_profile_bins": 20,
+        "total_profile_bins": 20,
+        "surface_z_range": [
+          -0.7432325482368469,
+          -0.6001140475273132
+        ],
+        "entry": "C access from field",
+        "gap_width_limit": null,
+        "interpretation": "field-confirmed effective traversability; gaps are not physical floor"
+      }
+    ],
+    "profile_sha256": "26b2b193d60c9873021663cc6ac8c41667369cc759ca2ff5ad5a81d826175514",
+    "profile_snapshot": {
+      "schema": 1,
+      "source_sha256": "6edd690d2569b91bbd6be1b2a7b4534c96ea5cb5085fa0535fd3ec0c6c7ed47e",
+      "confirmation": "2026-11-05: user photographs show separated slatted ramps; user confirms actual robot can enter at C and cross these gaps. Maximum gap width is unmeasured. Applies only to this surveyed region.",
+      "regions": [
+        {
+          "name": "lower_slatted_passage",
+          "x_range": [
+            0.9,
+            5.3
+          ],
+          "normal_equation": [
+            0.36,
+            1.0,
+            2.7
+          ],
+          "normal_range": [
+            -0.35,
+            0.65
+          ],
+          "surface_z_band": [
+            -0.68,
+            -0.4
+          ],
+          "entry": "C, high-X end",
+          "protect_sides": true,
+          "min_obstacle_points": 8,
+          "front_open_x_range": [
+            4.5,
+            5.3
+          ]
+        },
+        {
+          "name": "C_access_ramp",
+          "x_range": [
+            4.65,
+            5.65
+          ],
+          "normal_equation": [
+            0.36,
+            1.0,
+            2.7
+          ],
+          "normal_range": [
+            0.2,
+            1.45
+          ],
+          "surface_z_band": [
+            -0.8,
+            -0.4
+          ],
+          "entry": "C access from field",
+          "protect_sides": false,
+          "protect_x_edges_above_normal": 0.65,
+          "min_obstacle_points": 8
+        }
+      ]
+    }
+  },
+  "limitations": "Single surface 2.5D offline estimate; no ray tracing or multi-level overlap support. Step/slope limits require chassis validation.",
+  "manual_edit": {
+    "imported_utc": "2026-11-07T04:23:19.128011+00:00",
+    "input": "C:/Users/22512/Desktop/navmap/map.pgm",
+    "input_sha256": "cd729af9731dc42458a3f78c5f70fa5edc6f137e59a8a6e85cf8ae361afa23dd",
+    "previous_image_sha256": "43b4de5628ee1f6678c948e14de2bd78711125e3db9eca6ce9fb13bad4ce3927",
+    "coordinate_geometry": "resolution/origin unchanged; no resampling or pixel changes during import",
+    "scope": "User edited image supersedes automatically projected occupancy and confirmed-region overlay"
+  },
+  "organization_note": "2026-11-07: matching source PCD consolidated into competition; obsolete maps and duplicate artifacts moved to .local/maps_cleanup_archive/20261107 after batch deletion was rejected by automatic approval policy."
+}

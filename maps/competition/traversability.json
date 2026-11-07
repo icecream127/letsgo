@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "source_sha256": "6edd690d2569b91bbd6be1b2a7b4534c96ea5cb5085fa0535fd3ec0c6c7ed47e",
+  "confirmation": "2026-11-05: user photographs show separated slatted ramps; user confirms actual robot can enter at C and cross these gaps. Maximum gap width is unmeasured. Applies only to this surveyed region.",
+  "regions": [
+    {
+      "name": "lower_slatted_passage",
+      "x_range": [
+        0.9,
+        5.3
+      ],
+      "normal_equation": [
+        0.36,
+        1.0,
+        2.7
+      ],
+      "normal_range": [
+        -0.35,
+        0.65
+      ],
+      "surface_z_band": [
+        -0.68,
+        -0.4
+      ],
+      "entry": "C, high-X end",
+      "protect_sides": true,
+      "min_obstacle_points": 8,
+      "front_open_x_range": [
+        4.5,
+        5.3
+      ]
+    },
+    {
+      "name": "C_access_ramp",
+      "x_range": [
+        4.65,
+        5.65
+      ],
+      "normal_equation": [
+        0.36,
+        1.0,
+        2.7
+      ],
+      "normal_range": [
+        0.2,
+        1.45
+      ],
+      "surface_z_band": [
+        -0.8,
+        -0.4
+      ],
+      "entry": "C access from field",
+      "protect_sides": false,
+      "protect_x_edges_above_normal": 0.65,
+      "min_obstacle_points": 8
+    }
+  ]
+}
