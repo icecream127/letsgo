@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eo pipefail
 if [[ "${PROJECT_CLEAN_ENV:-0}" != 1 ]]; then
-    exec env -i HOME="$HOME" USER="${USER:-user}" PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin LANG=C.UTF-8 PROJECT_CLEAN_ENV=1 BUILD_JOBS="${BUILD_JOBS:-2}" bash "$0" "$@"
+    exec env -i HOME="$HOME" USER="${USER:-user}" PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin LANG=C.UTF-8 http_proxy="${http_proxy:-${HTTP_PROXY:-}}" https_proxy="${https_proxy:-${HTTPS_PROXY:-}}" all_proxy="${all_proxy:-${ALL_PROXY:-}}" no_proxy="${no_proxy:-${NO_PROXY:-}}" PROJECT_CLEAN_ENV=1 BUILD_JOBS="${BUILD_JOBS:-2}" bash "$0" "$@"
 fi
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
@@ -35,4 +35,4 @@ elif [[ $# != 0 ]]; then
     echo 'Usage: bash run/build_ros2.sh [--gicp]' >&2
     exit 2
 fi
-colcon build --base-paths "${sources[@]}" --packages-up-to "${packages[@]}" --executor sequential --symlink-install --cmake-args -DROS_EDITION=ROS2 -DDISTRO_ROS=humble "${options[@]}" "-DLIVOX_LIDAR_SDK_LIBRARY=$PROJECT_ROOT/.local/lib/liblivox_lidar_sdk_shared.so" "-DLIVOX_LIDAR_SDK_INCLUDE_DIR=$PROJECT_ROOT/.local/include"
+colcon build --base-paths "${sources[@]}" --packages-up-to "${packages[@]}" --executor sequential --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DROS_EDITION=ROS2 -DDISTRO_ROS=humble "${options[@]}" "-DLIVOX_LIDAR_SDK_LIBRARY=$PROJECT_ROOT/.local/lib/liblivox_lidar_sdk_shared.so" "-DLIVOX_LIDAR_SDK_INCLUDE_DIR=$PROJECT_ROOT/.local/include"

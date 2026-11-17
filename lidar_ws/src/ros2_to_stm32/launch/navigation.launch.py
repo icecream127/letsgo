@@ -41,7 +41,7 @@ def navigation_nodes(context):
         Node(package='ros2_to_stm32', executable='nav_adapter', output='screen',
              parameters=[config, common, {'use_gicp': gicp}]),
         Node(package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node', output='screen',
-             remappings=[('cloud_in', '/cloud_registered_body'), ('scan', '/scan')], parameters=[common, {
+             remappings=[('cloud_in', '/cloud_registered_nav'), ('scan', '/scan')], parameters=[common, {
                  'target_frame': 'nav_scan', 'transform_tolerance': 0.2, 'queue_size': 20,
                  'min_height': ParameterValue(LaunchConfiguration('scan_min_height'), value_type=float),
                  'max_height': ParameterValue(LaunchConfiguration('scan_max_height'), value_type=float),
@@ -82,5 +82,5 @@ def navigation_nodes(context):
                 'autostart': True, 'node_names': names}]))
     actions.append(Node(package='rviz2', executable='rviz2', condition=IfCondition(LaunchConfiguration('rviz')),
         arguments=['-d', os.path.join(get_package_share_directory('nav2_bringup'), 'rviz', 'nav2_default_view.rviz')],
-        parameters=[common]))
+        parameters=[common], remappings=[('/initialpose', '/gicp/initialpose')] if gicp else []))
     return actions

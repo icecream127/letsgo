@@ -143,6 +143,7 @@ def main():
                 base = tf_buffer.lookup_transform('map', 'base_footprint', Time()).transform
                 assert abs(base.translation.x) < .05 and abs(base.translation.y) < .05, base
                 assert tf_buffer.can_transform('map', 'livox_frame', Time())
+                scan_count_before_rejection = len(scans)
                 bad_cloud = True
                 raw_pub = node.create_publisher(Twist, '/cmd_vel_nav', 10)
                 for _ in range(40):
@@ -151,6 +152,7 @@ def main():
                     raw_pub.publish(raw)
                     pump(.1)
                 assert statuses[-1] == 'waiting_for_fresh_gicp_evidence', statuses[-10:]
+                assert len(scans) > scan_count_before_rejection + 10, 'Local scanning stopped when global localization was rejected'
                 recent = [abs(x)+abs(w) for t,x,w in commands if t>time.monotonic()-.5]
                 assert recent and max(recent)<1e-8, 'Rejected localization did not block velocity'
                 print('PASS: rejected GICP evidence blocks nonzero input while sensors still publish', flush=True)

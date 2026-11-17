@@ -8,6 +8,8 @@ from rclpy.time import Time
 from rclpy.qos import qos_profile_sensor_data
 from geometry_msgs.msg import TransformStamped
 from nav_msgs.msg import Odometry
+from sensor_msgs.msg import PointCloud2
+from sensor_msgs_py import point_cloud2
 from tf2_ros import TransformBroadcaster, StaticTransformBroadcaster, Buffer, TransformListener, TransformException
 from .nav_geometry import multiply, rotate, yaw, yaw_q, planar_velocity
 
@@ -27,6 +29,10 @@ class NavAdapter(Node):
         if self.use_gicp:
             self.buffer = Buffer()
             self.listener = TransformListener(self.buffer, self)
+        self.scan_rotations = {}
+        self.scan_clouds = {}
+        self.scan_cloud_pub = self.create_publisher(PointCloud2, '/cloud_registered_nav', 10)
+        self.create_subscription(PointCloud2, '/cloud_registered_body', self.on_cloud, qos_profile_sensor_data)
         self.static_sent = False
         self.history = deque(maxlen=100)
         self.last_stamp = None
@@ -36,6 +42,33 @@ class NavAdapter(Node):
         self.static = StaticTransformBroadcaster(self)
         self.create_subscription(Odometry, '/Odometry', self.on_odom, qos_profile_sensor_data)
         self.get_logger().info('Navigation adapter started')
+
+    def on_cloud(self, msg):
+        if msg.header.frame_id != 'livox_frame':
+            return
+        self.scan_clouds[(msg.header.stamp.sec, msg.header.stamp.nanosec)] = msg
+        self.publish_scan_cloud()
+
+    def publish_scan_cloud(self):
+        # Pair exact FAST-LIO measurement times. Rotate the body cloud into the
+        # yaw-only nav_scan frame directly, without requiring a global map TF.
+        for key in list(self.scan_clouds):
+            if key not in self.scan_rotations:
+                continue
+            msg = self.scan_clouds.pop(key)
+            rotation = self.scan_rotations.pop(key)
+            points = point_cloud2.read_points(msg, field_names=('x', 'y', 'z'), skip_nans=True)
+            xyz = np.array([(p[0], p[1], p[2]) for p in points], dtype=np.float32).reshape(-1, 3)
+            x, y, z, w = rotation
+            matrix = np.array([
+                [1-2*(y*y+z*z), 2*(x*y-z*w), 2*(x*z+y*w)],
+                [2*(x*y+z*w), 1-2*(x*x+z*z), 2*(y*z-x*w)],
+                [2*(x*z-y*w), 2*(y*z+x*w), 1-2*(x*x+y*y)]])
+            msg.header.frame_id = 'nav_scan'
+            self.scan_cloud_pub.publish(point_cloud2.create_cloud_xyz32(msg.header, xyz @ matrix.T))
+        for cache in (self.scan_clouds, self.scan_rotations):
+            while len(cache) > 20:
+                del cache[next(iter(cache))]
 
     def transform(self, parent, child, position, rotation, stamp):
         result = TransformStamped()
@@ -74,6 +107,8 @@ class NavAdapter(Node):
         raw_q = rotation
         base_p = raw_p + rotate(raw_q,self.offset)
         heading = yaw(multiply(raw_q,yaw_q(self.yaw_offset)))
+        self.scan_rotations[(msg.header.stamp.sec, msg.header.stamp.nanosec)] = multiply(yaw_q(-heading), raw_q)
+        self.publish_scan_cloud()
         if self.history:
             dt = t-self.history[-1][0]
             displacement = np.linalg.norm(base_p[:2]-np.array(self.history[-1][1:3]))

@@ -190,6 +190,7 @@ private:
     if(!pending_ && !initialized_){report("WAITING_FOR_INITIALPOSE");return;}
     if(last_processed_==last_input_) return;
     last_processed_=last_input_;
+    const auto match_start=std::chrono::steady_clock::now();
     Matrix odom_body;
     try {odom_body=poseMatrix(odom_->pose.pose);} catch(const std::exception & e){valid_=false;report(e.what());return;}
     Matrix guess=pending_?seed_:map_odom_*odom_body;
@@ -220,11 +221,14 @@ private:
     double translation=delta.block<3,1>(0,3).norm();
     double rotation=Eigen::AngleAxisf(delta.block<3,3>(0,0)).angle();
     bool first=pending_ || !initialized_;
+    const double input_age=(now()-rclcpp::Time(cloud_->header.stamp)).seconds();
+    const double match_ms=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-match_start).count();
     bool accepted=overlap>=ratio_ && error<=rmse_ && translation<=(first?initial_t_:correction_t_) &&
-      rotation<=(first?initial_r_:correction_r_) && (now()-rclcpp::Time(cloud_->header.stamp)).seconds()<=max_age_;
+      rotation<=(first?initial_r_:correction_r_) && input_age>=0 && input_age<=max_age_;
     valid_=accepted;
     std::ostringstream info; info<<(accepted?"ACCEPTED":"REJECTED")<<" rmse_m="<<error<<" inlier_ratio="<<overlap
-      <<" correction_m="<<translation<<" correction_rad="<<rotation;
+      <<" correction_m="<<translation<<" correction_rad="<<rotation<<" match_ms="<<match_ms<<" input_age_s="<<input_age;
+    if(!accepted && input_age>max_age_) info<<" reason=INPUT_EXPIRED_DURING_MATCH";
     if(!accepted) {report(info.str());return;}
     map_odom_=result*odom_body.inverse();pending_=false;initialized_=true;
     accepted_stamp_=rclcpp::Time(cloud_->header.stamp).nanoseconds();

@@ -54,14 +54,14 @@ Visualization Manager:
     - Class: rviz_default_plugins/Interact
     - Class: rviz_default_plugins/MoveCamera
     - Class: rviz_default_plugins/SetInitialPose
-      Topic: /initialpose
+      Topic: /gicp/initialpose
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
       Distance: 20
       Pitch: 0.8
       Yaw: 0.3
-      Target Frame: map
+      Target Frame: <Fixed Frame>
       Focal Point: {X: 0, Y: 0, Z: 0}
 Window Geometry:
   Width: 1200
