@@ -4,10 +4,11 @@ import math
 import numpy as np
 import rclpy
 from rclpy.node import Node
+from rclpy.time import Time
 from rclpy.qos import qos_profile_sensor_data
 from geometry_msgs.msg import TransformStamped
 from nav_msgs.msg import Odometry
-from tf2_ros import TransformBroadcaster, StaticTransformBroadcaster
+from tf2_ros import TransformBroadcaster, StaticTransformBroadcaster, Buffer, TransformListener, TransformException
 from .nav_geometry import multiply, rotate, yaw, yaw_q, planar_velocity
 
 
@@ -22,6 +23,10 @@ class NavAdapter(Node):
         self.yaw_offset = float(self.declare_parameter('livox_to_base_yaw', 0.).value)
         if self.offset.shape != (3,) or not np.isfinite(self.offset).all() or not math.isfinite(self.yaw_offset):
             raise ValueError('Invalid mounting parameters')
+        self.use_gicp = self.declare_parameter('use_gicp', False).value
+        if self.use_gicp:
+            self.buffer = Buffer()
+            self.listener = TransformListener(self.buffer, self)
         self.static_sent = False
         self.history = deque(maxlen=100)
         self.last_stamp = None
@@ -61,7 +66,7 @@ class NavAdapter(Node):
         if not np.isfinite(position).all() or not np.isfinite(rotation).all() or norm < 1e-9:
             return
         rotation /= norm
-        if not self.static_sent:
+        if not self.use_gicp and not self.static_sent:
             # Identity link preserves the FAST-LIO coordinate system without correction.
             self.static.sendTransform(self.transform('odom_nav','odom',[0.,0.,0.],[0.,0.,0.,1.],msg.header.stamp))
             self.static_sent = True
@@ -95,11 +100,33 @@ class NavAdapter(Node):
             result.pose.covariance[i]=.1
             result.twist.covariance[i]=.2
         self.pub.publish(result)
-        self.tf.sendTransform([
+        transforms = [
             self.transform('odom_nav','base_footprint',[*base_p[:2],0.],yaw_q(heading),msg.header.stamp),
             self.transform('base_footprint','nav_scan',
                            rotate(yaw_q(-heading),raw_p-np.array([*base_p[:2],0.])),
-                           yaw_q(0.),msg.header.stamp)])
+                           yaw_q(0.),msg.header.stamp)]
+        if self.use_gicp:
+            correction = self.global_transform(base_p, raw_q, heading, msg.header.stamp)
+            if correction is not None:
+                transforms.append(correction)
+        self.tf.sendTransform(transforms)
+
+    def global_transform(self, base_p, raw_q, heading, stamp):
+        # GICP streams the latest accepted map correction. Apply it to this raw
+        # odometry sample, then project the corrected base pose onto the plane.
+        try:
+            correction = self.buffer.lookup_transform('map', 'odom', Time())
+        except TransformException:
+            return None
+        if not 0. <= self.get_clock().now().nanoseconds * 1e-9 - stamp_seconds(correction.header.stamp) <= .5:
+            return None
+        t, q = correction.transform.translation, correction.transform.rotation
+        map_q = np.array([q.x, q.y, q.z, q.w])
+        map_p = np.array([t.x, t.y, t.z]) + rotate(map_q, base_p)
+        map_heading = yaw(multiply(multiply(map_q, raw_q), yaw_q(self.yaw_offset)))
+        delta = yaw_q(map_heading - heading)
+        translation = map_p[:2] - rotate(delta, [*base_p[:2], 0.])[:2]
+        return self.transform('map', 'odom_nav', [*translation, 0.], delta, stamp)
 
 
 def main(args=None):

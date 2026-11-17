@@ -68,6 +68,15 @@ bash run/save_map.sh session_20261107
 
 ## 4. 从点云生成二维底图
 
+对于正常 Z 轴向上、雷达在平地上方启动的 FAST-LIO 点云，可以自动估计地面高度和种子：
+
+```bash
+bash run/map_to_2d.sh session_20261107 --auto-ground --estimate-only
+bash run/map_to_2d.sh session_20261107 --auto-ground
+```
+
+第一条只打印估算的 `--ground-z`、`--seed-x`、`--seed-y`。第二条生成二维地图。算法默认在点云原点周围 2 米内，从原点下方的点中查找有连续覆盖的平地。可用 `--seed-x`、`--seed-y` 提供搜索中心的大概位置。估计依据只用于投影起点，坡度和台阶仍由地形投影逐格判断。缺乏平地或有多个覆盖相近的不同高度平面时，脚本会报错，可在 RViz 显示原始点云后用 Publish Point 点选已知平地，读取 `/clicked_point` 的 XYZ。
+
 新点云应先确定起始地面 XYZ。ground-z 是保存点云中的地面 Z，不是直接填写雷达安装高度。新场地不能照搬本场地的裁剪范围、种子位置和通行区域。
 
 新场地示例（必须将地面和种子位置替换为实测值）：
@@ -102,6 +111,17 @@ bash run/map_to_2d.sh competition \
 traversability.json 只适用于当前源点云：照片显示下方为有真实缝隙的分段坡板，用户确认底盘已能从 C 进入并通过，最大缝宽未测量。因此区域内可按底盘通行能力表达缝隙，并保留两侧边界与 C 开口；白色不代表缝隙内存在实体地面。该能力不能推广到其他沟槽，普通二维图也不能表达强制单向通行。
 
 换点云时其校验值会不匹配：不要只修改哈希绕过检查。应重新核实区域，或在 maps 之外保存旧规则，在新地图目录先不放 traversability.json。
+
+### 可选：投影前去除半径离群点
+
+启用该选项需要 SciPy（Ubuntu 的 `python3-scipy`）。从原始 PCD 读取后，仅对用于地面估计和栅格投影的点做三维邻域筛选。原始 PCD 保留给重定位，场地专用已确认区域仍使用原始观测。筛选参数与保留点数写入 `projection.json`。
+
+```bash
+PYTHONNOUSERSITE=1 bash run/map_to_2d.sh field_trial --auto-ground \
+  --radius-outlier 0.10 --radius-min-neighbors 3
+```
+
+这里要求每个保留点在 0.10 米球形邻域内至少有 3 个其他点。`--radius-outlier` 缺省时沿用原投影。对照时使用同一源点云、地面参数、分辨率和 `--bounds`，分别输出到两个新地图名。场地的对照图在 `validation/results/competition/radius_outlier_comparison.png`。3 邻点可用作本场地的试验起点，邻点阈值越高，稀疏墙边和窄障碍越容易被滤掉。预览时核对真实障碍、入口和自由区，确认后再用于规划。
 
 ## 5. 使用 GIMP 修图
 

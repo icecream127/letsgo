@@ -32,6 +32,15 @@ def test_pcd_roundtrip_with_extra_field(tmp_path, binary):
         maps.read_pcd(path)
 
 
+def test_radius_filter_uses_xyz_and_excludes_query_point():
+    pytest.importorskip('scipy.spatial')
+    # Four supported samples, a vertically separated sample and an isolated point.
+    points = np.array([[0, 0, 0], [.1, 0, 0], [.05, .01, 0], [.05, 0, .01],
+                       [0, 0, .2], [1, 1, 1]])
+    np.testing.assert_array_equal(maps.radius_outlier_filter(points, .1, 3), points[:4])
+    assert len(maps.radius_outlier_filter(points, .1, 4)) == 0
+
+
 def test_projection_orientation_unknown_and_obstacle_priority():
     points = np.array([[0, 0, 0], [0, 0, .5], [1, 1, 0], [2, 2, 4.]])
     image, origin = maps.project_cloud(points, 1., 0., .05, .1, 2., 0.)

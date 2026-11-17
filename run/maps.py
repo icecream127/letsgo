@@ -113,6 +113,65 @@ def project_cloud(points, resolution, ground_z, ground_tolerance, min_height, ma
     return np.flipud(grid), [float(origin[0]), float(origin[1]), 0.0]
 
 
+def radius_outlier_filter(points, radius, min_neighbors):
+    """Keep points with enough other XYZ samples within the given radius."""
+    if not math.isfinite(radius) or radius <= 0:
+        raise ValueError('离群滤波半径必须为正数（米）')
+    if min_neighbors < 1:
+        raise ValueError('离群滤波至少需要 1 个邻点')
+    if min_neighbors >= len(points):
+        return points[:0]
+    try:
+        from scipy.spatial import cKDTree
+    except ImportError as error:
+        raise ValueError('半径离群滤波需要 SciPy（Ubuntu: python3-scipy）') from error
+    tree = cKDTree(points)
+    # Query only the required neighbor rank, counting the query point itself.
+    distances, _ = tree.query(points, k=[min_neighbors + 1],
+                              distance_upper_bound=np.nextafter(radius, np.inf))
+    return points[distances[:, 0] <= radius]
+
+
+def estimate_ground(points, seed_x, seed_y):
+    """Find a supported ground patch below the origin in a Z-up FAST-LIO map."""
+    anchor = np.array([seed_x, seed_y])
+    if not np.isfinite(anchor).all():
+        raise ValueError('自动估计的搜索中心必须是有限坐标')
+    offsets = points[:, :2] - anchor
+    local = points[(np.sum(offsets**2, axis=1) <= 4.)
+                   & (points[:, 2] >= -2.5) & (points[:, 2] <= -.05)]
+    cell_size = .10
+    z_bin = .04
+    cells = np.unique(np.floor(local / [cell_size, cell_size, z_bin]).astype(int), axis=0)
+
+    # Count covered XY cells, so repeated observations and dense walls cannot
+    # dominate a height band simply by contributing more points per cell.
+    candidates = []
+    for level in np.unique(cells[:, 2]):
+        xy = cells[(cells[:, 2] >= level) & (cells[:, 2] <= level + 1), :2]
+        covered = {tuple(cell) for cell in xy}
+        patches = []
+        for x, y in covered:
+            support = sum((x + dx, y + dy) in covered
+                          for dx in (-1, 0, 1) for dy in (-1, 0, 1))
+            if support >= 8:
+                center = (np.array([x, y]) + .5) * cell_size
+                patches.append((float(np.linalg.norm(center - anchor)), x, y))
+        if len(patches) >= 12:
+            distance, x, y = min(patches)
+            candidates.append((len(patches), distance, level, x, y))
+    if not candidates:
+        raise ValueError('起点附近没有足够连续的低处平地，请用 RViz 点选已知平地或手动指定参数')
+    count, _, level, x, y = max(candidates, key=lambda c: (c[0], -c[1], -c[2]))
+    if any(abs(other - level) * z_bin >= .16 and score >= .8 * count
+           for score, _, other, _, _ in candidates):
+        raise ValueError('起点附近有多个高度不同、覆盖程度相近的平面，请用 RViz 确认地面后手动指定')
+    center = (np.array([x, y]) + .5) * cell_size
+    near = local[(np.abs(local[:, :2] - center) <= .15).all(axis=1)
+                 & (local[:, 2] >= level * z_bin) & (local[:, 2] < (level + 2) * z_bin)]
+    return float(np.median(near[:, 2])), float(center[0]), float(center[1])
+
+
 def project_terrain(points, resolution, ground_z, ground_tolerance, min_height,
                     max_height, padding, terrain_resolution=.2, ground_quantile=.05,
                     max_step=.10, max_slope=15., seed_x=0., seed_y=0., seed_radius=.5):
@@ -284,7 +343,8 @@ def project(args):
     source = map_directory(source_name) / 'cloud.pcd'
     source_relative = 'cloud.pcd' if source_name == args.name else f'../{source_name}/cloud.pcd'
     outputs = [directory / name for name in ('map.pgm', 'map.yaml', 'projection.json')]
-    if not args.force and any(p.exists() for p in outputs):
+    estimate_only = getattr(args, 'estimate_only', False)
+    if not estimate_only and not args.force and any(p.exists() for p in outputs):
         raise ValueError('二维地图已存在；如需重新生成，显式添加 --force')
     source_hash = sha256(source)
     points = read_pcd(source)
@@ -297,7 +357,29 @@ def project(args):
                         (points[:, 1] >= ymin) & (points[:, 1] < ymax)]
         if not len(points):
             raise ValueError('裁剪范围内没有点云')
+    raw_points = points
+    radius = getattr(args, 'radius_outlier', None)
+    outlier_filter = None
+    if radius is not None:
+        min_neighbors = getattr(args, 'radius_min_neighbors', None)
+        if min_neighbors is None:
+            min_neighbors = 3
+        points = radius_outlier_filter(raw_points, radius, min_neighbors)
+        if not len(points):
+            raise ValueError('半径离群滤波移除了所有点，请增大半径或减少所需邻点数')
+        outlier_filter = dict(method='radius_outlier', radius_m=radius,
+                              min_neighbors=min_neighbors, input_points=len(raw_points),
+                              kept_points=len(points))
+        print(f'半径滤波：保留 {len(points)}/{len(raw_points)} 个点，移除 {len(raw_points)-len(points)} 个点')
     method = getattr(args, 'method', 'flat')
+    auto_ground = getattr(args, 'auto_ground', False)
+    if auto_ground:
+        args.ground_z, args.seed_x, args.seed_y = estimate_ground(points, args.seed_x, args.seed_y)
+        print(f'估计地面：--ground-z {args.ground_z:.4f} --seed-x {args.seed_x:.3f} --seed-y {args.seed_y:.3f}')
+        if estimate_only:
+            return
+    if args.ground_z is None:
+        raise ValueError('请指定 --ground-z，或启用 --auto-ground')
     terrain = {}
     if method == 'terrain':
         image, origin, terrain = project_terrain(
@@ -328,7 +410,7 @@ def project(args):
         profile = json.loads(profile_path.read_text())
         if profile.get('source_sha256') != source_hash:
             raise ValueError('已确认地形区域与源点云不匹配，需重新核实区域')
-        image, reports = apply_confirmed_regions(image, origin, points, args.resolution, profile, args.max_height)
+        image, reports = apply_confirmed_regions(image, origin, raw_points, args.resolution, profile, args.max_height)
         terrain['confirmed_regions'] = reports
         terrain['profile_sha256'] = sha256(profile_path)
         terrain['profile_snapshot'] = profile
@@ -344,7 +426,8 @@ def project(args):
                     source_sha256=source_hash, image_sha256=hashlib.sha256(pgm).hexdigest(),
                     yaml_sha256=hashlib.sha256(yaml_bytes).hexdigest(),
                     coordinate_frame='saved FAST-LIO odom axes, served as map; localization must align live odom',
-                    ground_z=args.ground_z, ground_tolerance=args.ground_tolerance,
+                    ground_z=args.ground_z, ground_source="auto" if auto_ground else "manual",
+                    ground_tolerance=args.ground_tolerance,
                     min_height=args.min_height, max_height=args.max_height,
                     resolution=args.resolution, origin=origin, width=width, height=height,
                     cells=dict(free=int((image == 254).sum()), occupied=int((image == 0).sum()),
@@ -353,6 +436,8 @@ def project(args):
                     limitations=('Single surface 2.5D offline estimate; no ray tracing or multi-level overlap support. '
                                  'Step/slope limits require chassis validation.' if method == 'terrain' else
                                  'Flat-ground projection; no ray tracing, loop closure or traversability inference.'))
+    if outlier_filter is not None:
+        metadata['point_filter'] = outlier_filter
     payloads = [pgm, yaml_bytes, (json.dumps(metadata, ensure_ascii=False, indent=2) + '\n').encode('utf-8')]
     temporary = [p.with_name(p.name + '.tmp') for p in outputs]
     if any(p.exists() for p in outputs):
@@ -457,13 +542,27 @@ def main():
             sub.add_argument('--seed-x', type=float, default=0.)
             sub.add_argument('--seed-y', type=float, default=0.)
             sub.add_argument('--seed-radius', type=float, default=0.5)
-            sub.add_argument('--ground-z', type=float, required=True, help='地面在保存点云坐标中的 Z，单位 m')
+            ground = sub.add_mutually_exclusive_group(required=True)
+            ground.add_argument('--ground-z', type=float, help='地面在保存点云坐标中的 Z，单位 m')
+            ground.add_argument('--auto-ground', action='store_true',
+                                help='在 FAST-LIO 起点附近自动估计地面和种子')
+            sub.add_argument('--estimate-only', action='store_true', help='只输出估算值，不写地图')
             sub.add_argument('--ground-tolerance', type=float, default=0.05)
             sub.add_argument('--min-height', type=float, default=0.10)
             sub.add_argument('--max-height', type=float, default=2.0)
             sub.add_argument('--resolution', type=float, default=0.05)
             sub.add_argument('--padding', type=float, default=0.5)
+            sub.add_argument('--radius-outlier', type=float, metavar='METRES',
+                             help='投影前滤除邻点稀少的点；默认关闭')
+            sub.add_argument('--radius-min-neighbors', type=int,
+                             help='半径内最少其他点数；默认 3，不包含查询点本身')
     args = parser.parse_args()
+    if args.command == 'project':
+        if args.estimate_only and not args.auto_ground:
+            parser.error('--estimate-only 需要配合 --auto-ground')
+        if args.radius_min_neighbors is not None:
+            if args.radius_outlier is None or args.radius_min_neighbors < 1:
+                parser.error('--radius-min-neighbors 需要配合 --radius-outlier，且必须大于 0')
     try:
         if args.command == 'prepare':
             directory = map_directory(args.name)

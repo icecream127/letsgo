@@ -1,0 +1,64 @@
+{
+  "config_sha256": "ece99d698c37d754b453fb1ed58234aa3c1d00aa7c28d26a4946b4033fec47d7",
+  "controller_sha256": "16665a2f74ad2b09f213b8df49ca786dbae83b4165f1bad0b67b436f2b241aa0",
+  "obstacles": 8,
+  "waypoints": 40,
+  "fixed_targets_in_other_dispatch": [
+    {
+      "obstacle": "木桥B",
+      "step": 1,
+      "x_expression": "-2.0",
+      "y_expression": "0.05",
+      "yaw_expression": "-180",
+      "mode": "木桥A模式",
+      "dynamic_xy": false,
+      "fixed_x": 1.42,
+      "fixed_y": -4.08,
+      "nominal_x": 1.42,
+      "nominal_y": -4.08,
+      "dispatch_at_fixed_target": "大斜坡"
+    },
+    {
+      "obstacle": "木桥B",
+      "step": 2,
+      "x_expression": "-2.5",
+      "y_expression": "0.1",
+      "yaw_expression": "-180",
+      "mode": "木桥A模式",
+      "dynamic_xy": false,
+      "fixed_x": 0.92,
+      "fixed_y": -4.03,
+      "nominal_x": 0.92,
+      "nominal_y": -4.03,
+      "dispatch_at_fixed_target": "大斜坡"
+    },
+    {
+      "obstacle": "限高栏",
+      "step": 2,
+      "x_expression": "-4.0",
+      "y_expression": "0",
+      "yaw_expression": "-180",
+      "mode": "匍匐模式",
+      "dynamic_xy": false,
+      "fixed_x": -6.95,
+      "fixed_y": -3.98,
+      "nominal_x": -6.95,
+      "nominal_y": -3.98,
+      "dispatch_at_fixed_target": "沙坑"
+    },
+    {
+      "obstacle": "绕杆",
+      "step": 12,
+      "x_expression": "3.5",
+      "y_expression": "1.0",
+      "yaw_expression": "0",
+      "mode": "正常模式",
+      "dynamic_xy": false,
+      "fixed_x": -3.495,
+      "fixed_y": -0.175,
+      "nominal_x": -3.495,
+      "nominal_y": -0.175,
+      "dispatch_at_fixed_target": "高墙"
+    }
+  ]
+}

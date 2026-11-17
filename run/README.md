@@ -36,3 +36,15 @@
 move/rename 后应重新编译，勿拷贝 build、install、log、.local、.build_sdk。
 
 make.sh 仅用于显式指定的 CH341SER 驱动源码，不参与正常构建。
+
+## Nav2 坐标任务
+
+单目标与多目标顺序执行见 [NAV_GOALS.md](NAV_GOALS.md)。入口：nav_goals.sh。
+
+
+## 离线地图任务编辑器
+
+使用说明：../tools/map_task_editor/README.md；生成入口：map_task_editor.py。
+
+
+PCD 重定位入口见 [GICP_NAVIGATION.md](GICP_NAVIGATION.md)。

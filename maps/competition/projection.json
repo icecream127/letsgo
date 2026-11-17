@@ -1,33 +1,29 @@
 {
-  "created_utc": "2026-11-07T05:09:55.356713+00:00",
+  "created_utc": "2026-11-15T14:24:45.716893+00:00",
   "source": "cloud.pcd",
   "source_map": "competition",
-  "bounds": [
-    -1.9,
-    -7.25,
-    11.1,
-    5.75
-  ],
+  "bounds": null,
   "source_sha256": "6edd690d2569b91bbd6be1b2a7b4534c96ea5cb5085fa0535fd3ec0c6c7ed47e",
-  "image_sha256": "17e37af61b89426745816f6d580ba0f7e4538ec7d48be31abad50d9dfbcac21d",
-  "yaml_sha256": "1a512b24f8c0bf03832edbb8f9cdac2e914fabd937b6853a287ee78b657e90d4",
+  "image_sha256": "dafe8507b0a7433b0c24a07ba7eacedc90c1230423faab9a3d1021b1211160d3",
+  "yaml_sha256": "51eb87992bf6ad4a3e7e6bdcf1894dd5057c27681f6ceac6c2088bc142add893",
   "coordinate_frame": "saved FAST-LIO odom axes, served as map; localization must align live odom",
-  "ground_z": -0.75,
+  "ground_z": -0.7506184279918671,
+  "ground_source": "auto",
   "ground_tolerance": 0.05,
   "min_height": 0.1,
   "max_height": 2.0,
   "resolution": 0.05,
   "origin": [
-    -1.9,
-    -7.25,
+    -14.4,
+    -25.6,
     0.0
   ],
-  "width": 260,
-  "height": 260,
+  "width": 1101,
+  "height": 717,
   "cells": {
-    "free": 19771,
-    "occupied": 7018,
-    "unknown": 40811
+    "free": 19653,
+    "occupied": 7230,
+    "unknown": 762534
   },
   "method": "manual_edit",
   "terrain": {
@@ -37,13 +33,13 @@
     "max_step": 0.1,
     "max_slope_degrees": 15.0,
     "seed": [
-      1.0,
-      0.0,
-      -0.75
+      -0.05,
+      -0.05,
+      -0.7506184279918671
     ],
     "seed_radius": 0.5,
-    "surface_cells": 21788,
-    "cliff_cells": 767,
+    "surface_cells": 21878,
+    "cliff_cells": 768,
     "steep_cells": 101,
     "ground_elevation_range": [
       -0.7814322710037231,
@@ -52,7 +48,7 @@
     "confirmed_regions": [
       {
         "name": "lower_slatted_passage",
-        "changed_cells": 534,
+        "changed_cells": 535,
         "measured_profile_bins": 88,
         "total_profile_bins": 88,
         "surface_z_range": [
@@ -139,11 +135,11 @@
   },
   "limitations": "Single surface 2.5D offline estimate; no ray tracing or multi-level overlap support. Step/slope limits require chassis validation.",
   "manual_edit": {
-    "imported_utc": "2026-11-07T05:21:05.975474+00:00",
-    "input": "/mnt/c/Users/22512/Desktop/navmap/map_edited.pgm",
-    "input_sha256": "17e37af61b89426745816f6d580ba0f7e4538ec7d48be31abad50d9dfbcac21d",
-    "previous_image_sha256": "43b4de5628ee1f6678c948e14de2bd78711125e3db9eca6ce9fb13bad4ce3927",
-    "backup": "/home/zxy/letsgo/.local/map_backups/competition/20261107T052105975474Z",
+    "imported_utc": "2026-11-16T14:48:03.721059+00:00",
+    "input": "/home/zxy/letsgo/maps/competition/map.pgm",
+    "input_sha256": "dafe8507b0a7433b0c24a07ba7eacedc90c1230423faab9a3d1021b1211160d3",
+    "previous_image_sha256": "219c12aae2a40f221a2e687a737cf55241ca0aacbb77ebd92f5205ec8c7b8568",
+    "backup": "/home/zxy/letsgo/.local/map_backups/competition/20261116T144803721059Z",
     "coordinate_geometry": "unchanged size, resolution and origin"
   }
 }

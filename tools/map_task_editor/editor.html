@@ -1,0 +1,194 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>场地任务编辑器</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f5f7;color:#203444;font:14px 'Microsoft YaHei',sans-serif}header{padding:20px 28px;background:#123d48;color:white;display:flex;align-items:center;gap:24px}h1{margin:0;font-size:22px}header span{color:#b9d8dd}button,input,select{font:inherit;border:1px solid #bccbd1;border-radius:6px;padding:8px;background:white;color:#203444}button{cursor:pointer}button:hover{background:#e7f4f4}button.primary{background:#087f86;color:white;border-color:#087f86}button.active{background:#d2eeee;border-color:#087f86}main{display:grid;grid-template-columns:310px minmax(400px,1fr) 290px;gap:16px;padding:18px;height:calc(100vh - 80px)}section{background:white;border:1px solid #dce4e8;border-radius:10px;padding:16px;overflow:auto}h2{font-size:16px;margin:0 0 14px}.bar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.hint{color:#627782;font-size:12px;line-height:1.7}.task{padding:12px;border:1px solid #dde6e9;border-radius:7px;margin-bottom:8px;cursor:pointer}.task.selected{border:2px solid #087f86;background:#eef9f8}.task small{display:block;color:#6d7c86;margin-top:6px}label{display:block;margin-top:14px;margin-bottom:6px}input,select{width:100%}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.view{display:flex;flex-direction:column;overflow:hidden}#stage{flex:1;min-height:200px;overflow:auto;background:#23333b;border-radius:7px;position:relative}canvas{display:block;touch-action:none;cursor:crosshair}#message{height:80px;flex-shrink:0;overflow:auto;padding:10px 0;color:#8b4c15;line-height:1.5}#checks{white-space:pre-line;font-size:12px;line-height:1.8}#cursor{font-family:monospace;color:#526874;margin-top:8px}hr{border:0;border-top:1px solid #e0e7ea;margin:18px 0} .badge{font-size:12px;color:#b8e9e5} @media(max-width:1100px){main{grid-template-columns:260px minmax(350px,1fr);height:auto}.view{height:75vh}main>section:last-child{grid-column:1/-1}}
+@media(max-width:700px){header{padding:16px;flex-wrap:wrap;gap:10px}main{display:flex;flex-direction:column;padding:10px}.view{height:70vh;order:-1}section{overflow:visible}.view{overflow:hidden}#tasks{max-height:250px;overflow:auto}}
+</style>
+<header><h1>场地任务编辑器</h1><span id="mapInfo"></span><span class="badge">离线编辑 · 不控制机器人</span></header>
+<main><section><h2>启动区</h2><button id="start">设置启动区</button><p id="startStatus" class="hint">尚未设置</p><p class="hint">中心表示计划摆放机器人位置，箭头表示启动朝向。矩形范围随朝向旋转。</p><hr><h2>任务顺序</h2><div class="bar"><button class="primary" id="add">＋ 新增障碍</button><button id="up">↑</button><button id="down">↓</button><button id="del">删除</button></div><div id="tasks"></div><hr><button id="save" class="primary">保存任务工程</button> <button id="load">打开工程</button><input id="file" type="file" accept=".json" hidden><p class="hint">工程保存启动区、入口、出口、朝向、通过方式和顺序。关闭前请保存。</p><button id="export">导出 Nav2 目标</button><p id="saveHelp" class="hint">仅“普通导航”可导出给现有发送程序。特殊障碍须先实现动作交接，不能被当作普通导航静默执行。</p></section>
+<section class="view"><div class="bar"><button id="entry" class="active">设置入口</button><button id="exit">设置出口</button><button id="edges">标两侧边界</button><button id="middle">生成参考中线</button><button id="reverse">入口出口反向</button><button id="zoomIn">放大</button><button id="zoomOut">缩小</button><button id="fit">适合窗口</button></div><div class="hint">先选择任务，再在地图按下并拖动：按下位置为任务点，箭头方向为朝向。单击只改位置。放大后用滚动条移动视图。</div><label style="margin:0"><input id="snapLine" type="checkbox" style="width:auto"> 沿中线选入口 / 出口（可延伸到桥外）</label><div id="message" role="status"></div><div id="stage"><canvas id="canvas"></canvas></div><div id="cursor">地图坐标：米；朝向编辑显示度，文件保存弧度。</div><p class="hint">青色虚线：参考中线延长线；蓝色：当前任务；绿色：其他任务；橙色：检查未通过。虚线只表示访问顺序，不是 Nav2 规划路径。</p></section>
+<section><h2>当前任务</h2><label>障碍名称</label><input id="name" maxlength="100"><label>通过方式</label><select id="type"><option value="nav">普通导航</option><option value="ramp">坡道专用动作</option><option value="bridge">木桥专用动作</option><option value="step">台阶专用动作</option><option value="crawl">匍匐</option><option value="jump">跳跃</option><option value="custom">其他专用动作</option></select><hr><h2 id="pointTitle">入口坐标</h2><div class="row"><div><label>x / 米</label><input id="x" type="number" step="0.01"></div><div><label>y / 米</label><input id="y" type="number" step="0.01"></div></div><label>朝向 / 度（逆时针为正）</label><input id="yaw" type="number" step="1"><div class="bar" style="margin-top:12px"><button id="apply">应用坐标</button><button id="clear">清除该点</button></div><div id="startSize" hidden><label>启动区长 / 米（沿朝向）</label><input id="sizeX" type="number" min="0.05" max="50" step="0.05" value="1"><label>启动区宽 / 米</label><input id="sizeY" type="number" min="0.05" max="50" step="0.05" value="1"><button id="applySize" style="margin-top:10px">应用范围</button><p class="hint">紫色矩形仅标注启动区；净空检查只针对中心位置的底盘占地。设置启动区不会初始化定位或发送导航目标。</p></div><hr><label>检查半径 / 米</label><input id="radius" type="number" min="0" max="5" step="0.01" value="0.30"><p class="hint">默认 0.30 米仅作初筛，请按实际底盘设置。检查静态图中的圆形占地，不等于 Nav2 可达性或实车通过验证。</p><div id="checks"></div></section></main>
+<script>
+/*__ENGINE__*/
+/*__MAP__*/
+const $=id=>document.getElementById(id), canvas=$('canvas'),ctx=canvas.getContext('2d'),img=new Image();
+const pixels=Uint8Array.from(atob(MAP.pixels),c=>c.charCodeAt(0));
+let tasks=[],selected=-1,role='entry',scale=2,drag=null,dirty=false;
+let startArea={pose:null,size_x:1,size_y:1};
+let edgeDraft=null;
+const typeNames={nav:'普通导航',ramp:'坡道',bridge:'木桥',step:'台阶',crawl:'匍匐',jump:'跳跃',custom:'其他'};
+const statusNames={free:'通过静态占地检查',occupied:'位于障碍',unknown:'位于未知区域',outside:'超出地图',clearance:'周边净空不足'};
+function message(s){$('message').textContent=s}
+function current(){return tasks[selected]}
+function point(){return role==='start'?startArea.pose:current()?.[role]}
+function snapping(){return role!=='start'&&current()?.snap_centerline&&current()?.guide_enabled}
+function setPoint(p){
+ if(role==='start'){startArea.pose=p;return}
+ const t=current();if(!t)return;
+ t[role]=p&&snapping()?Geo.projectToCenterline(t.boundaries,p):p;
+ if(p&&snapping()){
+  const line=Geo.centerline(t.boundaries);let yaw=line.entry.yaw;
+  if(t.entry&&t.exit&&(t.exit.x-t.entry.x)*Math.cos(yaw)+(t.exit.y-t.entry.y)*Math.sin(yaw)<0)yaw=Math.atan2(-Math.sin(yaw),-Math.cos(yaw));
+  for(const k of ['entry','exit'])if(t[k])t[k].yaw=yaw;
+ }
+}
+function canEdit(){return role==='start'||!!current()}
+function radius(){return Number($('radius').value)}
+function changed(){dirty=true;render()}
+function poseAt(e){const r=canvas.getBoundingClientRect();return Geo.toWorld(MAP,(e.clientX-r.left)/scale,(e.clientY-r.top)/scale)}
+function render(){
+ $('tasks').replaceChildren();tasks.forEach((t,i)=>{const el=document.createElement('div');el.className='task'+(i===selected?' selected':'');el.textContent=`${i+1}. ${t.name}`;const s=document.createElement('small');s.textContent=`${typeNames[t.type]} · 入口${t.entry?' ✓':' 未设'} / 出口${t.exit?' ✓':' 未设'}`;el.append(s);el.onclick=()=>{edgeDraft=null;selected=i;if(role==='start')role='entry';render()};$('tasks').append(el)});
+ const t=current();$('snapLine').checked=!!t?.snap_centerline;$('snapLine').disabled=!t?.guide_enabled||role==='start';$('name').value=t?.name||'';$('type').value=t?.type||'nav';const p=point();for(const k of ['x','y','yaw'])$(k).value=p?(k==='yaw'?p.yaw*180/Math.PI:p[k]).toFixed(3):'';
+ $('pointTitle').textContent=role==='start'?'启动区中心坐标':role==='entry'?'入口坐标':'出口坐标';
+ $('start').classList.toggle('active',role==='start');$('startSize').hidden=role!=='start';$('sizeX').value=startArea.size_x;$('sizeY').value=startArea.size_y;
+ $('startStatus').textContent=startArea.pose?`中心 (${startArea.pose.x.toFixed(2)}, ${startArea.pose.y.toFixed(2)}) · 朝向 ${(startArea.pose.yaw*180/Math.PI).toFixed(1)}° · ${startArea.size_x} × ${startArea.size_y} 米`:'尚未设置';$('entry').classList.toggle('active',role==='entry');$('exit').classList.toggle('active',role==='exit');
+ $('checks').textContent=role==='start'?(startArea.pose?'启动位置：'+statusNames[Geo.check(MAP,pixels,startArea.pose,radius())]:'启动位置尚未设置'):t?['entry','exit'].map(k=>`${k==='entry'?'入口':'出口'}：${t[k]?statusNames[Geo.check(MAP,pixels,t[k],radius())]:'尚未设置'}`).join('\n'):'请先新增任务';draw();
+}
+function drawStart(){
+ if(!startArea.pose)return;
+ const p=startArea.pose,q=Geo.toPixel(MAP,p.x,p.y),a=-(p.yaw-MAP.origin[2]);
+ ctx.save();ctx.translate(q.u*scale,q.v*scale);ctx.rotate(a);
+ const w=startArea.size_x/MAP.resolution*scale,h=startArea.size_y/MAP.resolution*scale;
+ ctx.fillStyle='rgba(139,70,190,.15)';ctx.strokeStyle='#9146bd';ctx.lineWidth=2;ctx.fillRect(-w/2,-h/2,w,h);ctx.strokeRect(-w/2,-h/2,w,h);
+ ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(30,0);ctx.lineTo(22,-5);ctx.moveTo(30,0);ctx.lineTo(22,5);ctx.stroke();ctx.beginPath();ctx.arc(0,0,4,0,Math.PI*2);ctx.fillStyle='#9146bd';ctx.fill();ctx.restore();
+ ctx.font='bold 14px Microsoft YaHei';ctx.lineWidth=3;ctx.strokeStyle='white';ctx.fillStyle='#9146bd';ctx.strokeText('启动区',q.u*scale+8,q.v*scale-10);ctx.fillText('启动区',q.u*scale+8,q.v*scale-10);
+}
+function drawEdges(){
+ tasks.forEach((t,i)=>{if(!t.boundaries)return;const p=t.boundaries.map(p=>Geo.toPixel(MAP,p.x,p.y));ctx.strokeStyle=i===selected?'#e34d94':'#a98798';ctx.lineWidth=2;ctx.setLineDash([6,3]);for(let j=0;j<4;j+=2){ctx.beginPath();ctx.moveTo(p[j].u*scale,p[j].v*scale);ctx.lineTo(p[j+1].u*scale,p[j+1].v*scale);ctx.stroke()}ctx.setLineDash([]);
+ if(t.guide_enabled){const line=Geo.centerline(t.boundaries),a=Geo.toPixel(MAP,line.entry.x,line.entry.y),b=Geo.toPixel(MAP,line.exit.x,line.exit.y);const n=Math.hypot(b.u-a.u,b.v-a.v),dx=(b.u-a.u)/n,dy=(b.v-a.v)/n,L=Math.hypot(MAP.width,MAP.height)*2;ctx.strokeStyle='#009ca8';ctx.setLineDash([3,5]);ctx.beginPath();ctx.moveTo((a.u-dx*L)*scale,(a.v-dy*L)*scale);ctx.lineTo((a.u+dx*L)*scale,(a.v+dy*L)*scale);ctx.stroke();ctx.setLineDash([]);ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(a.u*scale,a.v*scale);ctx.lineTo(b.u*scale,b.v*scale);ctx.stroke()}
+ });
+ if(edgeDraft)edgeDraft.forEach((p,i)=>{const q=Geo.toPixel(MAP,p.x,p.y);ctx.fillStyle='#e34d94';ctx.beginPath();ctx.arc(q.u*scale,q.v*scale,5,0,Math.PI*2);ctx.fill();ctx.fillText(String(i+1),q.u*scale+8,q.v*scale)});
+}
+function draw(){
+ canvas.width=Math.round(MAP.width*scale);canvas.height=Math.round(MAP.height*scale);ctx.imageSmoothingEnabled=false;ctx.drawImage(img,0,0,canvas.width,canvas.height);drawStart();drawEdges();
+ const all=tasks.flatMap(t=>[t.entry,t.exit].filter(Boolean));ctx.strokeStyle='#567588';ctx.lineWidth=1.5;ctx.setLineDash([5,5]);ctx.beginPath();all.forEach((p,i)=>{const q=Geo.toPixel(MAP,p.x,p.y);i?ctx.lineTo(q.u*scale,q.v*scale):ctx.moveTo(q.u*scale,q.v*scale)});ctx.stroke();ctx.setLineDash([]);
+ tasks.forEach((t,i)=>['entry','exit'].forEach(k=>{const p=t[k];if(!p)return;const q=Geo.toPixel(MAP,p.x,p.y),x=q.u*scale,y=q.v*scale,col=Geo.check(MAP,pixels,p,radius())!=='free'?'#e27f18':i===selected?'#007dcc':'#07866c';ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();const ang=p.yaw-MAP.origin[2],dx=Math.cos(ang),dy=-Math.sin(ang),l=25;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+l*dx,y+l*dy);ctx.lineTo(x+(l-7)*dx-4*dy,y+(l-7)*dy+4*dx);ctx.moveTo(x+l*dx,y+l*dy);ctx.lineTo(x+(l-7)*dx+4*dy,y+(l-7)*dy-4*dx);ctx.stroke();if(i===selected){ctx.globalAlpha=.22;ctx.beginPath();ctx.arc(x,y,radius()/MAP.resolution*scale,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}ctx.font='bold 13px Microsoft YaHei';ctx.lineWidth=3;ctx.strokeStyle='white';const text=`${i+1}${k==='entry'?'入':'出'}`;ctx.strokeText(text,x+8,y-9);ctx.fillText(text,x+8,y-9)}));
+}
+$('add').onclick=()=>{tasks.push({name:`障碍 ${tasks.length+1}`,type:'nav',entry:null,exit:null});edgeDraft=null;selected=tasks.length-1;role='entry';changed();message('选择入口或出口，然后在地图按下并拖动设置朝向。')};
+$('del').onclick=()=>{if(!current())return;if(confirm('删除当前任务？')){edgeDraft=null;tasks.splice(selected,1);selected=Math.min(selected,tasks.length-1);changed()}};
+for(const [id,delta]of [['up',-1],['down',1]])$(id).onclick=()=>{const j=selected+delta;if(!current()||j<0||j>=tasks.length)return;[tasks[selected],tasks[j]]=[tasks[j],tasks[selected]];selected=j;changed()};
+for(const k of ['start','entry','exit'])$(k).onclick=()=>{edgeDraft=null;role=k;render();if(k==='start')message('在地图按下并拖动设置启动位置与朝向，再在右侧设置矩形长宽。')};
+$('applySize').onclick=()=>{const x=Number($('sizeX').value),y=Number($('sizeY').value);if(![x,y].every(v=>Number.isFinite(v)&&v>=.05&&v<=50))return message('启动区长宽应为 0.05～50 米');startArea.size_x=x;startArea.size_y=y;changed()};
+$('name').onchange=()=>{if(current()){current().name=$('name').value.trim()||'未命名';changed()}};
+$('type').onchange=()=>{if(current()){current().type=$('type').value;changed()}};
+$('radius').onchange=()=>{if(!Number.isFinite(radius())||radius()<0||radius()>5){$('radius').value=.3;message('检查半径应为 0～5 米')}changed()};
+$('apply').onclick=()=>{if(!canEdit())return;const vals=['x','y','yaw'].map(k=>$(k).value.trim());if(vals.some(v=>v===''||!Number.isFinite(Number(v))))return message('请填写有限的 x、y 和朝向数值');setPoint({x:Number(vals[0]),y:Number(vals[1]),yaw:Number(vals[2])*Math.PI/180});changed()};
+$('clear').onclick=()=>{if(canEdit()){setPoint(null);changed()}};
+$('edges').onclick=()=>{if(!current())return message('请先选择或新增一个障碍');role='entry';edgeDraft=[];render();message('依次单击：第一侧起点、第一侧终点、第二侧起点、第二侧终点。第一侧方向决定行进方向；Esc 取消。')};
+$('middle').onclick=()=>{if(!current())return;try{const line=Geo.centerline(current().boundaries);current().guide_enabled=true;current().snap_centerline=true;edgeDraft=null;role='entry';changed();message(`参考中线已生成，宽度约 ${line.width.toFixed(2)} 米。已有入口出口保持不变；请选择“设置入口”或“设置出口”，再在线附近点击或拖动选点，可选到桥外延长线上。`)}catch(e){message(e.message)}};
+$('snapLine').onchange=()=>{if(!current()?.guide_enabled)return;current().snap_centerline=$('snapLine').checked;changed();message(current().snap_centerline?'沿中线选点：位置自动投影，朝向随入口到出口方向保持平行；已有点不自动移动。':'自由选点：位置和朝向均可任意设置。')};
+$('reverse').onclick=()=>{const t=current();if(!t?.entry||!t.exit)return message('请先设置入口和出口');const rotate=p=>({...p,yaw:Math.atan2(Math.sin(p.yaw+Math.PI),Math.cos(p.yaw+Math.PI))});[t.entry,t.exit]=[rotate(t.exit),rotate(t.entry)];if(t.boundaries)t.boundaries=[t.boundaries[1],t.boundaries[0],t.boundaries[3],t.boundaries[2]];changed()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){edgeDraft=null;drag=null;draw();message('已取消边界标注')}});
+canvas.onpointerdown=e=>{if(edgeDraft){edgeDraft.push(poseAt(e));if(edgeDraft.length===4){try{Geo.centerline(edgeDraft);current().boundaries=edgeDraft;current().guide_enabled=false;current().snap_centerline=false;edgeDraft=null;changed();message('两侧边界已保存，点击“生成参考中线”。')}catch(err){edgeDraft=null;draw();message(err.message)}}else{draw();message(`已标 ${edgeDraft.length}/4 个端点，请继续单击下一点。`)}return;}if(!canEdit())return message('请先新增任务，或选择设置启动区');const p=poseAt(e);drag={...p,yaw:point()?.yaw||0};canvas.setPointerCapture(e.pointerId)};
+canvas.onpointermove=e=>{const p=poseAt(e);$('cursor').textContent=`map: x=${p.x.toFixed(3)} m, y=${p.y.toFixed(3)} m`;if(drag){const d=Math.hypot(p.x-drag.x,p.y-drag.y);setPoint(snapping()?p:{x:drag.x,y:drag.y,yaw:d*scale/MAP.resolution>4?Math.atan2(p.y-drag.y,p.x-drag.x):drag.yaw});draw()}};
+canvas.onpointerup=e=>{if(!drag)return;const p=poseAt(e),d=Math.hypot(p.x-drag.x,p.y-drag.y);setPoint(snapping()?p:{x:drag.x,y:drag.y,yaw:d*scale/MAP.resolution>4?Math.atan2(p.y-drag.y,p.x-drag.x):drag.yaw});drag=null;changed();message('任务点已更新。检查结果显示在右侧。')};canvas.onpointercancel=()=>{drag=null;render()};
+function fit(){scale=Math.max(.25,Math.min(($('stage').clientWidth-4)/MAP.width,($('stage').clientHeight-4)/MAP.height));draw()}
+$('fit').onclick=fit;$('zoomIn').onclick=()=>{scale=Math.min(20,scale*1.3);draw()};$('zoomOut').onclick=()=>{scale=Math.max(.25,scale/1.3);draw()};
+function download(name,obj){const url=URL.createObjectURL(new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function projectData() {
+ return {version:1, frame_id:'map', map_fingerprint:MAP.fingerprint, map_name:MAP.name,
+         radius:radius(), start_area:startArea, tasks};
+}
+function goalProblem() {
+ if (!tasks.length) return '尚无任务';
+ for (const task of tasks) {
+  if (task.type !== 'nav') return task.name + '使用了专用动作';
+  for (const [key, label] of [['entry', '入口'], ['exit', '出口']]) {
+   const pointName = task.name + ' ' + label;
+   if (!task[key]) return pointName + '尚未设置';
+   const status = Geo.check(MAP, pixels, task[key], radius());
+   if (status !== 'free') return pointName + '：' + statusNames[status];
+  }
+ }
+ return '';
+}
+function restoreProject(project) {
+ const d=Geo.validateProject(project,MAP);
+ edgeDraft=null;
+ tasks=d.tasks;
+ startArea=d.start_area || {pose:null,size_x:1,size_y:1};
+ selected=tasks.length ? 0 : -1;
+ $('radius').value=d.radius;
+ dirty=false;
+ render();
+ message('工程已加载');
+}
+async function loadSavedProject() {
+ try {
+  const response = await fetch('/project');
+  if (!response.ok) throw Error('读取地图目录失败');
+  const project = await response.json();
+  if (project && !dirty) restoreProject(project);
+ } catch (error) {
+  if (!dirty) message('无法恢复已保存的工程：' + error.message);
+ }
+}
+$('save').onclick=async()=>{
+ try {
+  const project = Geo.validateProject(projectData(), MAP);
+  if (!MAP.server_mode) {
+   download('competition_tasks.json', project);
+   dirty=false;
+   return message('已请求下载任务工程；请确认浏览器保存完成。');
+  }
+  const problem = goalProblem();
+  const snapshot = JSON.stringify(project);
+  $('save').disabled = true;
+  const response = await fetch('/project', {
+   method:'POST', headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({project, export_goals:!problem})
+  });
+  const result = await response.json();
+  if (!response.ok) throw Error(result.error || '保存失败');
+  if (JSON.stringify(projectData()) === snapshot) dirty=false;
+  const directory = 'maps/' + MAP.name + '/';
+  message(result.goals_generated
+   ? '已保存到 ' + directory + '，可供重定位和 Nav2 使用。'
+   : '已保存启动区和任务工程到 ' + directory + '。未生成本次的 Nav2 目标：' + problem);
+ } catch (error) {
+  message('保存失败：' + error.message);
+ } finally {
+  $('save').disabled = false;
+ }
+};
+$('load').onclick=()=>{if(dirty&&!confirm('打开工程会替换当前未保存的任务，继续？'))return;$('file').click()};
+$('file').onchange=async()=>{
+ try {
+  const f=$('file').files[0];
+  if (!f) return;
+  if (f.size>2000000) throw Error('工程文件过大');
+  restoreProject(JSON.parse(await f.text()));
+  if (MAP.server_mode) {
+   dirty=true;
+   message('已导入工程。点击保存写入当前地图目录。');
+  }
+ } catch (error) {
+  message(error.message);
+ } finally {
+  $('file').value='';
+ }
+};
+$('export').onclick=()=>{
+ const problem = goalProblem();
+ if (problem) return message(problem);
+ const goals = tasks.flatMap(t => ['entry','exit'].map(k => ({
+  name:t.name+(k==='entry'?'_入口':'_出口'), ...t[k]
+ })));
+ download('nav2_goals.json',{frame_id:'map',map_fingerprint:MAP.fingerprint,goals});
+ message('已导出目标。下一步仍需 Nav2 路径检查；本工具不验证两点之间的可达性。');
+};
+if (MAP.server_mode) {
+ $('export').hidden = true;
+ $('saveHelp').textContent = '保存到当前地图目录。普通导航任务通过占地检查后，会同时生成 Nav2 目标。';
+}
+window.onbeforeunload=e=>{if(dirty){e.preventDefault();e.returnValue=''}};
+$('mapInfo').textContent=`${MAP.name} · ${MAP.width} × ${MAP.height} · ${MAP.resolution} 米/格`;
+img.onload=()=>{
+ fit();
+ render();
+ message('地图已加载。新增障碍开始标注。');
+ if (MAP.server_mode) loadSavedProject();
+};
+img.src=MAP.image;
+</script></html>
+
+

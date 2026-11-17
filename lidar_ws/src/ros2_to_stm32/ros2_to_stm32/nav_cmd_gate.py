@@ -25,16 +25,50 @@ class CommandGate(Node):
         self.create_subscription(Twist,'/cmd_vel_nav',self.on_cmd,10)
         self.create_subscription(Odometry,'/odom',self.on_odom,qos_profile_sensor_data)
         self.create_subscription(LaserScan,'/scan',self.on_scan,qos_profile_sensor_data)
-        self.create_subscription(PoseWithCovarianceStamped,'/amcl_pose',self.on_pose,10)
-        self.create_subscription(PoseWithCovarianceStamped,'/initialpose',self.on_initialpose,10)
+        self.use_gicp = self.declare_parameter('use_gicp', False).value
+        if self.use_gicp:
+            from go2_obstacle_interfaces.msg import LocalizationEvidence
+            self.evidence = None
+            self.evidence_time = -math.inf
+            self.create_subscription(LocalizationEvidence, '/gicp/evidence', self.on_evidence, 10)
+            self.create_subscription(PoseWithCovarianceStamped, '/gicp/initialpose', self.on_initialpose, 10)
+        else:
+            self.create_subscription(PoseWithCovarianceStamped,'/amcl_pose',self.on_pose,10)
+            self.create_subscription(PoseWithCovarianceStamped,'/initialpose',self.on_initialpose,10)
         self.create_timer(.05,self.tick)
 
     def fresh_stamp(self,stamp):
-        return -.1 <= (self.get_clock().now()-Time.from_msg(stamp)).nanoseconds*1e-9 <= .5
+        return -.1 <= (self.get_clock().now()-Time.from_msg(stamp, clock_type=self.get_clock().clock_type)).nanoseconds*1e-9 <= .5
 
     def on_initialpose(self,msg):
         self.localized=False
+        if self.use_gicp:
+            self.evidence_time = -math.inf
         self.times['cmd']=-math.inf
+
+    def on_evidence(self, msg):
+        previous = self.evidence
+        if previous is not None:
+            if msg.source_id != previous.source_id:
+                self.localized = False
+                self.times['cmd'] = -math.inf
+                return
+            if msg.sequence <= previous.sequence or msg.epoch < previous.epoch:
+                return
+            if msg.epoch != previous.epoch:
+                self.times['cmd'] = -math.inf
+        self.evidence = msg
+        self.evidence_time = time.monotonic()
+        self.localized = bool(msg.accepted and msg.source_id and msg.header.frame_id == 'map'
+                              and msg.body_frame == 'livox_frame')
+        if not self.localized:
+            self.times['cmd'] = -math.inf
+
+    def gicp_ready(self, now):
+        if not self.localized or self.evidence is None or now - self.evidence_time > 2.:
+            return False
+        stamp = Time.from_msg(self.evidence.header.stamp, clock_type=self.get_clock().clock_type)
+        return 0. <= (self.get_clock().now() - stamp).nanoseconds * 1e-9 <= 2.
 
     def on_pose(self,msg):
         p=msg.pose.pose
@@ -64,9 +98,11 @@ class CommandGate(Node):
             if now-self.times[key]>.5:reason=f'stale_{key}'
         try:
             tf=self.buffer.lookup_transform('map','odom_nav',Time())
-            age=(self.get_clock().now()-Time.from_msg(tf.header.stamp)).nanoseconds*1e-9
+            age=(self.get_clock().now()-Time.from_msg(tf.header.stamp, clock_type=self.get_clock().clock_type)).nanoseconds*1e-9
             if age>1.5 or age< -2.:reason='stale_localization_tf'
         except TransformException:reason='waiting_for_localization_tf'
+        if self.use_gicp and not self.gicp_ready(now):
+            reason = 'waiting_for_fresh_gicp_evidence'
         out=Twist()
         if reason=='ready':
             out.linear.x=max(-.15,min(.25,self.command.linear.x))
