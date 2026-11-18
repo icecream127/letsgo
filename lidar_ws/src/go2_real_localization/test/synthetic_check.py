@@ -99,6 +99,11 @@ def main():
                 tf_yaw = 2 * np.arctan2(actual.rotation.z, actual.rotation.w)
                 assert tf_error < 0.05 and abs(tf_yaw - 0.35) < 0.03, (tf_error, tf_yaw)
                 print(f'PASS map->odom composition: translation error={tf_error:.6f}m')
+                run_until(
+                    lambda: observed['valid'] and 'target_reused=true' in observed['status'],
+                    5,
+                )
+                print('PASS fixed target reused:', observed['status'])
                 run_until(lambda: not observed['valid'] and ('REJECTED' in observed['status'] or 'NOT_CONVERGED' in observed['status']), 15, bad=True)
                 print('PASS unrelated cloud rejected:', observed['status'])
                 run_until(lambda: observed['valid'], 15)
