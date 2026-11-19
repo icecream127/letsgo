@@ -22,6 +22,10 @@ COMMAND_MAP = {
 class Task_To_Do(Node):
     def __init__(self):
         super().__init__('task_to_do')
+        
+        self.sensor_forward_offset = self.declare_parameter(
+            'sensor_forward_offset',0.21
+        ).value
 
         self.publisher = self.create_publisher(Float32MultiArray, '/serial_send', 20)
         self.debug_publisher = self.create_publisher(String, '/ui_debug_state', 20)
@@ -121,7 +125,14 @@ class Task_To_Do(Node):
         self.publish_debug_state()
 
     def Quadruped_Obstacle(self, x, y, yaw):
+        # self.set_normal_debug_coords(x, y, yaw)
+        # 输入：传感器在赛道坐标系中的位置。
+        # 输出：身体中心在同一坐标系中的位置。
+        theta = math.radians(yaw)
+        x = x - self.sensor_forward_offset * math.cos(theta)
+        y = y - self.sensor_forward_offset * math.sin(theta)
         self.set_normal_debug_coords(x, y, yaw)
+
         if self.pending_jump is not None:
             mode, key = self.pending_jump
             if not self.jump_sent:

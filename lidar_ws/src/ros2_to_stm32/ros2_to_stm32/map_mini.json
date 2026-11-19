@@ -1,0 +1,18 @@
+{
+  "description": "身体中心在现有A/B赛道坐标系内的两个绝对目标；yaw_end=null表示到点不额外调整朝向。",
+  "zones": {},
+  "zone": {},
+  "zon": {},
+  "waypoints": [
+    {
+      "x": 1.0,
+      "y": 0.0,
+      "yaw_end": null
+    },
+    {
+      "x": 2.0,
+      "y": 0.2,
+      "yaw_end": null
+    }
+  ]
+}
