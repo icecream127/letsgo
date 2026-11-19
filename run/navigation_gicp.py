@@ -10,6 +10,7 @@ import yaml
 from initialize_start import ROOT, load_start
 from maps import validate
 from task_files import PROJECT_NAME
+from robot_params import ROBOT_PARAMS, script_params
 
 
 def imu_seed(pose, offset, yaw_offset, z, roll, pitch):
@@ -38,7 +39,7 @@ def main():
     parser.add_argument('--imu-z', required=True, type=float, help='雷达/IMU 在 PCD 的 map 坐标中的初始 z，单位米')
     parser.add_argument('--imu-roll', type=float, default=0., help='初始 IMU 横滚角，弧度')
     parser.add_argument('--imu-pitch', type=float, default=0., help='初始 IMU 俯仰角，弧度')
-    parser.add_argument('--params-file', type=Path, default=ROOT/'lidar_ws/src/ros2_to_stm32/config/nav2.yaml')
+    parser.add_argument('--params-file', type=Path, default=ROBOT_PARAMS)
     parser.add_argument('--check-only', action='store_true')
     parser.add_argument('--no-sensors', action='store_true')
     parser.add_argument('--no-rviz', action='store_true')
@@ -50,7 +51,10 @@ def main():
         projection = json.loads(map_yaml.with_name('projection.json').read_text())
         pcd = (map_yaml.parent / projection['source']).resolve()
         params = args.params_file.resolve()
-        mounting = yaml.safe_load(params.read_text())['nav_adapter']['ros__parameters']
+        mounting = script_params('nav_adapter')
+        if params != ROBOT_PARAMS.resolve():
+            profile = yaml.safe_load(params.read_text(encoding='utf-8')) or {}
+            mounting = {**mounting, **profile.get('nav_adapter', {}).get('ros__parameters', {})}
         seed = imu_seed(pose, mounting['livox_to_base_xyz'], mounting['livox_to_base_yaw'],
                         args.imu_z, args.imu_roll, args.imu_pitch)
     except (OSError, KeyError, TypeError, ValueError, yaml.YAMLError) as exc:

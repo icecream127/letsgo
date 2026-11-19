@@ -12,6 +12,7 @@ from pathlib import Path
 import yaml
 from PIL import Image
 
+from robot_params import script_params
 from task_editor_server import serve_editor
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,9 +35,12 @@ def render_editor(map_yaml, server_mode=False):
     free, occupied = float(info['free_thresh']), float(info['occupied_thresh'])
     if not 0 <= free < occupied <= 1:
         raise ValueError('地图阈值无效')
+    default_radius = float(script_params('map_task_editor')['clearance_radius'])
+    if not math.isfinite(default_radius) or not 0 <= default_radius <= 5:
+        raise ValueError('robot.yaml 的采点净空半径须在 0 至 5 米之间')
     buffer = io.BytesIO()
     img.save(buffer, format='PNG')
-    meta = dict(server_mode=server_mode, name=map_yaml.parent.name, width=img.width, height=img.height,
+    meta = dict(server_mode=server_mode, default_radius=default_radius, name=map_yaml.parent.name, width=img.width, height=img.height,
                 resolution=resolution, origin=origin, negate=bool(info.get('negate', 0)),
                 free_thresh=free, occupied_thresh=occupied,
                 fingerprint=hashlib.sha256(map_yaml.read_bytes()+image_path.read_bytes()).hexdigest(),

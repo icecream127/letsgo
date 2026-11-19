@@ -17,7 +17,7 @@ bash run/build_ros2.sh --gicp
 
 在地图编辑器确认正式启动区，点击“保存任务工程”，得到 `competition_tasks.json`。启动入口校验工程与当前二维地图，并使用生成记录中对应的 PCD。若地图更新，先核对启动区是否仍对应同一现场位置，再用当前编辑器保存工程。
 
-测量并填写 `lidar_ws/src/ros2_to_stm32/config/nav2.yaml` 中的 `livox_to_base_xyz` 和 `livox_to_base_yaw`。前者是从 IMU 原点指向底盘参考点的向量，分量使用 IMU 本地轴（米），后者是底盘前向相对 IMU 的 yaw（弧度）。默认零值只是占位。`--imu-z` 是机器人在启动区时 IMU 在原始 PCD 坐标中的 z（米），需要根据 PCD 坐标与实际安装高度确定。存在已知倾斜时，用 `--imu-roll` 与 `--imu-pitch` 指定初猜（弧度）。入口将底盘的 `map` 平面位置反算成 IMU 的初始位置。
+测量并填写 `lidar_ws/src/ros2_to_stm32/config/robot.yaml` 中的 `livox_to_base_xyz` 和 `livox_to_base_yaw`。前者是从 IMU 原点指向底盘参考点的向量，分量使用 IMU 本地轴（米），后者是底盘前向相对 IMU 的 yaw（弧度）。默认零值只是占位。`--imu-z` 是机器人在启动区时 IMU 在原始 PCD 坐标中的 z（米），需要根据 PCD 坐标与实际安装高度确定。存在已知倾斜时，用 `--imu-roll` 与 `--imu-pitch` 指定初猜（弧度）。入口将底盘的 `map` 平面位置反算成 IMU 的初始位置。
 
 先加 `--check-only` 查看转换结果，确认后去掉该选项启动：
 

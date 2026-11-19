@@ -50,7 +50,7 @@ ros2 topic info /cmd_vel -v
 
 ## 暂定参数
 
-配置文件：`lidar_ws/src/ros2_to_stm32/config/nav2.yaml`。
+配置文件：`lidar_ws/src/ros2_to_stm32/config/robot.yaml`。
 
 - `livox_to_base_xyz` 和 `livox_to_base_yaw` 默认零：暂以传感器原点作为机器人平面中心，必须按实际安装测量后再用于真车。
 - 两个 costmap 的 `robot_radius` 暂为 0.30 m，需按车体尺寸确认；不是已测量值。

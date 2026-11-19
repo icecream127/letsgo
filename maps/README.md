@@ -38,7 +38,7 @@ bash run/map_task_editor.sh trial
 
 ## 4. 启动重定位和 Nav2
 
-把机器人放到标好的启动区。首次使用前，在 `nav2.yaml` 填好实测的雷达到底盘安装外参。输入 IMU 在固定 PCD 坐标中的初始 Z，12 厘米启动台见下方说明。
+把机器人放到标好的启动区。首次使用前，在 `robot.yaml` 填好实测的雷达到底盘安装外参。输入 IMU 在固定 PCD 坐标中的初始 Z，12 厘米启动台见下方说明。
 
 ```bash
 read -rp 'IMU 初始 Z（米）: ' imu_z

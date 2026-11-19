@@ -11,7 +11,7 @@
 | bash run/lio_driver.sh | 只启动传感器和 RViz |
 | bash run/ui.sh | 采点和状态界面 |
 | bash run/pos_trans.sh | 里程计转换为踩点坐标 |
-| bash run/serial.sh | 串口节点：USB 转 TTL 接板端串口6，电脑端口在 config/control.yaml；针脚由电控确认 |
+| bash run/serial.sh | 串口节点：USB 转 TTL 接板端串口6，电脑端口在 config/robot.yaml；针脚由电控确认 |
 | bash run/info_trans.sh | 任务控制器 |
 | bash run/map.sh | 原项目区域地图工具 |
 | bash run/pause.sh | 人工暂停并请求站立，不是急停 |
@@ -31,8 +31,8 @@
 收不到马的状态、马还没起身、定位超时、控制器没运行、人工暂停（pause.sh）。
 马报故障、遥控器切了模式、重新踩点都不会让视觉暂停。
 
-默认 demo 为两点测试；完整旧障碍路线需在 control.yaml 选择 zones。
-一次性动作（跳跃）的等待由上位机按 control.yaml 里的时长计时，电控不回报动作完成。
+默认 demo 为两点测试；完整旧障碍路线需在 robot.yaml 选择 zones。
+一次性动作（跳跃）的等待由上位机按 robot.yaml 里的时长计时，电控不回报动作完成。
 move/rename 后应重新编译，勿拷贝 build、install、log、.local、.build_sdk。
 
 make.sh 仅用于显式指定的 CH341SER 驱动源码，不参与正常构建。

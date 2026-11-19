@@ -37,7 +37,7 @@ bash run/check_route.sh --check 可离线查看问题，不启动硬件。
 - 遥控器完成初始化后再采 A/B 点，最后由操作员允许自动运行。
 - 启动节点默认不下发运动；串口连接或恢复不自动启用任务。
 - 默认路线是 demo：顺序到 (1, 0, 0°)、(1, -1, 0°)，不是完整赛道。
-- 完整旧障碍路线保留，需把 control.yaml 中 route_profile 改为 zones。旧赛道坐标和动作选择必须现场核对，不能宣称已经验证完赛。
+- 完整旧障碍路线保留，需把 robot.yaml 中 route_profile 改为 zones。旧赛道坐标和动作选择必须现场核对，不能宣称已经验证完赛。
 - 按键 5 只是站立，不是急停；固件断线后可能继续最后动作。独立急停必须就绪。
 - 一次性动作按源码时长加余量等待，无动作完成/成功反馈，不自动重发。
 - 暂停发生在一次性动作过程中时，需人工检查结果，并清零路线进度后才能重新允许自动运行。
@@ -46,15 +46,15 @@ bash run/check_route.sh --check 可离线查看问题，不启动硬件。
 ## 目录与参数
 
 所有运行参数在本项目内，不读取其他工作空间：
-- lidar_ws/src/ros2_to_stm32/config/control.yaml：串口设备、超时、动作时长和路线选择。
-- 同目录 fast_lio_mid360_real.yaml：沿用此前调好的雷达/IMU参数，累计地图开启，PCD保存关闭。
+- lidar_ws/src/ros2_to_stm32/config/robot.yaml：串口设备、超时、动作时长和路线选择。
+- 同一份 robot.yaml 还包含雷达驱动、FAST-LIO、GICP、Nav2、速度门控和任务超时。
 - 同目录 mid360_real.json：主机 192.168.1.50、雷达 192.168.1.111，部署时按实际网络核对。
-- 同目录 livox_driver.yaml 和 sensor.rviz：保留上一版配置。
+- 同目录 mid360_real.json 存放雷达网络参数，sensor.rviz 存放 RViz 显示配置。
 - lidar_ws/src/ros2_to_stm32/ros2_to_stm32/map_zones_config.json：旧赛道区域坐标。
 - 同目录 task_to_do_unitree.py：当前入口实际使用的障碍路线和导航。
 - validation/：离线验证与此前传感器回放基线说明。
 
-串口默认 /dev/ttyUSB0，不自动选择第一个设备。建议在 control.yaml 改成实际 /dev/serial/by-id/... 稳定路径。
+串口默认 /dev/ttyUSB0，不自动选择第一个设备。建议在 robot.yaml 改成实际 /dev/serial/by-id/... 稳定路径。
 源码包中其他 FAST-LIO 示例参数和旧控制器变体为原项目保留文件，正式入口不使用它们。
 
 ## 在小电脑部署
@@ -98,7 +98,7 @@ bash run/start.sh
 
 1. 使用遥控器完成初始化，人工确认姿态正常。
 2. 在界面依次采 A 点、B 点。A/B 间距至少 5cm；实际采点应留足距离并沿场地正方向。
-3. 核对 control.yaml 路线和串口、现场位置及急停。
+3. 核对 robot.yaml 路线和串口、现场位置及急停。
 4. 运行下列命令并输入 RUN，成功响应后才允许运动：
 
 ```bash

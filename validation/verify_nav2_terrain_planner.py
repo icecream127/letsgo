@@ -11,7 +11,7 @@ parser=argparse.ArgumentParser();parser.add_argument('--c',nargs=2,type=float,de
 root=Path(__file__).resolve().parents[1]
 report_dir=root/'validation/results/competition'
 report_dir.mkdir(parents=True,exist_ok=True)
-cfg=yaml.safe_load((root/'lidar_ws/src/ros2_to_stm32/config/nav2.yaml').read_text())
+cfg=yaml.safe_load((root/'lidar_ws/src/ros2_to_stm32/config/robot.yaml').read_text())
 params={k:cfg[k] for k in ['planner_server','global_costmap']}
 Path('/tmp/terrain_planner_params.yaml').write_text(yaml.safe_dump(params))
 processes=[];logs=[]

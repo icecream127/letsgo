@@ -533,25 +533,25 @@ def main():
             sub.add_argument('--source-map', help='源点云所属 maps 地图名；输出仍写入 name')
             sub.add_argument('--bounds', type=float, nargs=4, metavar=('XMIN', 'YMIN', 'XMAX', 'YMAX'),
                              help='仅投影此 XY 范围内的点，保持原坐标')
-            sub.add_argument('--method', choices=('terrain', 'flat'), default='terrain',
+            sub.add_argument('--method', choices=('terrain', 'flat'),
                              help='terrain 局部地形投影（默认）；flat 兼容旧固定高度切片')
             sub.add_argument('--terrain-resolution', type=float, default=0.20, help='兼容旧命令；地形单元现跟随 resolution')
             sub.add_argument('--ground-quantile', type=float, default=0.05, help='兼容旧命令；现使用密集高度带')
-            sub.add_argument('--max-step', type=float, default=0.10, help='可跨单级高度 m，按用户底盘能力设定')
-            sub.add_argument('--max-slope', type=float, default=15., help='最大坡度 deg，按用户底盘能力设定')
+            sub.add_argument('--max-step', type=float, help='可跨单级高度 m，按用户底盘能力设定')
+            sub.add_argument('--max-slope', type=float, help='最大坡度 deg，按用户底盘能力设定')
             sub.add_argument('--seed-x', type=float, default=0.)
             sub.add_argument('--seed-y', type=float, default=0.)
-            sub.add_argument('--seed-radius', type=float, default=0.5)
+            sub.add_argument('--seed-radius', type=float)
             ground = sub.add_mutually_exclusive_group(required=True)
             ground.add_argument('--ground-z', type=float, help='地面在保存点云坐标中的 Z，单位 m')
             ground.add_argument('--auto-ground', action='store_true',
                                 help='在 FAST-LIO 起点附近自动估计地面和种子')
             sub.add_argument('--estimate-only', action='store_true', help='只输出估算值，不写地图')
-            sub.add_argument('--ground-tolerance', type=float, default=0.05)
-            sub.add_argument('--min-height', type=float, default=0.10)
-            sub.add_argument('--max-height', type=float, default=2.0)
-            sub.add_argument('--resolution', type=float, default=0.05)
-            sub.add_argument('--padding', type=float, default=0.5)
+            sub.add_argument('--ground-tolerance', type=float)
+            sub.add_argument('--min-height', type=float)
+            sub.add_argument('--max-height', type=float)
+            sub.add_argument('--resolution', type=float)
+            sub.add_argument('--padding', type=float)
             sub.add_argument('--radius-outlier', type=float, metavar='METRES',
                              help='投影前滤除邻点稀少的点；默认关闭')
             sub.add_argument('--radius-min-neighbors', type=int,
@@ -564,6 +564,16 @@ def main():
             if args.radius_outlier is None or args.radius_min_neighbors < 1:
                 parser.error('--radius-min-neighbors 需要配合 --radius-outlier，且必须大于 0')
     try:
+        if args.command == 'project':
+            from robot_params import script_params
+
+            defaults = script_params('map_projection')
+            for key in ('method', 'resolution', 'max_step', 'max_slope', 'ground_tolerance',
+                        'min_height', 'max_height', 'padding', 'seed_radius'):
+                if getattr(args, key) is None:
+                    setattr(args, key, defaults[key])
+            if args.method not in ('terrain', 'flat'):
+                raise ValueError('robot.yaml 的 map_projection.method 必须是 terrain 或 flat')
         if args.command == 'prepare':
             directory = map_directory(args.name)
             if (directory / 'cloud.pcd').exists():
@@ -576,7 +586,7 @@ def main():
             project(args)
         else:
             print(validate(args.name))
-    except (ValueError, KeyError, OSError, RuntimeError) as error:
+    except (ValueError, KeyError, TypeError, OSError, RuntimeError, yaml.YAMLError) as error:
         parser.exit(1, f'地图操作失败：{error}\n')
 
 

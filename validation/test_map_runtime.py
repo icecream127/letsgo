@@ -158,7 +158,7 @@ def test_live_fastlio_rejects_empty_save(tmp_path):
     import rclpy
     from std_srvs.srv import Trigger
     project = Path(__file__).parents[1]
-    config = project / 'lidar_ws/src/ros2_to_stm32/config/fast_lio_mid360_real.yaml'
+    config = project / 'lidar_ws/src/ros2_to_stm32/config/robot.yaml'
     output = tmp_path / 'empty.pcd'
     log = (tmp_path / 'fastlio.log').open('w')
     process = subprocess.Popen([

@@ -46,8 +46,16 @@ def main():
     source.add_argument('--file', type=Path)
     source.add_argument('--map', help='读取指定地图保存的目标，默认 competition')
     parser.add_argument('--check-only', action='store_true')
-    parser.add_argument('--timeout', type=float, default=180., help='单目标执行超时秒数')
+    parser.add_argument('--timeout', type=float, help='覆盖实车参数文件中的单目标执行超时')
     args = parser.parse_args()
+    if args.timeout is None:
+        import yaml
+        from robot_params import script_params
+
+        try:
+            args.timeout = float(script_params('nav_goal_client')['goal_timeout'])
+        except (OSError, KeyError, TypeError, ValueError, yaml.YAMLError) as exc:
+            parser.error(f'无法从 robot.yaml 读取 goal_timeout：{exc}')
     if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error('timeout 必须为正数')
     try:

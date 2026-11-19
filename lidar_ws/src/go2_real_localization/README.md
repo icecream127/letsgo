@@ -58,6 +58,4 @@ Mission 使用 /gicp/evidence 经 localization_adapter 的原子证据和新鲜�
 bash src/rc2026_deom/tools/verify_real.bash
 ~~~
 
-非标准源码目录可传 --workspace。工具只加载当前工作空间安装，使用专属 localhost ROS domain 和进程级 CycloneDDS 分片配置，不启动真实雷达、SDK 或电机。
-
-真实 native GICP 用例临时生成1800点 PCD，独立 C++ 输入进程持续发布同步原测量时间的完整点云和里程计。真实 GICP 必须接受至少三次不同测量，并在新初猜后接受新 epoch 和初猜之后的测量。测试还覆盖 Mission、停稳、控制交接、越障模拟执行器和独立出口验收。合成几何与软件底层只证明接口和时序，真实定位精度、计算负载、机载网络和物理运动仍需实机验证。
+非标准源码目录可传 --workspace。工具只加载当前工作空间安装，使用专属 localhost ROS domain 和进程级 CycloneDDS 分片配置，不启动真实-

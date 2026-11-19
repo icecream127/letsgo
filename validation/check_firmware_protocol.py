@@ -95,7 +95,7 @@ def main():
     rows = [line.split() for line in result.stdout.splitlines()]
     keys = [int(row[1]) for row in rows if row[0] == 'key']
     assert keys == list(range(1, 24)) + [2], keys
-    config = yaml.safe_load((PROJECT / 'lidar_ws/src/ros2_to_stm32/config/control.yaml').read_text())
+    config = yaml.safe_load((PROJECT / 'lidar_ws/src/ros2_to_stm32/config/robot.yaml').read_text())
     durations = parse_durations(config['motor_serial']['ros__parameters']['action_durations'])
     margin = config['motor_serial']['ros__parameters']['action_margin']
     observed = []

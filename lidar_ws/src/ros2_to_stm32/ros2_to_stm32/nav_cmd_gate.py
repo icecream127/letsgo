@@ -14,6 +14,27 @@ from std_msgs.msg import String
 class CommandGate(Node):
     def __init__(self):
         super().__init__('nav_cmd_gate')
+        self.input_timeouts = {
+            key: float(self.declare_parameter(f'{key}_timeout', 0.5).value)
+            for key in ('cmd', 'odom', 'scan')
+        }
+        self.speed_limits = (
+            float(self.declare_parameter('max_forward_speed', 0.25).value),
+            float(self.declare_parameter('max_reverse_speed', 0.15).value),
+            float(self.declare_parameter('max_angular_speed', 0.6).value),
+        )
+        self.sensor_stamp_max_age = float(self.declare_parameter('sensor_stamp_max_age', 0.5).value)
+        self.sensor_future_tolerance = float(self.declare_parameter('sensor_future_tolerance', 0.1).value)
+        self.tf_max_age = float(self.declare_parameter('tf_max_age', 1.5).value)
+        self.tf_future_tolerance = float(self.declare_parameter('tf_future_tolerance', 2.0).value)
+        self.min_valid_scan_ranges = int(self.declare_parameter('min_valid_scan_ranges', 10).value)
+        output_period = float(self.declare_parameter('output_period', 0.05).value)
+        positive = (*self.input_timeouts.values(), self.sensor_stamp_max_age, self.tf_max_age, output_period)
+        nonnegative = (*self.speed_limits, self.sensor_future_tolerance, self.tf_future_tolerance)
+        if (not all(math.isfinite(v) and v > 0 for v in positive)
+                or not all(math.isfinite(v) and v >= 0 for v in nonnegative)
+                or self.min_valid_scan_ranges < 1):
+            raise ValueError('Invalid nav_cmd_gate speed limits or watchdog parameters')
         self.times = dict(cmd=-math.inf,odom=-math.inf,scan=-math.inf)
         self.localized=False
         self.command=Twist()
@@ -33,10 +54,11 @@ class CommandGate(Node):
         else:
             self.create_subscription(PoseWithCovarianceStamped,'/amcl_pose',self.on_pose,10)
             self.create_subscription(PoseWithCovarianceStamped,'/initialpose',self.on_initialpose,10)
-        self.create_timer(.05,self.tick)
+        self.create_timer(output_period, self.tick)
 
     def fresh_stamp(self,stamp):
-        return -.1 <= (self.get_clock().now()-Time.from_msg(stamp, clock_type=self.get_clock().clock_type)).nanoseconds*1e-9 <= .5
+        age = (self.get_clock().now() - Time.from_msg(stamp, clock_type=self.get_clock().clock_type)).nanoseconds * 1e-9
+        return -self.sensor_future_tolerance <= age <= self.sensor_stamp_max_age
 
     def on_initialpose(self,msg):
         self.localized=False
@@ -76,7 +98,7 @@ class CommandGate(Node):
 
     def on_scan(self,msg):
         if self.fresh_stamp(msg.header.stamp) and sum(
-                math.isfinite(v) and msg.range_min<=v<=msg.range_max for v in msg.ranges)>=10:
+                math.isfinite(v) and msg.range_min<=v<=msg.range_max for v in msg.ranges)>=self.min_valid_scan_ranges:
             self.times['scan']=time.monotonic()
 
     def tick(self):
@@ -84,18 +106,19 @@ class CommandGate(Node):
         reason='ready'
         if not self.localized:reason='waiting_for_initial_pose_and_amcl'
         for key in ('odom','scan','cmd'):
-            if now-self.times[key]>.5:reason=f'stale_{key}'
+            if now-self.times[key]>self.input_timeouts[key]:reason=f'stale_{key}'
         try:
             tf=self.buffer.lookup_transform('map','odom_nav',Time())
             age=(self.get_clock().now()-Time.from_msg(tf.header.stamp, clock_type=self.get_clock().clock_type)).nanoseconds*1e-9
-            if age>1.5 or age< -2.:reason='stale_localization_tf'
+            if age>self.tf_max_age or age< -self.tf_future_tolerance:reason='stale_localization_tf'
         except TransformException:reason='waiting_for_localization_tf'
         if self.use_gicp and not self.localized:
             reason = 'waiting_for_fresh_gicp_evidence'
         out=Twist()
         if reason=='ready':
-            out.linear.x=max(-.15,min(.25,self.command.linear.x))
-            out.angular.z=max(-.6,min(.6,self.command.angular.z))
+            forward, reverse, angular = self.speed_limits
+            out.linear.x = max(-reverse, min(forward, self.command.linear.x))
+            out.angular.z = max(-angular, min(angular, self.command.angular.z))
         self.pub.publish(out)
         self.status.publish(String(data=reason))
 

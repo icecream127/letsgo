@@ -20,7 +20,7 @@ def main():
     parser.add_argument('--duration', type=float, default=42)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    config = root / 'lidar_ws/src/ros2_to_stm32/config/fast_lio_mid360_real.yaml'
+    config = root / 'lidar_ws/src/ros2_to_stm32/config/robot.yaml'
     os.environ['ROS_DOMAIN_ID'] = '183'
     os.environ['ROS_LOCALHOST_ONLY'] = '1'
     output = root / 'validation'

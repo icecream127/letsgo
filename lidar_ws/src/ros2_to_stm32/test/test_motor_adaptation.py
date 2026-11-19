@@ -112,7 +112,7 @@ def test_raw_protocol_and_request_parsing():
 
 
 def test_config_duration_table():
-    config = yaml.safe_load((Path(__file__).parents[1] / 'config/control.yaml').read_text())
+    config = yaml.safe_load((Path(__file__).parents[1] / 'config/robot.yaml').read_text())
     durations = parse_durations(config['motor_serial']['ros__parameters']['action_durations'])
     assert durations[17, 6] == 5.36
     assert (13, 7) not in durations

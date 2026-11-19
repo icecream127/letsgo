@@ -25,6 +25,25 @@ class NavAdapter(Node):
         self.yaw_offset = float(self.declare_parameter('livox_to_base_yaw', 0.).value)
         if self.offset.shape != (3,) or not np.isfinite(self.offset).all() or not math.isfinite(self.yaw_offset):
             raise ValueError('Invalid mounting parameters')
+        self.odom_max_age = float(self.declare_parameter('odom_max_age', 0.5).value)
+        self.odom_future_tolerance = float(self.declare_parameter('odom_future_tolerance', 0.1).value)
+        self.odom_reset_threshold = float(self.declare_parameter('odom_reset_threshold', 0.1).value)
+        self.odom_jump_distance = float(self.declare_parameter('odom_jump_distance', 0.5).value)
+        self.odom_jump_speed = float(self.declare_parameter('odom_jump_speed', 3.0).value)
+        self.odom_jump_check_window = float(self.declare_parameter('odom_jump_check_window', 1.0).value)
+        self.velocity_history_window = float(self.declare_parameter('velocity_history_window', 0.2).value)
+        self.velocity_history_reset_gap = float(self.declare_parameter('velocity_history_reset_gap', 0.5).value)
+        self.map_tf_max_age = float(self.declare_parameter('map_tf_max_age', 0.5).value)
+        self.scan_sync_cache_depth = int(self.declare_parameter('scan_sync_cache_depth', 20).value)
+        positive = (
+            self.odom_max_age, self.odom_reset_threshold, self.odom_jump_distance,
+            self.odom_jump_speed, self.odom_jump_check_window, self.velocity_history_window,
+            self.velocity_history_reset_gap, self.map_tf_max_age,
+        )
+        if (not all(math.isfinite(v) and v > 0 for v in positive)
+                or not math.isfinite(self.odom_future_tolerance) or self.odom_future_tolerance < 0
+                or self.scan_sync_cache_depth < 1):
+            raise ValueError('Invalid nav_adapter watchdog parameters')
         self.use_gicp = self.declare_parameter('use_gicp', False).value
         if self.use_gicp:
             self.buffer = Buffer()
@@ -67,7 +86,7 @@ class NavAdapter(Node):
             msg.header.frame_id = 'nav_scan'
             self.scan_cloud_pub.publish(point_cloud2.create_cloud_xyz32(msg.header, xyz @ matrix.T))
         for cache in (self.scan_clouds, self.scan_rotations):
-            while len(cache) > 20:
+            while len(cache) > self.scan_sync_cache_depth:
                 del cache[next(iter(cache))]
 
     def transform(self, parent, child, position, rotation, stamp):
@@ -86,10 +105,10 @@ class NavAdapter(Node):
             return
         t = stamp_seconds(msg.header.stamp)
         now = self.get_clock().now().nanoseconds * 1e-9
-        if not -.1 <= now-t <= .5:
+        if not -self.odom_future_tolerance <= now-t <= self.odom_max_age:
             return
         if self.last_stamp is not None and t <= self.last_stamp:
-            if t < self.last_stamp-.1:
+            if t < self.last_stamp-self.odom_reset_threshold:
                 self.reset_required = True
                 self.get_logger().error('Clock/odometry reset: restart navigation and reinitialize localization')
             return
@@ -112,15 +131,15 @@ class NavAdapter(Node):
         if self.history:
             dt = t-self.history[-1][0]
             displacement = np.linalg.norm(base_p[:2]-np.array(self.history[-1][1:3]))
-            if displacement > max(.5,3.*dt) and dt < 1.:
+            if displacement > max(self.odom_jump_distance, self.odom_jump_speed*dt) and dt < self.odom_jump_check_window:
                 self.reset_required = True
                 self.get_logger().error('Odometry discontinuity: restart navigation and reinitialize localization')
                 return
-            if dt>.5:
+            if dt>self.velocity_history_reset_gap:
                 self.history.clear()
         self.last_stamp=t
         self.history.append((t,float(base_p[0]),float(base_p[1]),heading))
-        while len(self.history)>3 and t-self.history[1][0]>.2:
+        while len(self.history)>3 and t-self.history[1][0]>self.velocity_history_window:
             self.history.popleft()
         result=Odometry()
         result.header.stamp=msg.header.stamp
@@ -153,7 +172,7 @@ class NavAdapter(Node):
             correction = self.buffer.lookup_transform('map', 'odom', Time())
         except TransformException:
             return None
-        if not 0. <= self.get_clock().now().nanoseconds * 1e-9 - stamp_seconds(correction.header.stamp) <= .5:
+        if not 0. <= self.get_clock().now().nanoseconds * 1e-9 - stamp_seconds(correction.header.stamp) <= self.map_tf_max_age:
             return None
         t, q = correction.transform.translation, correction.transform.rotation
         map_q = np.array([q.x, q.y, q.z, q.w])
