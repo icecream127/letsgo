@@ -11,7 +11,8 @@ gicp_localizer:
     local_radius: 25.0
     registration_period: 1.0
     max_input_age: 2.0
-    transform_timeout: 3.0
+    # 0 keeps the last accepted correction while navigation inputs remain fresh.
+    transform_timeout: 0.0
     max_iterations: 40
     num_threads: 4
     correspondence_distance: 1.0

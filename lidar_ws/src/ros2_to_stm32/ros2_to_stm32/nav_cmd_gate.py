@@ -11,7 +11,6 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import String
 
-
 class CommandGate(Node):
     def __init__(self):
         super().__init__('nav_cmd_gate')
@@ -29,7 +28,6 @@ class CommandGate(Node):
         if self.use_gicp:
             from go2_obstacle_interfaces.msg import LocalizationEvidence
             self.evidence = None
-            self.evidence_time = -math.inf
             self.create_subscription(LocalizationEvidence, '/gicp/evidence', self.on_evidence, 10)
             self.create_subscription(PoseWithCovarianceStamped, '/gicp/initialpose', self.on_initialpose, 10)
         else:
@@ -42,8 +40,6 @@ class CommandGate(Node):
 
     def on_initialpose(self,msg):
         self.localized=False
-        if self.use_gicp:
-            self.evidence_time = -math.inf
         self.times['cmd']=-math.inf
 
     def on_evidence(self, msg):
@@ -58,17 +54,10 @@ class CommandGate(Node):
             if msg.epoch != previous.epoch:
                 self.times['cmd'] = -math.inf
         self.evidence = msg
-        self.evidence_time = time.monotonic()
         self.localized = bool(msg.accepted and msg.source_id and msg.header.frame_id == 'map'
                               and msg.body_frame == 'livox_frame')
         if not self.localized:
             self.times['cmd'] = -math.inf
-
-    def gicp_ready(self, now):
-        if not self.localized or self.evidence is None or now - self.evidence_time > 2.:
-            return False
-        stamp = Time.from_msg(self.evidence.header.stamp, clock_type=self.get_clock().clock_type)
-        return 0. <= (self.get_clock().now() - stamp).nanoseconds * 1e-9 <= 2.
 
     def on_pose(self,msg):
         p=msg.pose.pose
@@ -101,7 +90,7 @@ class CommandGate(Node):
             age=(self.get_clock().now()-Time.from_msg(tf.header.stamp, clock_type=self.get_clock().clock_type)).nanoseconds*1e-9
             if age>1.5 or age< -2.:reason='stale_localization_tf'
         except TransformException:reason='waiting_for_localization_tf'
-        if self.use_gicp and not self.gicp_ready(now):
+        if self.use_gicp and not self.localized:
             reason = 'waiting_for_fresh_gicp_evidence'
         out=Twist()
         if reason=='ready':

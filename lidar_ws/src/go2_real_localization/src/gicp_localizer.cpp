@@ -67,7 +67,7 @@ public:
     radius_=declare_parameter("local_radius",25.0);
     period_=declare_parameter("registration_period",1.0);
     max_age_=declare_parameter("max_input_age",2.0);
-    ttl_=declare_parameter("transform_timeout",3.0);
+    ttl_=declare_parameter("transform_timeout",0.0);
     iterations_=declare_parameter("max_iterations",40);
     threads_=declare_parameter("num_threads",4);
     distance_=declare_parameter("correspondence_distance",1.0);
@@ -79,7 +79,7 @@ public:
     correction_r_=declare_parameter("max_correction_rotation",0.35);
     initial_t_=declare_parameter("initial_max_translation",2.0);
     initial_r_=declare_parameter("initial_max_rotation",0.8);
-    if (voxel_<=0 || radius_<=0 || period_<=0 || max_age_<=0 || ttl_<=0 ||
+    if (voxel_<=0 || radius_<=0 || period_<=0 || max_age_<=0 || !std::isfinite(ttl_) || ttl_<0 ||
         iterations_<1 || threads_<1 || min_points_<20 || distance_<=0 || inlier_distance_<=0 ||
         ratio_<=0 || ratio_>1 || rmse_<=0 || correction_t_<=0 || correction_r_<=0 ||
         initial_t_<=0 || initial_r_<=0) throw std::runtime_error("Invalid GICP parameters");
@@ -190,7 +190,7 @@ private:
     pcl::VoxelGrid<pcl::PointXYZ> vg; vg.setLeafSize(voxel_,voxel_,voxel_);
     vg.setInputCloud(clean); vg.filter(*out); return out;
   }
-  void report(const std::string & s) {
+  void report(const std::string & s, bool publish_evidence=true) {
     std::ostringstream inputs;
     inputs << "{\"cloud_count\":" << cloud_input_count_ << ",\"odom_count\":" << odom_input_count_
       << ",\"pair_count\":" << paired_input_count_ << ",\"cloud_stamp_ns\":" << cloud_input_stamp_
@@ -198,6 +198,7 @@ private:
     std_msgs::msg::String input_status;input_status.data=inputs.str();input_status_pub_->publish(input_status);
     std_msgs::msg::String msg;msg.data=s;status_pub_->publish(msg);
     std_msgs::msg::Bool b;b.data=valid_;valid_pub_->publish(b);
+    if(!publish_evidence) return;
     go2_obstacle_interfaces::msg::LocalizationEvidence e;
     e.header.frame_id=map_frame_;
     // Accepted evidence retains the sensor measurement time, never a TF refresh
@@ -210,6 +211,20 @@ private:
     e.pose.pose=valid_ ? accepted_pose_ : geometry_msgs::msg::Pose();
     if(!valid_) e.pose.pose.orientation.w=1.0;
     evidence_pub_->publish(e);
+  }
+  void rejectMatch(const std::string & reason, int64_t scan_stamp) {
+    const double last_fix_age=(now().nanoseconds()-accepted_stamp_)*1e-9;
+    const std::string diagnostic=reason+" scan_stamp_ns="+std::to_string(scan_stamp);
+    if(valid_ && last_fix_age>=0 && (ttl_==0 || last_fix_age<ttl_)) {
+      // Keep the old correction and its original evidence timestamp. The
+      // command gate still checks that fix, current odometry, scan and command.
+      std::ostringstream status;
+      status << "HOLDING_LAST_FIX last_fix_age_s=" << last_fix_age << " " << diagnostic;
+      report(status.str(),false);
+      return;
+    }
+    valid_=false;
+    report(diagnostic);
   }
   // Only the worker touches the registration object and target caches.
   MatchResult registerCloud(const CloudMsg & cloud, const Matrix & guess) {
@@ -272,7 +287,8 @@ private:
   void match() {
     if(!cloud_ || !odom_) {valid_=false;report("WAITING_FOR_SYNCHRONIZED_INPUT");return;}
     const double age=(now()-rclcpp::Time(cloud_->header.stamp)).seconds();
-    if(age<0 || age>max_age_) {valid_=false;report("STALE_INPUT");return;}
+    if(age<0) {valid_=false;report("STALE_INPUT");return;}
+    if(age>max_age_) {rejectMatch("STALE_INPUT",last_input_);return;}
     if(!pending_ && !initialized_) {report("WAITING_FOR_INITIALPOSE");return;}
     if(match_future_.valid() || last_processed_==last_input_) return;
     try {
@@ -304,19 +320,30 @@ private:
     // A reset or frame error invalidates work captured before it.
     const auto ros_now=now().nanoseconds();
     if(match_epoch_!=epoch_ || (last_clock_ && ros_now<last_clock_)) return;
-    if(!result.rejection.empty()) {valid_=false;report(result.rejection);return;}
+    if(!result.rejection.empty()) {rejectMatch(result.rejection,match_stamp_);return;}
     const double input_age=(ros_now-match_stamp_)*1e-9;
-    const bool accepted=result.overlap>=ratio_ && result.error<=rmse_ &&
-      result.translation<=(match_first_?initial_t_:correction_t_) &&
-      result.rotation<=(match_first_?initial_r_:correction_r_) && input_age>=0 && input_age<=max_age_;
-    valid_=accepted;
+    const bool overlap_ok=result.overlap>=ratio_;
+    const bool error_ok=result.error<=rmse_;
+    const bool translation_ok=result.translation<=(match_first_?initial_t_:correction_t_);
+    const bool rotation_ok=result.rotation<=(match_first_?initial_r_:correction_r_);
+    const bool age_ok=input_age>=0 && input_age<=max_age_;
+    const bool accepted=overlap_ok && error_ok && translation_ok && rotation_ok && age_ok;
     std::ostringstream info;
     info<<(accepted?"ACCEPTED":"REJECTED")<<" rmse_m="<<result.error<<" inlier_ratio="<<result.overlap
       <<" correction_m="<<result.translation<<" correction_rad="<<result.rotation
       <<" match_ms="<<result.match_ms<<" input_age_s="<<input_age<<" input_age_start_s="<<match_input_age_
       <<" target_reused="<<(result.target_reused?"true":"false");
-    if(!accepted && input_age>max_age_) info<<" reason=INPUT_EXPIRED_DURING_MATCH";
-    if(!accepted) {report(info.str());return;}
+    if(!accepted) {
+      if(!age_ok) info<<" reason="<<(input_age<0?"FUTURE_INPUT":"INPUT_EXPIRED_DURING_MATCH");
+      if(!overlap_ok) info<<" reason=LOW_INLIER_RATIO";
+      if(!error_ok) info<<" reason=HIGH_RMSE";
+      if(!translation_ok) info<<" reason=TRANSLATION_LIMIT";
+      if(!rotation_ok) info<<" reason=ROTATION_LIMIT";
+      if(input_age<0) {valid_=false;report(info.str());return;}
+      rejectMatch(info.str(),match_stamp_);
+      return;
+    }
+    valid_=true;
     map_odom_=result.pose*match_odom_body_.inverse();
     pending_=false;initialized_=true;
     accepted_stamp_=match_stamp_;
@@ -338,7 +365,7 @@ private:
     last_clock_=ros_now;
     if(!valid_) return;
     double age=(now().nanoseconds()-accepted_stamp_)*1e-9;
-    if(age<0 || age>ttl_){valid_=false;report("LOCALIZATION_EXPIRED");return;}
+    if(age<0 || (ttl_>0 && age>ttl_)){valid_=false;report("LOCALIZATION_EXPIRED");return;}
     auto p=toPose(map_odom_);geometry_msgs::msg::TransformStamped t;
     t.header.stamp=now();t.header.frame_id=map_frame_;t.child_frame_id=odom_frame_;
     t.transform.translation.x=p.position.x;t.transform.translation.y=p.position.y;t.transform.translation.z=p.position.z;

@@ -73,6 +73,17 @@ def main():
         if gicp:
             from std_msgs.msg import String
             statuses = []
+            gicp_status = []
+            from go2_obstacle_interfaces.msg import LocalizationEvidence
+            accepted_fixes = []
+
+            def record_fix(msg):
+                if msg.accepted:
+                    age = (node.get_clock().now() - Time.from_msg(msg.header.stamp)).nanoseconds * 1e-9
+                    accepted_fixes.append(time.monotonic() - age)
+
+            node.create_subscription(LocalizationEvidence, '/gicp/evidence', record_fix, 10)
+            node.create_subscription(String, '/gicp/status', lambda msg: gicp_status.append(msg.data), 10)
             node.create_subscription(String, '/navigation/status', lambda msg: statuses.append(msg.data), 10)
         last_send = 0.0
 
@@ -96,7 +107,7 @@ def main():
                     tf.transform.translation.x = odom.pose.pose.position.x
                     tf.transform.rotation.w = 1.0
                     broadcaster.sendTransform(tf)
-                    cloud_pub.publish(create_cloud_xyz32(Header(stamp=stamp, frame_id='livox_frame'), [(x+50., y, z) for x,y,z in points] if bad_cloud else points))
+                    cloud_pub.publish(create_cloud_xyz32(Header(stamp=stamp, frame_id='livox_frame'), [(x*.35, y*.35, z) for x,y,z in points] if bad_cloud else points))
                 rclpy.spin_once(node, timeout_sec=.01)
 
         try:
@@ -143,19 +154,31 @@ def main():
                 base = tf_buffer.lookup_transform('map', 'base_footprint', Time()).transform
                 assert abs(base.translation.x) < .05 and abs(base.translation.y) < .05, base
                 assert tf_buffer.can_transform('map', 'livox_frame', Time())
+                # Start just after a fresh fit. A mismatched scan still has
+                # valid laser ranges, so a stop here would come from localization.
+                seen = len(gicp_status)
+                deadline = time.monotonic()+3
+                while not any(s.startswith('ACCEPTED') for s in gicp_status[seen:]) and time.monotonic()<deadline:
+                    pump(.05)
+                assert any(s.startswith('ACCEPTED') for s in gicp_status[seen:]), gicp_status[-5:]
                 scan_count_before_rejection = len(scans)
                 bad_cloud = True
                 raw_pub = node.create_publisher(Twist, '/cmd_vel_nav', 10)
-                for _ in range(40):
+                for _ in range(60):
                     raw = Twist()
                     raw.linear.x = .2
                     raw_pub.publish(raw)
                     pump(.1)
-                assert statuses[-1] == 'waiting_for_fresh_gicp_evidence', statuses[-10:]
+                held = [status for status in gicp_status[seen:] if status.startswith('HOLDING_LAST_FIX')]
+                assert len(held) >= 3, gicp_status[-8:]
+                assert all('scan_stamp_ns=' in status for status in held), held
+                assert all('reason=' in status or 'NOT_CONVERGED' in status for status in held), held
+                assert accepted_fixes, 'No accepted localization evidence'
+                fix_time = accepted_fixes[-1]
+                assert any(t-fix_time>5. and abs(x)+abs(w)>.01 for t,x,w in commands), 'Output stopped during sustained rejection'
+                assert statuses[-1] == 'ready', statuses[-10:]
                 assert len(scans) > scan_count_before_rejection + 10, 'Local scanning stopped when global localization was rejected'
-                recent = [abs(x)+abs(w) for t,x,w in commands if t>time.monotonic()-.5]
-                assert recent and max(recent)<1e-8, 'Rejected localization did not block velocity'
-                print('PASS: rejected GICP evidence blocks nonzero input while sensors still publish', flush=True)
+                print('PASS: continuous rejections are logged and fresh inputs sustain motion after five seconds', flush=True)
             publishers = node.get_publishers_info_by_topic('/cmd_vel')
             assert len(publishers)==1 and publishers[0].node_name=='nav_cmd_gate', publishers
             future.result().cancel_goal_async()

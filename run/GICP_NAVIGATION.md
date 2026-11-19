@@ -33,7 +33,7 @@ bash run/navigation_gicp.sh competition \
 
 ## 检查匹配和规划
 
-在相同 ROS 环境下观察 `/gicp/input_status` 的同步计数、`/gicp/status` 的匹配状态和 `/gicp/evidence` 的接受结果。使用 `ros2 run tf2_ros tf2_echo map base_footprint` 检查底盘位姿，并在 RViz 对照地图和对齐点云。GICP 发布 `map → odom → livox_frame` 分支中的全局校正，导航适配器发布独立 `map → odom_nav → base_footprint` 分支。速度门控要求新鲜的 GICP 证据与 TF，并继续检查扫描、里程计和命令超时。GICP 节点更换时重启整套导航，以清除旧定位来源。
+在相同 ROS 环境下观察 `/gicp/input_status` 的同步计数、`/gicp/status` 的匹配状态和 `/gicp/evidence` 的接受结果。使用 `ros2 run tf2_ros tf2_echo map base_footprint` 检查底盘位姿，并在 RViz 对照地图和对齐点云。GICP 发布 `map → odom → livox_frame` 分支中的全局校正，导航适配器发布独立 `map → odom_nav → base_footprint` 分支。首次成功定位后，偶发或连续的配准拒绝会在 /gicp/status 记录 HOLDING_LAST_FIX、点云时间 scan_stamp_ns、上次定位年龄 last_fix_age_s 和拒绝原因。默认沿用最后一次地图校正，机器人位姿由实时里程计更新。速度门控继续检查有效的定位、实时 TF、扫描、里程计和命令。长时间只用里程计会积累漂移。如需限制沿用时间，将 GICP 配置中的 transform_timeout 设为正数（秒）。GICP 节点更换时重启整套导航，以清除旧定位来源。
 
 该入口的输出边界为 `/cmd_vel`。实车部署还需核对安装外参、录包或现场定位重复性、当前地图规划，以及底盘速度接口。GICP 从启动区初猜附近匹配，场地真实摆放容差需实测。
 

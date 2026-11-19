@@ -104,12 +104,12 @@ def main():
                     5,
                 )
                 print('PASS fixed target reused:', observed['status'])
-                run_until(lambda: not observed['valid'] and ('REJECTED' in observed['status'] or 'NOT_CONVERGED' in observed['status']), 15, bad=True)
+                run_until(lambda: observed['valid'] and observed['status'].startswith('HOLDING_LAST_FIX'), 15, bad=True)
                 print('PASS unrelated cloud rejected:', observed['status'])
-                run_until(lambda: observed['valid'], 15)
+                run_until(lambda: observed['status'].startswith('ACCEPTED'), 15)
                 print('PASS recovery on valid cloud')
-                run_until(lambda: not observed['valid'] and observed['status'] in ('STALE_INPUT', 'LOCALIZATION_EXPIRED'), 8, publish=False)
-                print('PASS stale input invalidated')
+                run_until(lambda: 'STALE_INPUT' in observed['status'], 8, publish=False)
+                print('PASS stale input reported while the last correction is retained')
             except Exception:
                 log.flush(); log.seek(0); print(log.read()); raise
             finally:
