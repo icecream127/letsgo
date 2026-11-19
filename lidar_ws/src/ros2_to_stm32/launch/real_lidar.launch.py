@@ -6,27 +6,32 @@ from launch.actions import DeclareLaunchArgument
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
     config = os.path.join(get_package_share_directory('ros2_to_stm32'), 'config')
     return LaunchDescription([
         DeclareLaunchArgument('show_rviz', default_value='true'),
+        DeclareLaunchArgument('lio_params', default_value=os.path.join(config, 'fast_lio_mid360_real.yaml')),
+        DeclareLaunchArgument('user_config_path', default_value=os.path.join(config, 'mid360_real.json')),
+        DeclareLaunchArgument('publish_map', default_value='true'),
         Node(
             package='livox_ros_driver2',
             executable='livox_ros_driver2_node',
             name='mid360_real_driver',
             output='screen',
             parameters=[os.path.join(config, 'livox_driver.yaml'), {
-                'user_config_path': os.path.join(config, 'mid360_real.json'),
+                'user_config_path': LaunchConfiguration('user_config_path'),
             }],
         ),
         Node(
             package='fast_lio',
             executable='fastlio_mapping',
             output='screen',
-            parameters=[os.path.join(config, 'fast_lio_mid360_real.yaml'),
-                        {'use_sim_time': False}],
+            parameters=[LaunchConfiguration('lio_params'),
+                        {'use_sim_time': False, 'publish.map_en': ParameterValue(LaunchConfiguration('publish_map'), value_type=bool),
+                         'pcd_save.pcd_save_en': False}],
         ),
         Node(
             package='rviz2',

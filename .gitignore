@@ -6,6 +6,7 @@ lidar_ws/log/
 __pycache__/
 *.pyc
 *.pcd
+!maps/real_room_20260926_110555_607459.pcd
 .pytest_cache/
 .env
 .env.*

@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
         'pos_trans = ros2_to_stm32.trans:main',
+        'gicp_pos_trans = ros2_to_stm32.gicp_trans:main',
             'info_trans = ros2_to_stm32.info_transmiting:main',
             'serial_node = ros2_to_stm32.serial:main',
             'map_node = ros2_to_stm32.map:main',
