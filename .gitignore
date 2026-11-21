@@ -7,6 +7,7 @@ __pycache__/
 *.pyc
 *.pcd
 !maps/real_room_20260926_110555_607459.pcd
+!maps/real_room_20261121_112353_068513.pcd
 .pytest_cache/
 .env
 .env.*

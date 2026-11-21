@@ -7,7 +7,7 @@ if [[ "${1:-}" == "--localizer-only" ]]; then
     ENTRY=localization.launch.py
     shift
 fi
-MAP_PATH="${GICP_MAP_PATH:-$PROJECT_ROOT/maps/real_room_20260926_110555_607459.pcd}"
+MAP_PATH="${GICP_MAP_PATH:-$PROJECT_ROOT/maps/real_room_20261121_112353_068513.pcd}"
 [[ -f "$MAP_PATH" ]] || { echo "PCD 不存在：$MAP_PATH" >&2; exit 1; }
 for package in fast_gicp go2_real_localization; do
     prefix="$(ros2 pkg prefix "$package")"
