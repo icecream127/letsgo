@@ -1,4 +1,4 @@
-"""两点实机路线；复用原来的走点判断、发送去重和控制器回调。"""
+"""单点实机路线；复用原来的走点判断、发送去重和控制器回调。"""
 import json
 import math
 from pathlib import Path
@@ -20,7 +20,7 @@ class TaskTodoMini(Task_To_Do):
         super().__init__()
         with Path(__file__).with_name('map_mini.json').open(encoding='utf-8') as stream:
             self.waypoints = json.load(stream)['waypoints']
-        self.get_logger().info('MINI 路线：(1, 0) → (2, 0.2)，身体中心坐标，普通模式')
+        self.get_logger().info('MINI 路线：只到 (1, 0) 后站立，身体中心赛道坐标，普通模式')
 
     def Quadruped_Obstacle(self, x, y, yaw):
         # 与原路线入口相同，只补偿一次；不调用父类的区域路线。
@@ -29,7 +29,7 @@ class TaskTodoMini(Task_To_Do):
         y -= self.sensor_forward_offset * math.sin(theta)
         self.robot_mode = '正常模式'
         if self.index >= len(self.waypoints):
-            self.current_zone = 'MINI 两点路线完成'
+            self.current_zone = 'MINI 单点路线完成'
             self.set_normal_debug_coords(x, y, yaw)
             self.Kkey_To_Number('站立')
             return
