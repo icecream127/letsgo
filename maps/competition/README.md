@@ -2,7 +2,7 @@
 
 ## 1. 当前正式地图与目录
 
-2026-11-07 整理。当前 map.pgm 是用户在 GIMP 修改后，从 Windows 桌面 navmap/map.pgm 原样导入的版本。配套 cloud.pcd 已归并到本目录，它是原 real_room_20260926_110555 的实际源点云，不是此前 competition 目录中的另一份点云。
+当前 map.pgm 为人工修订版，配套 cloud.pcd 来自 real_room_20260926_110555。地图尺寸、原点与人工修订记录见本目录的 projection.json。
 
 ```text
 maps/
@@ -11,11 +11,10 @@ maps/
     ├── cloud.pcd             # 与地图匹配的原始点云
     ├── map.pgm               # 当前正式人工修订版
     ├── map.yaml              # Nav2 加载入口
-    ├── projection.json       # 源点云、图像、YAML 校验与修改记录
-    └── traversability.json   # 本场地下方坡板及 C 入口的专用通行区域
+    └── projection.json       # 源点云、图像、YAML 校验与修改记录
 ```
 
-当前尺寸 260×260；分辨率 0.05 m/格；origin=[-1.9,-7.25,0]。坡度上限 15°、单级高度 0.10 m。机器人半径 0.30 m，Nav2 膨胀半径 0.32 m。
+当前尺寸 1101×717；分辨率 0.05 m/格；origin=[-14.4,-25.6,0]。坡度上限 15°、单级高度 0.10 m。机器人半径 0.30 m，Nav2 膨胀半径 0.32 m。
 
 源点云 SHA256：`6edd690d2569b91bbd6be1b2a7b4534c96ea5cb5085fa0535fd3ec0c6c7ed47e`。
 人工图 SHA256：`cd729af9731dc42458a3f78c5f70fa5edc6f137e59a8a6e85cf8ae361afa23dd`。
@@ -77,7 +76,7 @@ bash run/map_to_2d.sh session_20261107 --auto-ground
 
 第一条只打印估算的 `--ground-z`、`--seed-x`、`--seed-y`。第二条生成二维地图。算法默认在点云原点周围 2 米内，从原点下方的点中查找有连续覆盖的平地。可用 `--seed-x`、`--seed-y` 提供搜索中心的大概位置。估计依据只用于投影起点，坡度和台阶仍由地形投影逐格判断。缺乏平地或有多个覆盖相近的不同高度平面时，脚本会报错，可在 RViz 显示原始点云后用 Publish Point 点选已知平地，读取 `/clicked_point` 的 XYZ。
 
-新点云应先确定起始地面 XYZ。ground-z 是保存点云中的地面 Z，不是直接填写雷达安装高度。新场地不能照搬本场地的裁剪范围、种子位置和通行区域。
+新点云应先确定起始地面 XYZ。ground-z 是保存点云中的地面 Z，不是直接填写雷达安装高度。新场地应按实际点云选择裁剪范围和种子位置。
 
 新场地示例（必须将地面和种子位置替换为实测值）：
 
@@ -101,20 +100,18 @@ cp -a maps/competition/. "$backup_dir/"
 bash run/map_to_2d.sh competition \
   --ground-z -0.75 --seed-x 1 --seed-y 0 \
   --resolution 0.05 --max-step 0.10 --max-slope 15 \
-  --bounds -1.9 -7.25 11.1 5.75 --force
+  --force
 ```
 
 该命令现在直接读取 competition/cloud.pcd，不需要 --source-map。投影脚本覆盖时也会生成目录内 backups；这些是以后运行新产生的备份，不属于本次清理的现有内容。
 
 算法按输出格的密集高度带估计表面，检查坡度和相邻高度差，保留墙体及落差边缘。未知区域不默认全白。--terrain-resolution 和 --ground-quantile 仅作旧命令兼容，现地形网格跟随 --resolution。
 
-traversability.json 只适用于当前源点云：照片显示下方为有真实缝隙的分段坡板，用户确认底盘已能从 C 进入并通过，最大缝宽未测量。因此区域内可按底盘通行能力表达缝隙，并保留两侧边界与 C 开口；白色不代表缝隙内存在实体地面。该能力不能推广到其他沟槽，普通二维图也不能表达强制单向通行。
-
-换点云时其校验值会不匹配：不要只修改哈希绕过检查。应重新核实区域，或在 maps 之外保存旧规则，在新地图目录先不放 traversability.json。
+重新投影时，仅根据点云观测和通用地形参数生成底图。C 入口和分段坡板如需修订，可在现场确认后按第 5、6 节处理。已保存的人工修订图可继续校验和加载，旧生成记录中的区域信息仅供溯源。
 
 ### 可选：投影前去除半径离群点
 
-启用该选项需要 SciPy（Ubuntu 的 `python3-scipy`）。从原始 PCD 读取后，仅对用于地面估计和栅格投影的点做三维邻域筛选。原始 PCD 保留给重定位，场地专用已确认区域仍使用原始观测。筛选参数与保留点数写入 `projection.json`。
+启用该选项需要 SciPy（Ubuntu 的 `python3-scipy`）。从原始 PCD 读取后，仅对用于地面估计和栅格投影的点做三维邻域筛选。原始 PCD 保留给重定位。筛选参数与保留点数写入 `projection.json`。
 
 ```bash
 PYTHONNOUSERSITE=1 bash run/map_to_2d.sh field_trial --auto-ground \
@@ -133,7 +130,7 @@ Windows 文件资源管理器打开：
 
 打开原始 map.pgm，不打开带坐标轴、文字、路线的截图。另存 XCF 工作文件到桌面等工作目录，避免混入正式地图目录。
 
-1. 图像 → 模式 → 灰度；保持 8 位灰度、260×260。新场地则保持它自己的尺寸。
+1. 图像 → 模式 → 灰度；保持 8 位灰度和原图尺寸。
 2. 可以提高查看缩放比例；不要执行图像缩放、旋转、裁剪，也不要移动整层。
 3. 工具 → 绘画工具 → 铅笔（N）。使用实心笔刷 2. Hardness 100；模式正常、不透明度 100%；关闭“启用动态”。细修先用 1～3 像素。
 4. 点击工具箱两个叠放方块中的左上前景色方块，在 HTML 标记输入颜色。
@@ -219,7 +216,7 @@ ROS_DOMAIN_ID=189 ROS_LOCALHOST_ONLY=1 RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
 
 需要可用且空闲的 domain 189，以及已安装 Cyclone DDS。若缺少该 RMW，安装 ros-humble-rmw-cyclonedds-cpp。脚本只启动地图、静态测试 TF、全局规划器和生命周期管理，不驱动实车。
 
-当前人工图：旧 C=(5.00,-4.20) 落入膨胀区。测试使用 C=(4.925,-4.075)，场内→C、C→A 均通过，目标误差为 0。这只是测试目标，没有更改实车任务点。测试坐标和过道范围均为本场地专用，新场地必须重新选点。
+此前的规划测试中，旧 C=(5.00,-4.20) 落入膨胀区。测试使用 C=(4.925,-4.075)，场内→C、C→A 均通过，目标误差为 0。这只是测试目标，没有更改实车任务点。测试坐标和过道范围均为本场地专用，新场地必须重新选点。
 
 报告在 validation/results/competition/。报告中的 map_sha256 必须与当前图一致；过去某两段路线通过，不能替代所有入口及任务路线的检查。实车还需要低速验证定位、控制和实际净空。
 
@@ -229,6 +226,5 @@ ROS_DOMAIN_ID=189 ROS_LOCALHOST_ONLY=1 RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
 - 图像尺寸不匹配：回 GIMP 撤销图像缩放/裁剪，不能靠改 YAML 分辨率补救。
 - 出现其他灰度：关闭羽化、抗锯齿、动态和半透明绘制，恢复为指定三色。
 - 入口看起来白但规划失败：检查膨胀后的全局代价地图和目标点位置；真实入口过窄不能通过擦图解决。
-- 新点云被旧区域规则拒绝：重新核实区域，不能只改规则中的源哈希。
-- 需要回退：从同一个备份批次恢复 map.pgm、map.yaml、projection.json、相应 traversability.json；源 cloud.pcd 也必须与记录一致，然后再次 validate。
+- 需要回退：从同一个备份批次恢复 map.pgm、map.yaml、projection.json；源 cloud.pcd 也必须与记录一致，然后再次 validate。
 - 完成新场地后只保留正式目录：先核验正确 PCD 已在该目录内，再更新来源记录、清理试验目录；不要删掉仍被 projection.json 引用的外部点云。

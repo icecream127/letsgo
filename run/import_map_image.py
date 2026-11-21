@@ -28,7 +28,7 @@ def import_image(name, filename, check_only=False):
     timestamp = datetime.now(timezone.utc)
     backup = maps.PROJECT / '.local/map_backups' / name / timestamp.strftime('%Y%m%dT%H%M%S%fZ')
     backup.mkdir(parents=True)
-    for item in ('map.pgm', 'map.yaml', 'projection.json', 'traversability.json'):
+    for item in ('map.pgm', 'map.yaml', 'projection.json'):
         path = directory / item
         if path.exists():
             shutil.copy2(path, backup / item)

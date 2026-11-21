@@ -1,4 +1,5 @@
 import importlib.util
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -155,9 +156,20 @@ def test_terrain_artifact_validation_and_backup(tmp_path, monkeypatch):
                            max_step=.08, max_slope=25., seed_x=.3, seed_y=.5, seed_radius=.5)
     maps.project(args)
     old_image = (directory / 'map.pgm').read_bytes()
+    metadata_path = directory / 'projection.json'
+    metadata = json.loads(metadata_path.read_text())
+    metadata['terrain']['profile_sha256'] = 'historical-profile'
+    metadata_path.write_text(json.dumps(metadata))
+    # Old maps must still load without their retired rule file.
+    assert maps.validate('terrain') == directory / 'map.yaml'
+
+    # Even if a copy of the old file is present, new projections ignore it.
+    (directory / 'traversability.json').write_text('retired rule file')
     args.force = True
     maps.project(args)
     assert maps.validate('terrain') == directory / 'map.yaml'
+    assert 'profile_sha256' not in json.loads(metadata_path.read_text())['terrain']
+    assert (directory / 'map.pgm').read_bytes() == old_image
     backups = list((directory / 'backups').glob('*/map.pgm'))
     assert len(backups) == 1
     assert backups[0].read_bytes() == old_image
@@ -179,7 +191,6 @@ def test_external_source_bounds_and_stale_source(tmp_path, monkeypatch):
                            seed_y=.5, seed_radius=.5, bounds=[0., 0., 3., 1.])
     maps.project(args)
     assert maps.validate('competition') == output / 'map.yaml'
-    import json
     metadata = json.loads((output / 'projection.json').read_text())
     assert metadata['source'] == '../source_room/cloud.pcd'
     assert (metadata['width'], metadata['height']) == (60, 20)
@@ -205,32 +216,3 @@ def test_dense_vertical_obstacle_still_blocks_floor():
     image, origin, _ = maps.project_terrain(points, .05, 0., .05, .1, 2., .2,
                                            seed_x=.3, seed_y=.5)
     assert terrain_pixel(image, origin, 1.525, .525) == 0
-
-
-def test_confirmed_slatted_region_preserves_edges_objects_and_outside():
-    x, y = np.meshgrid(np.arange(.025, 4., .05), np.arange(.025, 2., .05))
-    z = np.where((x % .5) < .15, -.2, .2)  # real gaps, not noise
-    cloud = np.column_stack((x.ravel(), y.ravel(), z.ravel()))
-    obstacle = np.array([[2.025, .525, h] for h in np.linspace(.5, 1., 12)])
-    image = np.full((40, 80), 205, dtype=np.uint8)
-    profile = {'schema': 1, 'confirmation': 'Robot tested on this specific slatted terrain',
-               'regions': [{'name': 'slats', 'x_range': [1., 3.],
-                            'normal_equation': [0., 1., 0.], 'normal_range': [0., 1.],
-                            'surface_z_band': [.15, .25], 'protect_sides': True}]}
-    result, reports = maps.apply_confirmed_regions(image, [0., 0., 0.],
-                                                   np.vstack((cloud, obstacle)), .05, profile, 2.)
-    assert terrain_pixel(result, [0., 0., 0.], 1.525, .525) == 254  # confirmed gap
-    assert terrain_pixel(result, [0., 0., 0.], 2.025, .525) == 0    # actual object
-    assert terrain_pixel(result, [0., 0., 0.], 1.525, .025) == 0   # lateral edge
-    assert terrain_pixel(result, [0., 0., 0.], .525, .525) == 205  # no global filling
-    assert reports[0]['gap_width_limit'] is None
-    assert np.array_equal(result[:, :20], image[:, :20])
-
-
-def test_confirmed_region_requires_surface_evidence():
-    profile = {'schema': 1, 'confirmation': 'specific region tested', 'regions': [
-        {'name': 'slats', 'x_range': [0., 1.], 'normal_equation': [0., 1., 0.],
-         'normal_range': [0., 1.], 'surface_z_band': [.15, .25]}]}
-    with pytest.raises(ValueError, match='insufficient'):
-        maps.apply_confirmed_regions(np.full((20, 20), 205, dtype=np.uint8), [0., 0., 0.],
-                                     np.array([[.5, .5, -.2]]), .05, profile, 2.)

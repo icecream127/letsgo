@@ -39,7 +39,8 @@ make.sh 仅用于显式指定的 CH341SER 驱动源码，不参与正常构建�
 
 ## Nav2 坐标任务
 
-单目标与多目标顺序执行见 [NAV_GOALS.md](NAV_GOALS.md)。入口：nav_goals.sh。
+并马普通多点使用 `auto_nav.sh --parallel`，采点、校验和启动步骤见 [简明流程](../maps/README.md#4-并马普通多点导航)。
+已启动导航时，可用 nav_goals.sh 单独下发目标，见 [NAV_GOALS.md](NAV_GOALS.md)。
 
 
 ## 离线地图任务编辑器

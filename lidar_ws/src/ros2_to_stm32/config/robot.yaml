@@ -55,6 +55,11 @@ nav_goal_client:
   ros__parameters:
     goal_timeout: 180.0
 
+# Seconds to wait for localization, Nav2, sensor data and the velocity subscriber.
+auto_nav:
+  ros__parameters:
+    startup_timeout: 120.0
+
 # Nav2 planning and control. AMCL is only used by the AMCL launch mode.
 amcl:
   ros__parameters:
@@ -482,6 +487,14 @@ motor_serial:
     controller_timeout: 1.0
     mode_timeout: 2.0
     action_margin: 0.75
+    # Only parallel_horse_serial reads these settings. Time in s, velocity in m/s and rad/s.
+    nav_command_timeout: 0.30
+    nav_send_period: 0.10
+    nav_linear_deadband: 0.015
+    nav_angular_deadband: 0.05
+    nav_turn_enter: 0.25
+    nav_turn_exit: 0.15
+    nav_min_switch_interval: 0.32
     action_durations:
       - '9:6:1.50'
       - '9:7:3.0'

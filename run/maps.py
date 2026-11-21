@@ -267,76 +267,6 @@ def project_terrain(points, resolution, ground_z, ground_tolerance, min_height,
     return np.flipud(grid),[float(origin[0]),float(origin[1]),0.],info
 
 
-def apply_confirmed_regions(image, origin, points, resolution, profile, max_height):
-    """Project field-confirmed slatted terrain; never generalize gap capability.
-
-    The surface profile is measured from the upper-board returns. Only the
-    bounded region may bridge missing support. Objects above it retain priority.
-    Both lateral edges are blocked while longitudinal entries remain open.
-    """
-    grid = np.flipud(image).copy()
-    yy, xx = np.indices(grid.shape)
-    X = origin[0] + (xx + .5) * resolution
-    Y = origin[1] + (yy + .5) * resolution
-    reports = []
-    if profile.get('schema') != 1 or not profile.get('confirmation'):
-        raise ValueError('Confirmed terrain profile requires schema=1 and confirmation')
-    for region in profile['regions']:
-        lo, hi = region['x_range']
-        a, b, c = region['normal_equation']
-        nlo, nhi = region['normal_range']
-        zlo, zhi = region['surface_z_band']
-        if not all(math.isfinite(v) for v in [lo, hi, a, b, c, nlo, nhi, zlo, zhi]) or not (lo < hi and nlo < nhi and zlo < zhi and b != 0):
-            raise ValueError('Invalid confirmed region geometry')
-        normal = a * X + b * Y + c
-        inside = (X >= lo) & (X <= hi) & (normal >= nlo) & (normal <= nhi)
-        pn = a * points[:, 0] + b * points[:, 1] + c
-        selected = (points[:, 0] >= lo) & (points[:, 0] <= hi) & (pn >= nlo) & (pn <= nhi)
-        observed = points[selected]
-        top = observed[(observed[:, 2] >= zlo) & (observed[:, 2] <= zhi)]
-        if len(top) < 20:
-            raise ValueError('Confirmed region has insufficient board-surface observations')
-        bins = np.arange(lo, hi + resolution, resolution)
-        heights = np.full(len(bins) - 1, np.nan)
-        idx = np.minimum(np.searchsorted(bins, top[:, 0], side='right') - 1, len(heights) - 1)
-        for k in range(len(heights)):
-            sample = top[idx == k, 2]
-            if len(sample) >= 3:
-                heights[k] = np.median(sample)
-        centers = (bins[:-1] + bins[1:]) / 2
-        valid = np.isfinite(heights)
-        if valid.sum() < 3:
-            raise ValueError('Insufficient longitudinal surface profile')
-        surface = np.interp(observed[:, 0], centers[valid], heights[valid])
-        obstacle = observed[(observed[:, 2] - surface >= .15) &
-                            (observed[:, 2] - surface <= max_height)]
-        before = grid.copy()
-        grid[inside] = 254
-        # Preserve observed walls and rails above the boards. A region-specific support count
-        # prevents sparse residual returns from blocking the confirmed crossing.
-        xy = np.floor((obstacle[:, :2] - origin[:2]) / resolution).astype(int)
-        ids, counts = np.unique(xy[:, 1] * grid.shape[1] + xy[:, 0], return_counts=True)
-        grid.ravel()[ids[counts >= region.get('min_obstacle_points', 8)]] = 0
-        side = inside & ((normal - nlo < resolution * math.hypot(a, b)) |
-                         (nhi - normal < resolution * math.hypot(a, b)))
-        if 'front_open_x_range' in region:
-            entry_lo, entry_hi = region['front_open_x_range']
-            side &= ~((X >= entry_lo) & (X <= entry_hi) &
-                      (nhi - normal < resolution * math.hypot(a, b)))
-        if region.get('protect_sides', True):
-            grid[side] = 0
-        if 'protect_x_edges_above_normal' in region:
-            lateral = inside & (normal > region['protect_x_edges_above_normal']) & (
-                (X - lo < resolution) | (hi - X < resolution))
-            grid[lateral] = 0
-        reports.append(dict(name=region['name'], changed_cells=int((grid != before).sum()),
-                            measured_profile_bins=int(valid.sum()), total_profile_bins=len(heights),
-                            surface_z_range=[float(heights[valid].min()), float(heights[valid].max())],
-                            entry=region.get('entry'), gap_width_limit=None,
-                            interpretation='field-confirmed effective traversability; gaps are not physical floor'))
-    return np.flipud(grid), reports
-
-
 def project(args):
     directory = map_directory(args.name)
     source_name = getattr(args, 'source_map', None) or args.name
@@ -405,15 +335,6 @@ def project(args):
         cropped = np.full((h, w), 205, dtype=np.uint8)
         cropped[np.ix_(valid_y, valid_x)] = np.flipud(image)[np.ix_(iy[valid_y], ix[valid_x])]
         image, origin = np.flipud(cropped), [float(bounds[0]), float(bounds[1]), 0.]
-    profile_path = directory / 'traversability.json'
-    if profile_path.exists():
-        profile = json.loads(profile_path.read_text())
-        if profile.get('source_sha256') != source_hash:
-            raise ValueError('已确认地形区域与源点云不匹配，需重新核实区域')
-        image, reports = apply_confirmed_regions(image, origin, raw_points, args.resolution, profile, args.max_height)
-        terrain['confirmed_regions'] = reports
-        terrain['profile_sha256'] = sha256(profile_path)
-        terrain['profile_snapshot'] = profile
     if sha256(source) != source_hash:
         raise ValueError('PCD changed during projection; stop saving and retry')
     height, width = image.shape
@@ -470,9 +391,6 @@ def validate(name):
     expected_source = 'cloud.pcd' if source_name == name else f'../{source_name}/cloud.pcd'
     if metadata.get('source') != expected_source:
         raise ValueError('源点云路径与 source_map 不一致')
-    profile_hash = metadata.get('terrain', {}).get('profile_sha256')
-    if profile_hash and sha256(directory / 'traversability.json') != profile_hash:
-        raise ValueError('traversability.json 已改变，请重新生成二维地图')
     for path, field in [(source, 'source_sha256'), (directory / 'map.pgm', 'image_sha256'),
                         (directory / 'map.yaml', 'yaml_sha256')]:
         if sha256(path) != metadata[field]:

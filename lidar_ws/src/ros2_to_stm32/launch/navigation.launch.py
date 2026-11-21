@@ -1,4 +1,4 @@
-"""Official Nav2 nodes with FAST-LIO adapters; no serial or motor nodes."""
+"""Official Nav2 nodes with FAST-LIO adapters and an opt-in parallel horse serial link."""
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -20,6 +20,7 @@ def generate_launch_description():
             get_package_share_directory('ros2_to_stm32'), 'config', 'robot.yaml')),
         DeclareLaunchArgument('use_sim_time', default_value='false'),
         DeclareLaunchArgument('sensors', default_value='true'),
+        DeclareLaunchArgument('parallel_horse', default_value='false'),
         DeclareLaunchArgument('rviz', default_value='true'),
         DeclareLaunchArgument('scan_min_height', default_value=''),
         DeclareLaunchArgument('scan_max_height', default_value=''),
@@ -56,6 +57,9 @@ def navigation_nodes(context):
              parameters=[*parameter_files, common, scan_overrides]),
         Node(package='ros2_to_stm32', executable='nav_cmd_gate', output='screen', parameters=[*parameter_files, common, {'use_gicp': gicp}]),
     ]
+    if LaunchConfiguration('parallel_horse').perform(context) == 'true':
+        actions.append(Node(package='ros2_to_stm32', executable='parallel_horse_serial',
+                            output='screen', parameters=parameter_files))
     nodes = [('nav2_map_server', 'map_server'),
              ('nav2_controller', 'controller_server'), ('nav2_planner', 'planner_server'),
              ('nav2_smoother', 'smoother_server'), ('nav2_behaviors', 'behavior_server'),

@@ -29,6 +29,7 @@ setup(
         'pos_trans = ros2_to_stm32.trans:main',
             'info_trans = ros2_to_stm32.info_transmiting:main',
             'serial_node = ros2_to_stm32.serial:main',
+            'parallel_horse_serial = ros2_to_stm32.parallel_horse:main',
             'map_node = ros2_to_stm32.map:main',
             'ui_node = ros2_to_stm32.ui:main',
         ],

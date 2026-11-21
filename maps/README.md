@@ -36,7 +36,23 @@ bash run/map_task_editor.sh trial
 
 点击「保存任务工程」，写入 `maps/trial/competition_tasks.json`。全部任务为普通导航且点位通过占地检查时，同时写入 `maps/trial/nav2_goals.json`。如果新工程不可导出，保存时会清除旧目标文件。保存完成后可按 Ctrl+C 关掉采点服务。
 
-## 4. 启动重定位和 Nav2
+## 4. 并马普通多点导航
+
+在开阔平地上用编辑器保存启动区和一项「普通导航」任务，入口和出口就是两个目标。把并马摆到启动区，用遥控器起身，观察站稳后将 `KEY_mode` 拨到自动。上位机使用原并马的按键协议。确认实际刷入的固件有双向状态回传，并按固件接线。并马串口设备和速度转换参数集中在 `robot.yaml` 的 `motor_serial` 小节。
+
+先校对启动位置和目标，下面的 `-0.70` 需换成现场 IMU 初始 Z：
+
+    bash run/auto_nav.sh --parallel trial --imu-z -0.70 --check-only
+
+上位机正式启动整段任务：
+
+    bash run/auto_nav.sh --parallel trial --imu-z -0.70
+
+省略 `trial` 使用 `competition`。脚本启动 GICP、Nav2 和并马串口，等首次定位成功及电控回传正常后逐点导航。普通模式 9 的 1/2/3/4/5 分别为左转、前进、右转、后退、站立。有转向需求时先转向，进入直行条件后再走。速度大小由原固件步态决定。
+
+按 Ctrl+C 取消当前目标并请求站立，回传异常会结束任务。终端和 `/parallel_horse/status` 能看到模式、故障及最近写入的键值。状态帧能核对自动链路和模式，实际起身、步速、转速和停车距离需要现场验收。启动本入口前退出旧 Nav2 和旧串口节点，避免两个程序争用 USB-TTL。上位机的站立帧只能在 USB-TTL 仍可通信时送出。固件断线停车见 [并马电控说明](../firmware/README.md)。
+
+## 5. 分开验证重定位和 Nav2
 
 把机器人放到标好的启动区。首次使用前，在 `robot.yaml` 填好实测的雷达到底盘安装外参。输入 IMU 在固定 PCD 坐标中的初始 Z，12 厘米启动台见下方说明。
 
@@ -47,7 +63,7 @@ bash run/navigation_gicp.sh trial --imu-z "$imu_z"
 
 保持静止，确认 `/gicp/status` 持续出现 `ACCEPTED`，并在 RViz 核对点云对齐、底盘位置和朝向。可在启动命令末尾加 `--check-only`，先查看计算出的 IMU 初猜。
 
-## 5. 发送普通导航目标
+### 手动发送普通导航目标
 
 定位确认后，另开终端：
 
@@ -55,7 +71,7 @@ bash run/navigation_gicp.sh trial --imu-z "$imu_z"
 bash run/nav_goals.sh --map trial
 ```
 
-使用比赛地图时可直接运行 `bash run/nav_goals.sh`。前一目标到达后，Nav2 从当前位置规划到下一目标。当前导航实现到 `/cmd_vel` 输出，实车执行还需底盘速度接口，专用越障还需动作交接。
+使用比赛地图时可直接运行 `bash run/nav_goals.sh`。前一目标到达后，Nav2 从当前位置规划到下一目标。此处可独立观察规划和 `/cmd_vel`，使用并马跑整段时按第 4 步启动。
 
 ## 按现场需要调整
 

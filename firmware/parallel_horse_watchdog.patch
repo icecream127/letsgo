@@ -1,0 +1,11 @@
+--- a/User/Remote/Uart/auto_link.h
++++ b/User/Remote/Uart/auto_link.h
+@@ -37,7 +37,7 @@
+     // 自动发一次“5 停止”。0 表示关闭（默认）。
+     // 只有上位机会持续重发命令（例如每 100 ms 一次）时才应打开，
+     // 否则“只在变化时发一次”的上位机会被误判为掉线。
+-    constexpr uint32_t kHostTimeoutMs = 0U;
++    constexpr uint32_t kHostTimeoutMs = 500U;
+ 
+     // 自动打开时的状态回传周期，与 UART8 遥控器回传相同（80 ms）。0 表示不回传。
+     constexpr uint32_t kStatusPeriodMs = 80U;
