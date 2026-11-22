@@ -290,10 +290,9 @@ void standard_pcl_cbk(const sensor_msgs::msg::PointCloud2::UniquePtr msg)
     {
         std::cerr << "LiDAR timestamp moved backward by "
                   << (last_timestamp_lidar - cur_time)
-                  << " s; clear LiDAR and time buffers" << std::endl;
-        lidar_buffer.clear();
-        time_buffer.clear();
-        lidar_pushed = false;
+                  << " s; drop out-of-order scan" << std::endl;
+        mtx_buffer.unlock();
+        return;
     }
     if (is_first_lidar)
     {
@@ -322,10 +321,9 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
     {
         std::cerr << "LiDAR timestamp moved backward by "
                   << (last_timestamp_lidar - cur_time)
-                  << " s; clear LiDAR and time buffers" << std::endl;
-        lidar_buffer.clear();
-        time_buffer.clear();
-        lidar_pushed = false;
+                  << " s; drop out-of-order scan" << std::endl;
+        mtx_buffer.unlock();
+        return;
     }
     if(is_first_lidar)
     {
@@ -338,10 +336,14 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
         printf("IMU and LiDAR not Synced, IMU time: %lf, lidar header time: %lf \n",last_timestamp_imu, last_timestamp_lidar);
     }
 
-    if (time_sync_en && !timediff_set_flg && abs(last_timestamp_lidar - last_timestamp_imu) > 1 && !imu_buffer.empty())
+    if (time_sync_en && flg_first_scan && !timediff_set_flg &&
+        abs(last_timestamp_lidar - last_timestamp_imu) > 1 && !imu_buffer.empty())
     {
         timediff_set_flg = true;
         timediff_lidar_wrt_imu = last_timestamp_lidar + 0.1 - last_timestamp_imu;
+        // The new offset changes the time basis of incoming IMU stamps.
+        imu_buffer.clear();
+        last_timestamp_imu = -1.0;
         printf("Self sync IMU and LiDAR, time diff is %.10lf \n", timediff_lidar_wrt_imu);
     }
 
@@ -357,32 +359,30 @@ void livox_pcl_cbk(const livox_ros_driver2::msg::CustomMsg::UniquePtr msg)
 
 void imu_cbk(const sensor_msgs::msg::Imu::UniquePtr msg_in)
 {
-    publish_count ++;
-    // cout<<"IMU got at: "<<msg_in->header.stamp.toSec()<<endl;
-    sensor_msgs::msg::Imu::SharedPtr msg(new sensor_msgs::msg::Imu(*msg_in));
-    
-
-    msg->header.stamp = get_ros_time(get_time_sec(msg_in->header.stamp) - time_diff_lidar_to_imu);
-    if (abs(timediff_lidar_wrt_imu) > 0.1 && time_sync_en)
-    {
-        msg->header.stamp = \
-        rclcpp::Time(timediff_lidar_wrt_imu + get_time_sec(msg_in->header.stamp));
-    }
-
-    double timestamp = get_time_sec(msg->header.stamp);
+    auto msg = std::make_shared<sensor_msgs::msg::Imu>(*msg_in);
+    const double imu_time = get_time_sec(msg_in->header.stamp);
 
     mtx_buffer.lock();
+    const double offset = time_sync_en && timediff_set_flg
+        ? timediff_lidar_wrt_imu - time_diff_lidar_to_imu
+        : -time_diff_lidar_to_imu;
+    if (offset != 0.0)
+    {
+        msg->header.stamp = get_ros_time(imu_time + offset);
+    }
+    const double timestamp = get_time_sec(msg->header.stamp);
 
     if (timestamp < last_timestamp_imu)
     {
         std::cerr << "IMU timestamp moved backward by "
                   << (last_timestamp_imu - timestamp)
-                  << " s; clear IMU buffer" << std::endl;
-        imu_buffer.clear();
+                  << " s; drop out-of-order sample" << std::endl;
+        mtx_buffer.unlock();
+        return;
     }
 
     last_timestamp_imu = timestamp;
-
+    publish_count++;
     imu_buffer.push_back(msg);
     mtx_buffer.unlock();
     sig_buffer.notify_all();
@@ -403,37 +403,33 @@ bool sync_packages(MeasureGroup &meas)
         meas.lidar_beg_time = time_buffer.front();
         if (meas.lidar->points.size() <= 1) // time too little
         {
-            lidar_end_time = meas.lidar_beg_time + lidar_mean_scantime;
+            meas.lidar_end_time = meas.lidar_beg_time + lidar_mean_scantime;
             std::cerr << "Too few input point cloud!\n";
         }
         else if (meas.lidar->points.back().curvature / double(1000) < 0.5 * lidar_mean_scantime)
         {
-            lidar_end_time = meas.lidar_beg_time + lidar_mean_scantime;
+            meas.lidar_end_time = meas.lidar_beg_time + lidar_mean_scantime;
         }
         else
         {
             scan_num ++;
-            lidar_end_time = meas.lidar_beg_time + meas.lidar->points.back().curvature / double(1000);
+            meas.lidar_end_time = meas.lidar_beg_time + meas.lidar->points.back().curvature / double(1000);
             lidar_mean_scantime += (meas.lidar->points.back().curvature / double(1000) - lidar_mean_scantime) / scan_num;
         }
-
-        meas.lidar_end_time = lidar_end_time;
 
         lidar_pushed = true;
     }
 
-    if (last_timestamp_imu < lidar_end_time)
+    if (last_timestamp_imu < meas.lidar_end_time)
     {
         return false;
     }
 
     /*** push imu data, and pop from imu buffer ***/
-    double imu_time = get_time_sec(imu_buffer.front()->header.stamp);
     meas.imu.clear();
-    while ((!imu_buffer.empty()) && (imu_time < lidar_end_time))
+    while (!imu_buffer.empty() &&
+           get_time_sec(imu_buffer.front()->header.stamp) <= meas.lidar_end_time)
     {
-        imu_time = get_time_sec(imu_buffer.front()->header.stamp);
-        if(imu_time > lidar_end_time) break;
         meas.imu.push_back(imu_buffer.front());
         imu_buffer.pop_front();
     }
@@ -441,7 +437,7 @@ bool sync_packages(MeasureGroup &meas)
     lidar_buffer.pop_front();
     time_buffer.pop_front();
     lidar_pushed = false;
-    return true;
+    return !meas.imu.empty();
 }
 
 int process_increments = 0;
@@ -986,21 +982,16 @@ private:
             svd_time   = 0;
             t0 = omp_get_wtime();
 
-            p_imu->Process(Measures, kf, feats_undistort);
+            map_scan_pending_ = false;
+            if (!p_imu->Process(Measures, kf, *feats_undistort))
+            {
+                return;
+            }
             state_point = kf.get_x();
             pos_lid = state_point.pos + state_point.rot * state_point.offset_T_L_I;
 
-            if (feats_undistort->empty() || (feats_undistort == NULL))
-            {
-                RCLCPP_WARN(this->get_logger(), "No point, skip this scan!\n");
-                return;
-            }
-
             flg_EKF_inited = (Measures.lidar_beg_time - first_lidar_time) < INIT_TIME ? \
                             false : true;
-            /*** Segment the map in lidar FOV ***/
-            lasermap_fov_segment();
-
             /*** downsample the feature points in a scan ***/
             downSizeFilterSurf.setInputCloud(feats_undistort);
             downSizeFilterSurf.filter(*feats_down_body);
@@ -1012,6 +1003,7 @@ private:
                 RCLCPP_INFO(this->get_logger(), "Initialize the map kdtree");
                 if(feats_down_size > 5)
                 {
+                    lasermap_fov_segment();
                     ikdtree.set_downsample_param(filter_size_map_min);
                     feats_down_world->resize(feats_down_size);
                     for(int i = 0; i < feats_down_size; i++)
@@ -1059,7 +1051,12 @@ private:
             /*** iterated state estimation ***/
             double t_update_start = omp_get_wtime();
             double solve_H_time = 0;
-            kf.update_iterated_dyn_share_modified(LASER_POINT_COV, solve_H_time);
+            if (!kf.update_iterated_dyn_share_modified(LASER_POINT_COV, solve_H_time))
+            {
+                return;
+            }
+
+            lidar_end_time = Measures.lidar_end_time;
             state_point = kf.get_x();
             euler_cur = SO3ToEuler(state_point.rot);
             pos_lid = state_point.pos + state_point.rot * state_point.offset_T_L_I;
@@ -1075,7 +1072,9 @@ private:
 
             /*** add the feature points to map kdtree ***/
             t3 = omp_get_wtime();
+            lasermap_fov_segment();
             map_incremental();
+            map_scan_pending_ = true;
             t5 = omp_get_wtime();
             
             /******* Publish points *******/
@@ -1119,7 +1118,11 @@ private:
 
     void map_publish_callback()
     {
-        if (map_pub_en) publish_map(pubLaserCloudMap_);
+        if (map_pub_en && map_scan_pending_)
+        {
+            publish_map(pubLaserCloudMap_);
+            map_scan_pending_ = false;
+        }
     }
 
     void map_save_callback(std_srvs::srv::Trigger::Request::ConstSharedPtr req, std_srvs::srv::Trigger::Response::SharedPtr res)
@@ -1155,6 +1158,7 @@ private:
     rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr map_save_srv_;
 
     bool effect_pub_en = false, map_pub_en = false;
+    bool map_scan_pending_ = false;
     int effect_feat_num = 0, frame_num = 0;
     double deltaT, deltaR, aver_time_consu = 0, aver_time_icp = 0, aver_time_match = 0, aver_time_incre = 0, aver_time_solve = 0, aver_time_const_H_time = 0;
     bool flg_EKF_converged, EKF_stop_flg = 0;
