@@ -16,13 +16,26 @@ from robot_params import script_params
 
 
 class ParallelHorseState:
-    def __init__(self, node, timeout):
-        from std_msgs.msg import String
+    def __init__(self, node, timeout, renewal_period):
+        from std_msgs.msg import Bool, String
 
         self.state = {}
         self.received_at = -math.inf
         self.timeout = timeout
         self.subscription = node.create_subscription(String, '/parallel_horse/status', self.receive, 10)
+        self.authorization = node.create_publisher(Bool, '/parallel_horse/motion_authorized', 10)
+        self.motion_allowed = False
+        self.renewal = node.create_timer(renewal_period, self.renew)
+
+    def allow_motion(self, allowed):
+        from std_msgs.msg import Bool
+
+        self.motion_allowed = allowed
+        self.authorization.publish(Bool(data=allowed))
+
+    def renew(self):
+        if self.motion_allowed:
+            self.allow_motion(True)
 
     def receive(self, msg):
         try:
@@ -36,15 +49,19 @@ class ParallelHorseState:
     def reason(self):
         if time.monotonic() - self.received_at > self.timeout:
             return '等待并马串口节点状态'
+        if self.state.get('authorization_required') is not True:
+            return '并马节点未启用运动许可，请确认更新后已重新编译'
         if self.state.get('ready') is not True:
             return f"并马电控未就绪（{self.state.get('reason')}）"
         return None
 
     def stood_since(self, started_at):
-        return self.received_at >= started_at and self.state.get('last_key') == 5
+        return (self.received_at >= started_at and self.state.get('last_key') == 5
+                and self.state.get('motion_authorized') is False)
 
 
-def wait_for_navigation(node, action, state, gate, timeout, start_launch, check_running, motor):
+def wait_for_navigation(node, action, state, gate, timeout, start_launch, check_running, motor,
+                        preview, preview_only):
     import rclpy
     from go2_obstacle_interfaces.msg import LocalizationEvidence
     from lifecycle_msgs.msg import State
@@ -91,6 +108,7 @@ def wait_for_navigation(node, action, state, gate, timeout, start_launch, check_
         deadline = time.monotonic() + timeout
         state_request = None
         active = False
+        preview_attempted = False
         while True:
             check_running()
             if state_request is None and state.service_is_ready():
@@ -113,20 +131,38 @@ def wait_for_navigation(node, action, state, gate, timeout, start_launch, check_
                     pending.append('全局底盘 TF 未就绪')
             except TransformException:
                 pending.append('全局底盘 TF 未就绪')
-            now = time.monotonic()
-            for key, received in last_sensor.items():
-                if now - received > gate[f'{key}_timeout']:
-                    pending.append(f'等待有效 /{key}')
-            if motor is not None:
-                reason = motor.reason()
-                if reason:
-                    pending.append(reason)
-            elif node.count_subscribers('/cmd_vel') == 0:
-                pending.append('未发现 /cmd_vel 订阅端')
+            if preview is not None and not pending and not preview_attempted and preview.client.server_is_ready():
+                preview_attempted = True
+                preview.publish()
+                motor_reason = motor.reason() if motor is not None else None
+                if motor_reason:
+                    print('导航和 RViz 保留，仍在等待：' + motor_reason, flush=True)
+                if preview_only:
+                    return
+                continue
+            if preview_only:
+                if not pending:
+                    pending.append('等待 Nav2 规划器')
+            else:
+                now = time.monotonic()
+                for key, received in last_sensor.items():
+                    if now - received > gate[f'{key}_timeout']:
+                        pending.append(f'等待有效 /{key}')
+                if motor is not None:
+                    reason = motor.reason()
+                    if reason:
+                        pending.append(reason)
+                elif node.count_subscribers('/cmd_vel') == 0:
+                    pending.append('未发现 /cmd_vel 订阅端')
             if not pending:
                 return
+            now = time.monotonic()
             if now >= deadline:
-                raise TimeoutError('启动等待超时：' + '，'.join(pending))
+                description = '，'.join(pending)
+                if preview is None:
+                    raise TimeoutError('启动等待超时：' + description)
+                print('导航和 RViz 保留，仍在等待：' + description, flush=True)
+                deadline = now + timeout
             rclpy.spin_once(node, timeout_sec=.1)
     finally:
         listener.unregister()
@@ -210,32 +246,60 @@ def run_navigation(command, goals, args, gate, startup_timeout, goal_timeout, mo
     process = None
     action = ActionClient(node, NavigateToPose, '/navigate_to_pose')
     state = node.create_client(GetState, '/bt_navigator/get_state')
-    motor = ParallelHorseState(node, motor_settings['nav_command_timeout']) if motor_settings else None
+    motor = None
+    if motor_settings is not None:
+        motor = ParallelHorseState(node, motor_settings['nav_command_timeout'],
+                                   motor_settings['nav_send_period'] / 2)
+    preview = None
+    if motor is not None or args.preview:
+        from nav_route_preview import RoutePreview
+
+        preview = RoutePreview(node, goals)
+    exit_code = 1
     previous_handler = signal.signal(signal.SIGTERM, on_terminate)
     try:
         if state.wait_for_service(timeout_sec=1.) or action.server_is_ready():
             raise RuntimeError('当前 ROS 域已发现 Nav2，请先停止已有导航后再启动自动任务')
         if motor is not None and ('motor_serial', '/') in node.get_node_names_and_namespaces():
             raise RuntimeError('当前 ROS 域已有串口控制节点，请先停止旧控制程序')
-        print('正在启动 GICP 和 Nav2，等待定位、里程计、扫描与执行端。', flush=True)
-        wait_for_navigation(node, action, state, gate, startup_timeout, start_launch, check_launch, motor)
-        print('导航已就绪，开始执行任务。', flush=True)
-        try:
-            succeeded = send_goals(node, action, goals, goal_timeout, check_execution)
-        finally:
-            stopped = wait_for_zero_velocity(node, process, gate, motor)
-            if not stopped:
-                confirmation = '并马站立帧写入状态' if motor is not None else '/cmd_vel 零速度'
-                print(f'关闭导航前未确认{confirmation}，请检查底盘是否停车。', file=sys.stderr, flush=True)
-        return 0 if succeeded and stopped else 1
+        print('正在启动 GICP 和 Nav2，等待定位' + ('并规划预览。' if args.preview else '、里程计、扫描与执行端。'),
+              flush=True)
+        wait_for_navigation(node, action, state, gate, startup_timeout, start_launch, check_launch, motor,
+                            preview, args.preview)
+        if args.preview:
+            exit_code = 0
+        else:
+            print('导航已就绪，开始执行任务。', flush=True)
+            succeeded = False
+            try:
+                succeeded = send_goals(node, action, goals, goal_timeout, check_execution,
+                                       motor.allow_motion if motor is not None else None)
+            except (RuntimeError, TimeoutError) as exc:
+                if motor is None:
+                    raise
+                print(f'任务停止：{exc}', flush=True)
+            finally:
+                stopped = wait_for_zero_velocity(node, process, gate, motor)
+                if not stopped:
+                    confirmation = '并马站立帧写入状态' if motor is not None else '/cmd_vel 零速度'
+                    print(f'未确认{confirmation}，请检查底盘是否停车。', file=sys.stderr, flush=True)
+            exit_code = 0 if succeeded and stopped else 1
+        if preview is not None:
+            print('导航和 RViz 保留用于查看。按 Ctrl+C 关闭。', flush=True)
+            while rclpy.ok():
+                check_launch()
+                rclpy.spin_once(node, timeout_sec=.2)
+        return exit_code
     except KeyboardInterrupt:
-        print('任务已中断，正在关闭本次启动的导航。', flush=True)
-        return 1
+        print('正在关闭本次启动的导航。', flush=True)
+        return exit_code
     finally:
         try:
             stop_launch(process)
         finally:
             signal.signal(signal.SIGTERM, previous_handler)
+            if preview is not None:
+                preview.destroy()
             action.destroy()
             node.destroy_node()
             rclpy.shutdown()
@@ -244,7 +308,9 @@ def run_navigation(command, goals, args, gate, startup_timeout, goal_timeout, mo
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     add_navigation_arguments(parser)
-    parser.add_argument('--parallel', action='store_true', help='用原并马串口执行普通导航')
+    backend = parser.add_mutually_exclusive_group()
+    backend.add_argument('--parallel', action='store_true', help='用原并马串口执行普通导航，保留 RViz')
+    backend.add_argument('--preview', action='store_true', help='只用 Nav2 计算路线并保留 RViz')
     args = parser.parse_args()
     try:
         command, startup, map_yaml = prepare_navigation(args)

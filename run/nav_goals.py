@@ -65,7 +65,20 @@ def resolve_goal_timeout(value=None, params_file=None):
     return value
 
 
-def send_goals(node, client, goals, timeout, check_running=None):
+def goal_pose(node, goal):
+    from geometry_msgs.msg import PoseStamped
+
+    stamped = PoseStamped()
+    stamped.header.frame_id = 'map'
+    stamped.header.stamp = node.get_clock().now().to_msg()
+    pose = stamped.pose
+    pose.position.x, pose.position.y = float(goal['x']), float(goal['y'])
+    pose.orientation.z = math.sin(goal['yaw'] / 2)
+    pose.orientation.w = math.cos(goal['yaw'] / 2)
+    return stamped
+
+
+def send_goals(node, client, goals, timeout, check_running=None, allow_motion=None):
     import rclpy
     from action_msgs.msg import GoalStatus
     from nav2_msgs.action import NavigateToPose
@@ -88,12 +101,7 @@ def send_goals(node, client, goals, timeout, check_running=None):
         if check_running is not None:
             check_running()
         request = NavigateToPose.Goal()
-        request.pose.header.frame_id = 'map'
-        request.pose.header.stamp = node.get_clock().now().to_msg()
-        p = request.pose.pose
-        p.position.x, p.position.y = float(goal['x']), float(goal['y'])
-        p.orientation.z = math.sin(goal['yaw'] / 2)
-        p.orientation.w = math.cos(goal['yaw'] / 2)
+        request.pose = goal_pose(node, goal)
         pending = client.send_goal_async(request)
         active = wait(pending, 10.)
         pending = None
@@ -101,7 +109,11 @@ def send_goals(node, client, goals, timeout, check_running=None):
             print('Nav2 拒绝目标。', flush=True)
             active = None
             return False
+        if allow_motion is not None:
+            allow_motion(True)
         result = wait(active.get_result_async(), timeout)
+        if allow_motion is not None:
+            allow_motion(False)
         active = None
         print(f'Nav2 结果状态：{result.status}', flush=True)
         return result.status == GoalStatus.STATUS_SUCCEEDED
@@ -109,6 +121,8 @@ def send_goals(node, client, goals, timeout, check_running=None):
     try:
         return execute_sequence(goals, navigate)
     finally:
+        if allow_motion is not None:
+            allow_motion(False)
         # An acceptance may arrive just as the request is interrupted.
         try:
             if active is None and pending is not None:

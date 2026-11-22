@@ -48,9 +48,13 @@ bash run/map_task_editor.sh trial
 
     bash run/auto_nav.sh --parallel trial --imu-z -0.70
 
-省略 `trial` 使用 `competition`。脚本启动 GICP、Nav2 和并马串口，等首次定位成功及电控回传正常后逐点导航。普通模式 9 的 1/2/3/4/5 分别为左转、前进、右转、后退、站立。有转向需求时先转向，进入直行条件后再走。速度大小由原固件步态决定。
+省略 `trial` 使用 `competition`。定位就绪后，RViz 显示「Route Preview」，包含从当前底盘位姿到第一个点、再到后续各点的全局规划。并马电控未就绪时继续等待并保留 RViz，电控回传和运动条件满足后才执行。执行时可勾选「Latest Nav2 Plan」查看 Nav2 最近一次单段规划。在同一个窗口里还可查看固定 PCD 与配准后的实时点云。
 
-按 Ctrl+C 取消当前目标并请求站立，回传异常会结束任务。终端和 `/parallel_horse/status` 能看到模式、故障及最近写入的键值。状态帧能核对自动链路和模式，实际起身、步速、转速和停车距离需要现场验收。启动本入口前退出旧 Nav2 和旧串口节点，避免两个程序争用 USB-TTL。上位机的站立帧只能在 USB-TTL 仍可通信时送出。固件断线停车见 [并马电控说明](../firmware/README.md)。
+需要先检查路线和点云时，用预览入口：
+
+    bash run/auto_nav.sh --preview trial --imu-z -0.70
+
+预览入口只启动定位、规划和 RViz。并马版在到达终点或任务中断后撤销运动许可并请求站立，导航和 RViz 继续保留。遥控器切回手动可接管，按 Ctrl+C 可关闭本次启动的所有节点。回传异常结束当前任务，重新运行命令才开始下一次任务。遇到 USB-TTL 断线，板端停车能力见 [并马电控说明](../firmware/README.md)。
 
 ## 5. 分开验证重定位和 Nav2
 

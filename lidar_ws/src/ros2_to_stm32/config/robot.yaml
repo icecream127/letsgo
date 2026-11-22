@@ -55,7 +55,7 @@ nav_goal_client:
   ros__parameters:
     goal_timeout: 180.0
 
-# Seconds to wait for localization, Nav2, sensor data and the velocity subscriber.
+# Startup timeout in s, also used as a reminder interval while keeping RViz open.
 auto_nav:
   ros__parameters:
     startup_timeout: 120.0
@@ -488,6 +488,7 @@ motor_serial:
     mode_timeout: 2.0
     action_margin: 0.75
     # Only parallel_horse_serial reads these settings. Time in s, velocity in m/s and rad/s.
+    nav_require_authorization: false # Set to true by the managed navigation launch.
     nav_command_timeout: 0.30
     nav_send_period: 0.10
     nav_linear_deadband: 0.015

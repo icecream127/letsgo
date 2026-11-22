@@ -59,7 +59,8 @@ def navigation_nodes(context):
     ]
     if LaunchConfiguration('parallel_horse').perform(context) == 'true':
         actions.append(Node(package='ros2_to_stm32', executable='parallel_horse_serial',
-                            output='screen', parameters=parameter_files))
+                            output='screen',
+                            parameters=[*parameter_files, {'nav_require_authorization': True}]))
     nodes = [('nav2_map_server', 'map_server'),
              ('nav2_controller', 'controller_server'), ('nav2_planner', 'planner_server'),
              ('nav2_smoother', 'smoother_server'), ('nav2_behaviors', 'behavior_server'),
@@ -89,7 +90,9 @@ def navigation_nodes(context):
         actions.append(Node(package='nav2_lifecycle_manager', executable='lifecycle_manager',
             name='lifecycle_manager_' + group, output='screen', parameters=[common, {
                 'autostart': True, 'node_names': names}]))
+    rviz_config = (os.path.join(share, 'config', 'nav2_gicp_view.rviz') if gicp else
+                   os.path.join(get_package_share_directory('nav2_bringup'), 'rviz', 'nav2_default_view.rviz'))
     actions.append(Node(package='rviz2', executable='rviz2', condition=IfCondition(LaunchConfiguration('rviz')),
-        arguments=['-d', os.path.join(get_package_share_directory('nav2_bringup'), 'rviz', 'nav2_default_view.rviz')],
+        arguments=['-d', rviz_config],
         parameters=[common], remappings=[('/initialpose', '/gicp/initialpose')] if gicp else []))
     return actions

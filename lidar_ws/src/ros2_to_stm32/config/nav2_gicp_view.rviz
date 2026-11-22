@@ -1,0 +1,134 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+  - Class: nav2_rviz_plugins/Navigation 2
+    Name: Navigation 2
+Visualization Manager:
+  Class: ""
+  Enabled: true
+  Global Options:
+    Background Color: 36; 36; 36
+    Fixed Frame: map
+    Frame Rate: 20
+  Displays:
+    - Class: rviz_default_plugins/Map
+      Name: Navigation Map
+      Enabled: true
+      Alpha: 0.55
+      Color Scheme: map
+      Draw Behind: true
+      Topic:
+        Value: /map
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Value: true
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Reference PCD
+      Enabled: true
+      Topic:
+        Value: /gicp/map
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Position Transformer: XYZ
+      Color Transformer: FlatColor
+      Color: 133; 137; 146
+      Style: Points
+      Size (Pixels): 1
+      Alpha: 1
+      Decay Time: 0
+      Value: true
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Aligned LiDAR Scan
+      Enabled: true
+      Topic:
+        Value: /gicp/aligned_cloud
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+      Position Transformer: XYZ
+      Color Transformer: FlatColor
+      Color: 30; 240; 166
+      Style: Points
+      Size (Pixels): 2
+      Alpha: 1
+      Decay Time: 0
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Name: Route Preview
+      Enabled: true
+      Topic:
+        Value: /auto_nav/preview_path
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Color: 75; 190; 255
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Billboards
+      Line Width: 0.04
+      Pose Style: None
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Name: Latest Nav2 Plan
+      Enabled: false
+      Topic:
+        Value: /plan
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+      Color: 255; 174; 45
+      Alpha: 1
+      Buffer Length: 1
+      Line Style: Billboards
+      Line Width: 0.05
+      Pose Style: None
+      Value: false
+    - Class: rviz_default_plugins/TF
+      Name: Robot TF
+      Enabled: true
+      Frames:
+        All Enabled: false
+        base_footprint:
+          Value: true
+      Marker Scale: 0.3
+      Show Arrows: false
+      Show Axes: true
+      Show Names: false
+      Value: true
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic:
+        Value: /gicp/initialpose
+        Depth: 5
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+    - Class: nav2_rviz_plugins/GoalTool
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Name: Top View
+      Scale: 45
+      Target Frame: <Fixed Frame>
+      X: 0
+      Y: 0
+    Saved:
+      - Class: rviz_default_plugins/Orbit
+        Name: Point Cloud Orbit
+        Distance: 20
+        Pitch: 0.8
+        Yaw: 0.3
+        Target Frame: <Fixed Frame>
+        Focal Point: {X: 0, Y: 0, Z: 0}
+Window Geometry:
+  Width: 1280
+  Height: 850

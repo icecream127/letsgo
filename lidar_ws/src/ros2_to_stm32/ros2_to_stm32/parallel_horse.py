@@ -8,7 +8,7 @@ import serial
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
 from rclpy.signals import SignalHandlerOptions
-from std_msgs.msg import String
+from std_msgs.msg import Bool, String
 
 from .motor_protocol import MODE_STATUS, StatusParser, encode_key
 
@@ -59,6 +59,8 @@ class ParallelHorseSerial(Node):
         self.status_at = -math.inf
         self.command = Twist()
         self.command_at = -math.inf
+        self.authorization_required = self.declare_parameter('nav_require_authorization', False).value
+        self.authorized_at = -math.inf
         self.mode_sent_at = None
         self.ready_at = None
         self.halted = None
@@ -68,11 +70,26 @@ class ParallelHorseSerial(Node):
 
         self.state_pub = self.create_publisher(String, '/parallel_horse/status', 10)
         self.create_subscription(Twist, '/cmd_vel', self.receive_command, 10)
+        if self.authorization_required:
+            self.create_subscription(Bool, '/parallel_horse/motion_authorized', self.receive_authorization, 1)
         self.create_timer(min(0.05, self.settings['nav_send_period']), self.tick)
 
     def receive_command(self, msg):
         self.command = msg
         self.command_at = time.monotonic()
+
+    def motion_authorized(self, now):
+        return not self.authorization_required or now - self.authorized_at <= self.settings['nav_command_timeout']
+
+    def receive_authorization(self, msg):
+        if not msg.data:
+            self.authorized_at = -math.inf
+            return
+        now = time.monotonic()
+        if not self.motion_authorized(now):
+            # A fresh authorization starts with commands received after it.
+            self.command_at = -math.inf
+        self.authorized_at = now
 
     def receive_status(self, now):
         if self.port is None:
@@ -134,7 +151,8 @@ class ParallelHorseSerial(Node):
                 return 'waiting_for_normal_mode'
 
         key = STAND
-        if self.command_at >= self.ready_at and now - self.command_at <= self.settings['nav_command_timeout']:
+        if (self.motion_authorized(now) and self.command_at >= self.ready_at
+                and now - self.command_at <= self.settings['nav_command_timeout']):
             key = walk_key(self.command, self.last_key, self.settings)
         if (key != STAND and self.last_key not in (None, STAND)
                 and now - self.key_changed_at < self.settings['nav_min_switch_interval']):
@@ -162,6 +180,8 @@ class ParallelHorseSerial(Node):
             'ready': reason == 'ready', 'reason': reason, 'last_key': self.last_key,
             'mode': self.status['mode'] if self.status else None,
             'fault': self.status['fault'] if self.status else None,
+            'authorization_required': self.authorization_required,
+            'motion_authorized': self.motion_authorized(now),
         }
         self.state_pub.publish(String(data=json.dumps(state)))
 
