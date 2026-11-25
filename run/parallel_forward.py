@@ -1,4 +1,4 @@
-"""Test the parallel horse's USART3 forward and stand keys after remote startup."""
+"""Start H743 TROT and use FAST-LIO to test a short forward move."""
 import argparse
 import math
 from pathlib import Path
@@ -14,8 +14,8 @@ from nav_msgs.msg import Odometry
 import serial
 import yaml
 
+from horse_pc_link import HorsePcLink, LinkError
 from robot_params import ROBOT_PARAMS, script_params
-from ros2_to_stm32.motor_protocol import MODE_STATUS, StatusParser, encode_key
 from ros2_to_stm32.nav_geometry import rotate
 
 
@@ -70,76 +70,121 @@ class TravelOdometry(Node):
         return None
 
 
-def send_key(port, key):
-    frame = encode_key(key)
-    if port.write(frame) != len(frame):
-        raise OSError(f'按键 {key} 的串口帧未完整写入')
+# A fresh K1 request renews the firmware's 500 ms control lease.
+STATUS_PERIOD = 0.05
 
 
-def run_forward_test(port, odom, settings):
-    status_parser = StatusParser()
-    status_at = -math.inf
+def require_live_operation(status):
+    if status['fault'] or status['state'] == 'FAULT' or status['phase'] in {
+        'PREEMPTED', 'TIMEOUT', 'FAULT', 'DENIED',
+    }:
+        raise LinkError(
+            f"电控结束请求：{status['state']} / {status['phase']}，"
+            f"故障码 {status['fault']}，在线掩码 0x{status['online_mask']:02X}"
+        )
 
-    def poll():
-        nonlocal status_at
-        rclpy.spin_once(odom, timeout_sec=0.02)
-        now = time.monotonic()
-        data = port.read(min(port.in_waiting, 4096))
-        for status in status_parser.feed(data):
-            if status['fault']:
-                raise RuntimeError(f"电控故障 {status['fault']}，电机 {status['motor']}")
-            if status['mode'] != MODE_STATUS[9]:
-                raise RuntimeError(f"当前电控模式为 {status['mode']}，请用遥控器完成初始化并选普通模式")
-            status_at = now
-        return now, now - status_at < settings['status_timeout'], odom.position()
 
-    ready_deadline = time.monotonic() + settings['forward_test_ready_timeout']
-    while True:
-        now, status_fresh, origin = poll()
-        if status_fresh and origin is not None:
-            break
-        if now >= ready_deadline:
-            missing = []
-            if not status_fresh:
-                missing.append('电控自动挡回传')
-            if origin is None:
-                missing.append('有效 /Odometry')
-            raise TimeoutError('未收到' + '及'.join(missing) + '，未发送前进键')
-
+def wait_for_distance(link, odom, settings):
+    start_deadline = time.monotonic() + settings['forward_test_start_timeout']
     target = settings['forward_test_distance']
-    deadline = time.monotonic() + settings['forward_test_timeout']
-    try:
-        send_key(port, 2)
-        next_send = time.monotonic() + settings['nav_send_period']
-        print(f'已发送前进键 2，目标位移 {target:.2f} 米。', flush=True)
-        while True:
-            now, status_fresh, position = poll()
-            if not status_fresh:
-                raise TimeoutError('电控回传中断')
-            if position is None:
-                raise TimeoutError('/Odometry 过期')
+    previous = None
+    origin = None
+    next_status_at = 0.0
+
+    while True:
+        rclpy.spin_once(odom, timeout_sec=0.02)
+        position = odom.position()
+        if position is None:
+            raise TimeoutError('/Odometry 过期')
+        now = time.monotonic()
+        if origin is None:
+            if now >= start_deadline:
+                raise TimeoutError('电控未在限时内进入 TROT/WALKING')
+        else:
             distance = float(np.linalg.norm(position - origin))
             if distance >= target:
-                break
-            if now >= deadline:
+                return distance
+            if now >= move_deadline:
                 raise TimeoutError(f'前进超时，测得位移 {distance:.2f} 米')
-            if now >= next_send:
-                send_key(port, 2)
-                next_send = now + settings['nav_send_period']
+
+        if now >= next_status_at:
+            status = link.status()
+            next_status_at = time.monotonic() + STATUS_PERIOD
+            require_live_operation(status)
+            current = (status['state'], status['gait'], status['phase'])
+            if current != previous:
+                print('电控状态 ' + ' / '.join(current), flush=True)
+                previous = current
+            if status['phase'] not in {'STARTING', 'WALKING'} or status['gait'] != 'trot':
+                raise LinkError(f'电控退出 TROT 启动或行走，状态为 {current}')
+            if current == ('RUN', 'trot', 'WALKING') and origin is None:
+                origin = odom.position()
+                if origin is None:
+                    raise TimeoutError('开始行走时 /Odometry 过期')
+                move_deadline = time.monotonic() + settings['forward_test_timeout']
+                print(f'已记录行走起点，目标位移 {target:.2f} 米。', flush=True)
+            elif origin is not None and current != ('RUN', 'trot', 'WALKING'):
+                raise LinkError(f'电控退出行走，状态为 {current}')
+
+
+def stop_and_confirm(link, timeout):
+    link.command('Z')
+    print('电控已收到收步请求，等待 STOPPED。', flush=True)
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        status = link.status()
+        if status['phase'] == 'STOPPED':
+            print(f"电控已确认停止（{status['state']} / STOPPED）。", flush=True)
+            return status
+        require_live_operation(status)
+        time.sleep(STATUS_PERIOD)
+    raise TimeoutError('未收到 STOPPED，请核对电控和实车状态')
+
+
+def run_forward_test(link, odom, settings):
+    ready_deadline = time.monotonic() + settings['forward_test_ready_timeout']
+    while odom.position() is None:
+        if time.monotonic() >= ready_deadline:
+            raise TimeoutError('未收到有效 /Odometry，未请求电控启动')
+        rclpy.spin_once(odom, timeout_sec=0.02)
+
+    link.connect()
+    status = link.status()
+    require_live_operation(status)
+    if status['state'] not in {'READY', 'RUN'} or status['phase'] != 'IDLE':
+        raise LinkError(
+            f"当前为 {status['state']} / {status['phase']}，请检查电机与起立准备"
+        )
+    rclpy.spin_once(odom, timeout_sec=0)
+    if odom.position() is None:
+        raise TimeoutError('/Odometry 已过期，未请求电控启动')
+
+    distance = None
+    try:
+        link.command('T')
+        print('电控已受理 TROT 请求，等待预检、起立和行走。', flush=True)
+        distance = wait_for_distance(link, odom, settings)
     finally:
-        send_key(port, 5)
-        print('已写入站立键 5，请现场确认已站稳。', flush=True)
-    print(f'触发停止时的里程计位移为 {distance:.2f} 米。', flush=True)
+        try:
+            stopped = stop_and_confirm(link, settings['forward_test_stop_timeout'])
+        except (OSError, LinkError) as exc:
+            if distance is not None:
+                raise
+            print(f'收步未确认：{exc}', file=sys.stderr, flush=True)
+    if stopped['state'] != 'RUN' or stopped['fault']:
+        raise LinkError(f"电控已停止，但未保持健康站立（{stopped['state']}，故障码 {stopped['fault']}）")
+    print(f'触发收步时的里程计位移为 {distance:.2f} 米。', flush=True)
 
 
 def main():
-    parser = argparse.ArgumentParser(description='遥控器初始化后，测试 USART3 前进和站立')
+    parser = argparse.ArgumentParser(description='通过 H743 USART3 请求自启动，测量前进 0.5 米后收步')
     parser.add_argument('--params-file', type=Path, default=ROBOT_PARAMS, help='试验参数覆盖文件')
     args = parser.parse_args()
     try:
         settings = script_params('motor_serial', args.params_file)
-        for name in ('status_timeout', 'nav_send_period', 'forward_test_distance',
-                     'forward_test_timeout', 'forward_test_ready_timeout'):
+        for name in ('forward_test_distance', 'forward_test_timeout',
+                     'forward_test_ready_timeout', 'forward_test_start_timeout',
+                     'forward_test_stop_timeout'):
             value = settings[name] = float(settings[name])
             if not math.isfinite(value) or value <= 0:
                 raise ValueError(f'{name} 必须为有限正数')
@@ -149,11 +194,11 @@ def main():
         try:
             odom = TravelOdometry(odom_settings)
             with serial.Serial(
-                settings['port'], settings['baudrate'], timeout=0,
-                write_timeout=0.2, exclusive=True,
+                settings['port'], settings['baudrate'], timeout=0.02,
+                write_timeout=0.1, exclusive=True,
             ) as port:
                 port.reset_input_buffer()
-                run_forward_test(port, odom, settings)
+                run_forward_test(HorsePcLink(port), odom, settings)
         finally:
             if odom is not None:
                 odom.destroy_node()

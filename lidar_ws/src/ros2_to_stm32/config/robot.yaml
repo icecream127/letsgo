@@ -486,9 +486,12 @@ motor_serial:
     baudrate: 115200
     status_timeout: 1.0
     initialization_timeout: 30.0 # s, waiting for Running after the host sends key 22.
-    forward_test_distance: 0.50 # m, displacement from the start of the serial test.
-    forward_test_ready_timeout: 5.0 # s, waiting for serial status and FAST-LIO odometry.
-    forward_test_timeout: 5.0 # s, maximum time issuing forward in the serial test.
+    # H743 PC Link V1 test. Distances in m and times in s.
+    forward_test_distance: 0.50 # XY displacement after TROT/WALKING.
+    forward_test_ready_timeout: 5.0 # Wait for valid FAST-LIO odometry before requesting TROT.
+    forward_test_start_timeout: 60.0 # Wait for board precheck, rise, and WALKING.
+    forward_test_timeout: 5.0 # Maximum time walking.
+    forward_test_stop_timeout: 5.0 # Wait for the board to report STOPPED after Z1.
     pose_timeout: 1.0
     controller_timeout: 1.0
     mode_timeout: 2.0

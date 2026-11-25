@@ -12,7 +12,8 @@
 | bash run/ui.sh | 采点和状态界面 |
 | bash run/pos_trans.sh | 里程计转换为踩点坐标 |
 | bash run/serial.sh | 串口节点，USB-TTL 接电控 USART3，主机设备路径在 robot.yaml |
-| bash run/parallel_init.sh | 通过已授权的 USART3 给并马发送初始化键并等待运行态 |
+| bash run/parallel_init.sh | 旧按键协议固件的上位机初始化 |
+| bash run/parallel_forward_test.sh | H743 PC Link 自启动并前进 0.5 米后收步 |
 | bash run/info_trans.sh | 任务控制器 |
 | bash run/map.sh | 原项目区域地图工具 |
 | bash run/pause.sh | 人工暂停并请求站立，不是急停 |
@@ -38,16 +39,18 @@ move/rename 后应重新编译，勿拷贝 build、install、log、.local、.bui
 
 make.sh 仅用于显式指定的 CH341SER 驱动源码，不参与正常构建。
 
-## 并马前进和停止通信测试
+## H743 自启动和 0.5 米通信测试
 
-关闭占用 USB-TTL 的导航和串口节点。用遥控器初始化，确认马站稳，选普通模式（9），再将 KEY_mode 拨到自动。测试前清空前方路段。
+使用启用了 PC Link 的 H743 固件。按固件要求摆好起立姿态，保持遥控器连接并停在状态页。等待电控到 READY，无需按遥控启用键。关闭占用 USB-TTL 的导航或串口进程，并清空前方测试路段。
 
-在小电脑的两个终端分别运行以下命令。如果已有 FAST-LIO 在发布 /Odometry，直接运行第二条。
+在小电脑的两个终端分别执行。如果已有 FAST-LIO 在发布 /Odometry，直接运行第二条。
 
 1. `bash run/lio_driver.sh show_rviz:=false`
 2. `bash run/parallel_forward_test.sh`
 
-脚本收到普通模式健康回传和有效里程计后，发送前进键 2。FAST-LIO 测得从起点位移达到 0.50 米时发送站立键 5。测试过程中回传或里程计丢失、超时、按 Ctrl+C 也会尝试发送站立键。实际停下的位置以现场为准。如果串口已断开，用遥控器切回手动并按 5。
+脚本确认 FAST-LIO 和 PC Link 回传后发送 T1，由电控自行预检、起立并进入 TROT。首次收到 RUN / WALKING 时记录起点，水平位移达到 0.50 米时发送同会话 Z1。收到 RUN / STOPPED 才确认完成。测试超时、里程计中断或 Ctrl+C 时，脚本也会尝试发送 Z1。串口失联时由固件的 500 ms 超时处理，遥控器 KEY7 可人工停止。实际停车距离请现场核对。
+
+电控接线及预设见 [H743 USART3 说明](https://github.com/alpha123ad/homework/blob/40a449a7a99b2ad27a9b21fc36d50ed0240aafd5/cybergear_h743/README.md#usart3-小电脑动作控制)。小电脑设备路径和测试参数在 `lidar_ws/src/ros2_to_stm32/config/robot.yaml` 的 `motor_serial`。
 
 ## Nav2 坐标任务
 
