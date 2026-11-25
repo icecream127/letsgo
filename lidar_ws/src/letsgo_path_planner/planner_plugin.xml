@@ -1,0 +1,7 @@
+<library path="straight_navfn_planner">
+  <class name="letsgo_path_planner/StraightNavfnPlanner"
+         type="letsgo_path_planner::StraightNavfnPlanner"
+         base_class_type="nav2_core::GlobalPlanner">
+    <description>NavFn with costmap-validated straight segments.</description>
+  </class>
+</library>

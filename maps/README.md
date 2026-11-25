@@ -50,6 +50,8 @@ bash run/map_task_editor.sh trial
 
 省略 `trial` 使用 `competition`。定位就绪后，RViz 显示「Route Preview」，包含从当前底盘位姿到第一个点、再到后续各点的全局规划。并马电控未就绪时继续等待并保留 RViz，电控回传和运动条件满足后才执行。执行时可勾选「Latest Nav2 Plan」查看 Nav2 最近一次单段规划。在同一个窗口里还可查看固定 PCD 与配准后的实时点云。
 
+全局规划先用 NavFn 找到绕障路径，再将净空足够的部分合并成直线。预览和自动任务使用同一规划器。直线段的额外净空参数为 `robot.yaml` 中的 `planner_server.GridBased.shortcut_extra_clearance`，单位米。
+
 需要先检查路线和点云时，用预览入口：
 
     bash run/auto_nav.sh --preview trial --imu-z -0.70

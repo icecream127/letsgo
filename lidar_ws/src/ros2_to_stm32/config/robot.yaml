@@ -298,10 +298,12 @@ planner_server:
     planner_plugins:
     - GridBased
     GridBased:
-      plugin: nav2_navfn_planner/NavfnPlanner
+      plugin: letsgo_path_planner/StraightNavfnPlanner
       tolerance: 0.5
       use_astar: false
       allow_unknown: false
+      # Meters beyond the footprint radius when replacing a segment with a straight line.
+      shortcut_extra_clearance: 0.08
 smoother_server:
   ros__parameters:
     use_sim_time: false

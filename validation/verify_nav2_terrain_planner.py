@@ -53,7 +53,7 @@ try:
   results.append(dict(segment=label,status='PASS',poses=len(path.poses),goal_error_m=offset,path=[[p.pose.position.x,p.pose.position.y] for p in path.poses]))
   print(label,'PASS',len(path.poses),'poses, goal error',offset,flush=True)
  import hashlib
- report={'planner':'nav2_navfn_planner/NavfnPlanner','robot_radius':.3,'inflation_radius':.32,'map_sha256':hashlib.sha256((root/'maps/competition/map.pgm').read_bytes()).hexdigest(),'C_target':args.c,'config':'unchanged project global_costmap and planner_server parameters','segments':results}
+ report={'planner':params['planner_server']['ros__parameters']['GridBased']['plugin'],'robot_radius':.3,'inflation_radius':.32,'map_sha256':hashlib.sha256((root/'maps/competition/map.pgm').read_bytes()).hexdigest(),'C_target':args.c,'config':'unchanged project global_costmap and planner_server parameters','segments':results}
  (report_dir/'nav2_planner_check.json').write_text(json.dumps(report,indent=2)+'\n')
 finally:
  for p in processes:
