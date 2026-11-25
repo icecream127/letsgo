@@ -38,6 +38,17 @@ move/rename 后应重新编译，勿拷贝 build、install、log、.local、.bui
 
 make.sh 仅用于显式指定的 CH341SER 驱动源码，不参与正常构建。
 
+## 并马前进和停止通信测试
+
+关闭占用 USB-TTL 的导航和串口节点。用遥控器初始化，确认马站稳，选普通模式（9），再将 KEY_mode 拨到自动。测试前清空前方路段。
+
+在小电脑的两个终端分别运行以下命令。如果已有 FAST-LIO 在发布 /Odometry，直接运行第二条。
+
+1. `bash run/lio_driver.sh show_rviz:=false`
+2. `bash run/parallel_forward_test.sh`
+
+脚本收到普通模式健康回传和有效里程计后，发送前进键 2。FAST-LIO 测得从起点位移达到 0.50 米时发送站立键 5。测试过程中回传或里程计丢失、超时、按 Ctrl+C 也会尝试发送站立键。实际停下的位置以现场为准。如果串口已断开，用遥控器切回手动并按 5。
+
 ## Nav2 坐标任务
 
 并马普通多点使用 `auto_nav.sh --parallel`，采点、校验和启动步骤见 [简明流程](../maps/README.md#4-并马普通多点导航)。

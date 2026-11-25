@@ -486,11 +486,14 @@ motor_serial:
     baudrate: 115200
     status_timeout: 1.0
     initialization_timeout: 30.0 # s, waiting for Running after the host sends key 22.
+    forward_test_distance: 0.50 # m, displacement from the start of the serial test.
+    forward_test_ready_timeout: 5.0 # s, waiting for serial status and FAST-LIO odometry.
+    forward_test_timeout: 5.0 # s, maximum time issuing forward in the serial test.
     pose_timeout: 1.0
     controller_timeout: 1.0
     mode_timeout: 2.0
     action_margin: 0.75
-    # Only parallel_horse_serial reads these settings. Time in s, velocity in m/s and rad/s.
+    # Continuous movement settings. Time in s, velocity in m/s and rad/s.
     nav_require_authorization: false # Set to true by the managed navigation launch.
     nav_command_timeout: 0.30
     nav_send_period: 0.10
