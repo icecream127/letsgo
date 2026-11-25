@@ -1,0 +1,89 @@
+--- a/User/APP/Remote/app_remote.cpp
++++ b/User/APP/Remote/app_remote.cpp
+@@ -12,6 +12,7 @@
+     uint8_t last_remote_key = 0U; // 调试器观察最近取出的遥控器按键。
+     uint8_t last_auto_key = 0U;   // 调试器观察最近取出的上位机按键。
+     bool host_timeout_fired = false;
++    constexpr uint8_t kHostInitCapability = 0x80U;
+ 
+     uint8_t CurrentModeChar()
+     {
+@@ -20,10 +21,8 @@
+             : static_cast<uint8_t>(RemoteStatus::WaitingInit);
+     }
+ 
+-    // 模式与故障每轮只算一次，同一份数据同时交给遥控器回传（UART8）
+-    // 和上位机回传（USART3，只在自动打开时发送），两边看到的状态完全一致。
+-    // 发给遥控器的模式字节最高位表示“自动已打开”，供屏幕右上角显示；
+-    // 发给上位机的帧不带这一位，格式保持不变。
++    // 遥控器继续显示已选模式和自动标志。上位机要等控制进入 Running，
++    // 才能把模式字节用作初始化完成的依据。
+     void UpdateStatus(uint32_t now)
+     {
+         const uint8_t mode = CurrentModeChar();
+@@ -31,7 +30,11 @@
+         const uint8_t remote_mode = AutoLink_IsEnabled()
+             ? static_cast<uint8_t>(mode | ROBOT_STATUS_AUTO_FLAG) : mode;
+         Remote_SetStatus(static_cast<RemoteStatus>(remote_mode), fault);
+-        AutoLink_SendStatusIfDue(mode, fault.code, fault.motor_id, fault.detail, now);
++        const uint8_t host_mode = app.state == AppState::Running
++            ? mode : static_cast<uint8_t>(RemoteStatus::WaitingInit);
++        const uint8_t host_detail = fault.code == ROBOT_FAULT_NONE
++            ? kHostInitCapability : fault.detail;
++        AutoLink_SendStatusIfDue(host_mode, fault.code, fault.motor_id, host_detail, now);
+     }
+ 
+     // 在当前模式下执行一个动作键（1～8、19、20，以及 5 停止）。
+@@ -92,15 +95,20 @@
+         DispatchActionKey(key_number);
+     }
+ 
+-    // 上位机按键和遥控器按键含义完全相同（模式键 9～18、动作键查同一张表）。
+-    // 只有 21/22（初始化）、23（打开自动）这三个控制键只认遥控器；
+-    // 上位机发 5 照样停止站立，但不会关闭自动。
++    // AutoLink_ReadKey 只在遥控器开启自动后交付上位机键。
++    // 键 22 复用完整初始化，并由 ProcessStartupKey 拒绝重复启动。
++    // 键 21（当前姿态采零）和 23（打开自动）仍只认遥控器。
+     void ProcessAutoKey(uint8_t key_number)
+     {
+-        if (key_number == 21U || key_number == 22U || key_number == 23U) return;
++        if (key_number == 21U || key_number == 23U) return;
+ 
+         last_auto_key = key_number;
+         host_timeout_fired = false;
++        if (key_number == 22U)
++        {
++            ProcessStartupKey(key_number);
++            return;
++        }
+ 
+         ActionMode next_mode = app.action_mode;
+         if (Action_DecodeMode(key_number, next_mode))
+--- a/User/Remote/Uart/auto_link.h
++++ b/User/Remote/Uart/auto_link.h
+@@ -17,13 +17,13 @@
+ //   遥控器 5 ：关闭自动，同时停止并站立（开关拨回手动时发的也是 5）。
+ //   自动期间遥控器只认 5、21、22、23，模式键和动作键一律忽略。
+ //
+-// 与遥控器唯一的区别：21/22（初始化）、23（打开自动）只认遥控器；
+-// 上位机发 5 照样停止站立，但不会关闭自动。
++// 键 21（当前姿态采零）和 23（打开自动）只认遥控器。
++// 遥控器授权自动后，上位机可用键 22 请求完整初始化；上位机键 5 请求站立。
+ // 自动关闭时，上位机的任何字节（包括模式键）都被丢弃。
+ //
+ // 下行帧（机器人 → 上位机）：与 UART8 回传给遥控器的状态帧完全相同，
+ //   A5 5A 模式字符 故障码 电机ID 详情 CRC8 0D（格式见 robot_status_protocol.h）。
+-//   模式、故障与遥控器屏幕显示的是同一份数据。
++//   进入 Running 前的主机状态为 z。故障码为 0 时，详情位 0x80 表示支持主机初始化。
+ //   只在自动打开时发送，每 kStatusPeriodMs 一帧；自动关闭后立即停发，
+ //   上位机据此判断“现在能不能控制马”。
+ //
+@@ -57,7 +57,7 @@
+ uint32_t AutoLink_LastFrameTick();
+ 
+ // 主循环调用：自动打开时到周期就以中断方式发送一帧状态，不阻塞；
+-// 刚打开自动时立即发第一帧。参数与 Remote_SetStatus 使用同一份模式与故障。
++// 刚打开自动时立即发第一帧。调用者根据运行阶段和故障构造回传值。
+ void AutoLink_SendStatusIfDue(uint8_t mode_char, uint8_t fault_code,
+                               uint8_t motor_id, uint8_t detail, uint32_t now);
+ 

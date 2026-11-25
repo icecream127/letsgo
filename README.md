@@ -1,5 +1,9 @@
 # letsgo：完整上位机独立源码包
 
+## 并马 USART3 与小电脑初始化
+
+电控接线与配套固件见 [并马电控说明](firmware/README.md)。遥控器授权自动后，可在小电脑运行 `bash run/parallel_init.sh` 发出初始化指令，待电控进入运行态后启动导航。
+
 ## Nav2 定位与速度输出（2026-10-31）
 
 新地图完成后运行 `bash run/navigation.sh <地图名>`，在 RViz 指定初始位置和导航目标，查看 `/cmd_vel`。此入口不启动电控，不包含自动倾斜校正。完整命令、暂定安装参数及模拟验证结果见 [validation/NAVIGATION.md](validation/NAVIGATION.md)。下方旧区域控制说明不适用于这个入口。
@@ -8,7 +12,7 @@
 
 新增统一的 `maps/<地图名>/` 目录：保存 FAST-LIO 的 `cloud.pcd`，投影生成 `map.pgm`、`map.yaml`，再由 Nav2 map_server 加载。使用方法和验证边界见 [maps/competition/README.md](maps/competition/README.md)。入口依次为 `run/mapping.sh`、`run/save_map.sh`、`run/map_to_2d.sh`、`run/nav2_map.sh`；不会启动电控或旧路线。
 
-## 2026-10-26 电控配套版（以下历史说明以本节为准）
+## 2026-10-26 串口 6 接线记录（历史）
 
 - 当前接线改为板端串口6，上位机发送 `53 key 45` 原始三字节，115200、8N1、无流控。电脑端设备仍按实际配置（默认 `/dev/ttyUSB0`）。电控需提供适配串口6的固件；原1026固件配置的是USART3。
 - 当前上位机仍要求自动模式下回传原 `A5 5A` 状态协议（原周期80ms）。串口6新版固件的回传行为待核对，发送键值表一致不代表回传也已确认兼容。

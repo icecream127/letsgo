@@ -12,7 +12,7 @@ from .motor_protocol import MODE_STATUS, TIMED_ACTIONS, StatusParser, encode_key
 
 
 class MotorSerial(Node):
-    """把控制器的请求转成和遥控器一样的按键帧，经 USB-TTL 接板端串口6。
+    """把控制器的请求转成和遥控器一样的按键帧，经 USB-TTL 接板端 USART3。
 
     要求电控保留状态协议：KEY_mode 拨到自动后，在连接的串口上回传状态帧，
     这里收到状态就开始执行；拨回手动（或遥控器按 5）后马停发状态，

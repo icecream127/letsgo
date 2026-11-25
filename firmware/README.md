@@ -1,6 +1,19 @@
 # 并马电控
 
-上位机沿用 2026-10-26 CyberGear 普通步态和原遥控器按键帧。该版自动链路为 USART3，PB10 为 TX，PB11 为 RX，115200 8N1。板端移到其他接口的版本，按实际刷入的固件接线。上位机 USB-TTL 设备由 robot.yaml 中 motor_serial.port 指定。板端以每 80 ms 回传模式和故障，遥控器 23 启用上位机自动，遥控器 5 解除自动并请求站立。回传没有起身完成或动作确认字段。
+配套固件以 2026-10-26 CyberGear 为基线。上位机接电控 USART3，PB10 是板端 TX，接 USB-TTL RX；PB11 是板端 RX，接 USB-TTL TX，并接共地。配置为 115200 8N1。小电脑设备路径使用 `robot.yaml` 的 `motor_serial.port`，默认 `/dev/ttyUSB0`。
+
+## 小电脑发送初始化
+
+在解压的 CyberGear 源码根目录（含 `User/`）应用 `parallel_horse_host_init.patch`，再用原有电控工程编译和烧录：
+
+    git apply --check /home/zxy/letsgo/firmware/parallel_horse_host_init.patch
+    git apply /home/zxy/letsgo/firmware/parallel_horse_host_init.patch
+
+遥控器拨到自动（键 23 授权），在小电脑停止占用同一串口的旧任务或导航节点后运行：
+
+    bash run/parallel_init.sh
+
+小电脑校验 USART3 的有效回传、无故障及初始化能力位后，只发一次键 22（十六进制 `53 16 45`）。USART3 在电控进入 Running 前回传模式 `z`，进入运行态后回传当前模式。健康状态帧的详情字节 bit 7 表示支持小电脑初始化，故障状态下的详情字节仍用于诊断。已经处于运行态时，命令直接返回。确认实车站稳后再启动导航。
 
 ## 断线停车
 

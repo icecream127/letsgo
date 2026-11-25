@@ -481,10 +481,11 @@ gicp_localizer:
 # Legacy serial and action execution.
 motor_serial:
   ros__parameters:
-    # 电脑端 USB-TTL 设备；板端改接串口6，不意味着这里改为 ttyUSB6。
+    # USB-TTL 设备路径。STM32 端 USART3 使用 PB10/TX、PB11/RX。
     port: /dev/ttyUSB0
     baudrate: 115200
     status_timeout: 1.0
+    initialization_timeout: 30.0 # s, waiting for Running after the host sends key 22.
     pose_timeout: 1.0
     controller_timeout: 1.0
     mode_timeout: 2.0
